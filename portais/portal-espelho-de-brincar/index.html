@@ -1,0 +1,1333 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Espelho de Brincar | Educação Viva para Famílias</title>
+    <style>
+        :root {
+            --azul-sereno: #a8d0e6;
+            --verde-musgo: #6b8e6e;
+            --amarelo-suave: #f9e076;
+            --bege-creme: #f7f3e8;
+            --sombra-suave: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Source Serif Pro', serif;
+        }
+
+        body {
+            background-color: var(--bege-creme);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, nav {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* Header Refinado */
+        header {
+            background: linear-gradient(135deg, var(--azul-sereno), var(--verde-musgo));
+            padding: 1rem 2rem;
+            box-shadow: var(--sombra-suave);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            padding: 0.5rem 2rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        header.scrolled .logo {
+            color: var(--verde-musgo);
+        }
+
+        header.scrolled .menu-principal a {
+            color: var(--verde-musgo);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .menu-principal {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .menu-principal a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .menu-principal a:hover {
+            transform: translateY(-2px);
+        }
+
+        .menu-principal a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: currentColor;
+            transition: width 0.3s ease;
+        }
+
+        .menu-principal a:hover::after {
+            width: 100%;
+        }
+
+        /* Menu Mobile */
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .hamburger:hover {
+            transform: scale(1.1);
+        }
+
+        .menu-mobile {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(135deg, var(--azul-sereno), var(--verde-musgo));
+            z-index: 999;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .menu-mobile.active {
+            display: flex;
+        }
+
+        .menu-mobile a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: 500;
+            transition: transform 0.3s ease;
+        }
+
+        .menu-mobile a:hover {
+            transform: translateX(10px);
+        }
+
+        .close-menu {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section Refinada */
+        .hero {
+            text-align: center;
+            padding: 8rem 2rem 6rem;
+            background: 
+                linear-gradient(rgba(168, 208, 230, 0.3), rgba(107, 142, 110, 0.3)),
+                url('imagens/hero/hero-principal.jpg') center/cover;
+            background-color: var(--azul-sereno);
+            color: #094d3f;
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 500px;
+            margin-right: 10%;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 3rem;
+            border-radius: 24px;
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+            line-height: 1.6;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--amarelo-suave), #f7d347);
+            color: #333;
+            padding: 1.2rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            background: linear-gradient(135deg, #f7d347, var(--amarelo-suave));
+        }
+
+        /* Seções Gerais */
+        .secao {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Quem Somos Refinado */
+        .container-quem-somos {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .titulo-centralizado {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+            color: var(--verde-musgo);
+            position: relative;
+        }
+
+        .titulo-centralizado::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(135deg, var(--azul-sereno), var(--verde-musgo));
+            margin: 1rem auto;
+            border-radius: 2px;
+        }
+
+        .texto-centralizado {
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .introducao-familia {
+            max-width: 800px;
+            margin: 0 auto 4rem auto;
+        }
+
+        .introducao-familia p {
+            font-size: 1.25rem;
+            line-height: 1.8;
+            color: #555;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 2px solid rgba(107, 142, 110, 0.1);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+        }
+
+        .equipe-grid-refinada {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+            margin: 4rem 0;
+        }
+
+        .membro-equipe-refinado {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            box-shadow: var(--sombra-suave);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .membro-equipe-refinado::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, var(--azul-sereno), var(--verde-musgo));
+        }
+
+        .membro-equipe-refinado:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .foto-container {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+        }
+
+        .foto-equipe-refinada {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--azul-sereno);
+            position: relative;
+            z-index: 2;
+            transition: all 0.3s ease;
+        }
+
+        .membro-equipe-refinado:hover .foto-equipe-refinada {
+            transform: scale(1.05);
+            border-color: var(--verde-musgo);
+        }
+
+        .decoracao-foto {
+            position: absolute;
+            top: -8px;
+            left: -8px;
+            right: -8px;
+            bottom: -8px;
+            border: 2px solid var(--amarelo-suave);
+            border-radius: 50%;
+            animation: pulse 3s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.05); }
+        }
+
+        .info-membro {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        .nome-centralizado {
+            text-align: center;
+            color: var(--verde-musgo);
+            margin-bottom: 0.5rem;
+            font-size: 1.4rem;
+        }
+
+        .funcao {
+            color: var(--azul-sereno);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+            max-width: 100%;
+        }
+
+        .descricao {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            max-width: 100%;
+        }
+
+        .redes-sociais {
+            display: flex;
+            justify-content: center;
+            gap: 0.8rem;
+            margin-top: auto;
+        }
+
+        .icone-rede {
+            display: inline-block;
+            padding: 0.5rem;
+            background: var(--bege-creme);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-size: 1.1rem;
+        }
+
+        .icone-rede:hover {
+            background: var(--amarelo-suave);
+            transform: scale(1.2);
+        }
+
+        .missao-valores {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+            padding-top: 3rem;
+            border-top: 2px solid rgba(107, 142, 110, 0.2);
+        }
+
+        .cartao-missao, .cartao-valores {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: var(--sombra-suave);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .cartao-missao h4, .cartao-valores h4 {
+            color: var(--verde-musgo);
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+        }
+
+        .lista-centralizada {
+            text-align: center;
+        }
+
+        .cartao-valores li {
+            padding: 0.7rem 0;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            position: relative;
+            padding-left: 0;
+            text-align: center;
+            list-style: none;
+        }
+
+        .cartao-valores li:before {
+            content: '🌱';
+            margin-right: 0.5rem;
+        }
+
+        /* Mapa do Crescer - Versão Feirinha */
+        .mapa-introducao {
+            text-align: center;
+            background: linear-gradient(135deg, var(--azul-sereno), var(--verde-musgo));
+            color: white;
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            margin-bottom: 3rem;
+            box-shadow: var(--sombra-suave);
+        }
+
+        .mapa-introducao h2 {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .mapa-introducao p {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0.95;
+        }
+
+        .setenios-grid {
+            display: grid;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .setenio-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: var(--sombra-suave);
+            border-left: 6px solid;
+            transition: transform 0.3s ease;
+        }
+
+        .setenio-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .setenio-card.primeiro { border-left-color: #4CAF50; }
+        .setenio-card.segundo { border-left-color: #2196F3; }
+        .setenio-card.terceiro { border-left-color: #FF9800; }
+
+        .setenio-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .setenio-header h3 {
+            color: #333;
+            font-size: 1.8rem;
+        }
+
+        .idade {
+            background: var(--azul-sereno);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .waldorf-principios, .rituais-confucionistas, .atividades-waldorf {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: var(--bege-creme);
+            border-radius: 15px;
+            border-left: 4px solid var(--verde-musgo);
+        }
+
+        .waldorf-principios h4, .rituais-confucionistas h4, .atividades-waldorf h4 {
+            color: var(--verde-musgo);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .waldorf-principios ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .waldorf-principios li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .waldorf-principios li:before {
+            content: '🌿';
+            position: absolute;
+            left: 0;
+        }
+
+        .ritual-item {
+            background: white;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-radius: 12px;
+            border-left: 4px solid var(--amarelo-suave);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .ritual-item h5 {
+            color: #333;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .referencia {
+            font-style: italic;
+            color: var(--verde-musgo);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            display: block;
+        }
+
+        .atividade-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .atividade {
+            background: white;
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+            border: 2px solid var(--azul-sereno);
+            transition: all 0.3s ease;
+        }
+
+        .atividade:hover {
+            background: var(--azul-sereno);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .caixa-momentos-especiais {
+            background: linear-gradient(135deg, #fff9e6, #fff0cc);
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            text-align: center;
+            margin: 3rem 0;
+            border: 3px dashed var(--amarelo-suave);
+        }
+
+        .caixa-momentos-especiais h3 {
+            color: #333;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .itens-caixa {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .item-caixa {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: var(--sombra-suave);
+            border-top: 4px solid var(--verde-musgo);
+        }
+
+        .item-caixa h5 {
+            color: var(--verde-musgo);
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .rituais-terapeuticos {
+            background: white;
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            box-shadow: var(--sombra-suave);
+            margin: 3rem 0;
+        }
+
+        .rituais-terapeuticos h3 {
+            text-align: center;
+            color: var(--verde-musgo);
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .ritual-terapeutico {
+            background: var(--bege-creme);
+            padding: 2rem;
+            margin: 1.5rem 0;
+            border-radius: 15px;
+            border-left: 4px solid var(--azul-sereno);
+        }
+
+        .ritual-terapeutico h4 {
+            color: #333;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        /* Escolas Waldorf */
+        .escolas-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .escola-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: var(--sombra-suave);
+            transition: transform 0.3s ease;
+            border-top: 4px solid var(--verde-musgo);
+            min-height: 320px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .escola-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .escola-logo {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            margin: 0 auto 1rem auto;
+            border-radius: 8px;
+        }
+
+        .escola-descricao {
+            margin: 1rem 0;
+            font-style: italic;
+            color: #666;
+        }
+
+        .escola-meta {
+            font-size: 0.9em;
+            color: #888;
+            margin-top: 0.5rem;
+        }
+
+        /* Oráculo */
+        .oraculo-container {
+            background: #f8f5f0;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-top: 2rem;
+        }
+
+        /* Comunidade */
+        .comunidade-cta {
+            background: linear-gradient(135deg, var(--azul-sereno), var(--verde-musgo));
+            color: white;
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            text-align: center;
+        }
+
+        /* Rodapé */
+        footer {
+            background-color: var(--verde-musgo);
+            color: white;
+            text-align: center;
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+        }
+
+        /* Responsividade */
+        @media (max-width: 1024px) {
+            .escolas-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .hero-content {
+                margin-right: 5%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .menu-principal {
+                display: none;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .hero {
+                padding: 7rem 1rem 4rem;
+                justify-content: center;
+            }
+
+            .hero-content {
+                margin: 0;
+                max-width: 100%;
+                padding: 2rem;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .equipe-grid-refinada {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .introducao-familia p {
+                padding: 2rem;
+                font-size: 1.1rem;
+            }
+
+            .missao-valores {
+                grid-template-columns: 1fr;
+            }
+
+            .foto-equipe-refinada {
+                width: 120px;
+                height: 120px;
+            }
+
+            .setenios-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .setenio-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .atividade-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .itens-caixa {
+                grid-template-columns: 1fr;
+            }
+
+            .setenio-card {
+                padding: 1.5rem;
+            }
+
+            .escolas-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .membro-equipe-refinado {
+                padding: 2rem 1.5rem;
+            }
+
+            .foto-equipe-refinada {
+                width: 100px;
+                height: 100px;
+            }
+
+            .cartao-missao, .cartao-valores {
+                padding: 2rem 1.5rem;
+            }
+
+            .introducao-familia p {
+                padding: 1.5rem;
+            }
+
+            .cta-button {
+                padding: 1rem 2rem;
+                font-size: 1rem;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Source+Serif+Pro&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Cabeçalho Refinado -->
+    <header id="main-header">
+        <nav>
+            <a href="#" class="logo">Espelho de Brincar</a>
+            
+            <!-- Menu Desktop -->
+            <div class="menu-principal">
+                <a href="#quem-somos">Quem Somos</a>
+                <a href="#mapa-do-crescer">Mapa do Crescer</a>
+                <a href="#escolas-waldorf">Escolas Waldorf</a>
+                <a href="#oraculo">Oráculo</a>
+                <a href="#comunidade">Comunidade</a>
+            </div>
+
+            <!-- Hamburger Menu -->
+            <button class="hamburger" id="hamburger-btn">☰</button>
+        </nav>
+    </header>
+
+    <!-- Menu Mobile -->
+    <div class="menu-mobile" id="mobile-menu">
+        <button class="close-menu" id="close-menu">×</button>
+        <a href="#quem-somos" class="mobile-link">Quem Somos</a>
+        <a href="#mapa-do-crescer" class="mobile-link">Mapa do Crescer</a>
+        <a href="#escolas-waldorf" class="mobile-link">Escolas Waldorf</a>
+        <a href="#oraculo" class="mobile-link">Oráculo</a>
+        <a href="#comunidade" class="mobile-link">Comunidade</a>
+    </div>
+
+    <!-- Hero Section Refinada -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Um espelho que reflete o brincar como linguagem da alma</h1>
+            <p>Conteúdos, atividades e encontros para famílias que acreditam numa educação mais sensível, criativa e conectada</p>
+            <a href="#comunidade" class="cta-button">✨ Comece Sua Jornada Aqui</a>
+        </div>
+    </section>
+
+    <!-- Quem Somos Refinado -->
+    <section id="quem-somos" class="secao">
+        <div class="container-quem-somos">
+            <h2 class="titulo-centralizado">Quem Somos</h2>
+            <div class="introducao-familia">
+                <p class="texto-centralizado">Somos uma família que acredita que a educação nasce do afeto e se fortalece no brincar. Nosso propósito é abrir um portal educativo para famílias que buscam uma educação mais sensível, criativa e conectada à natureza da criança.</p>
+            </div>
+
+            <div class="equipe-grid-refinada">
+                <!-- Carlos -->
+                <div class="membro-equipe-refinado">
+                    <div class="foto-container">
+                        <img src="imagens/equipe/carlos.jpg" alt="Carlos" class="foto-equipe-refinada">
+                        <div class="decoracao-foto"></div>
+                    </div>
+                    <div class="info-membro">
+                        <h3 class="nome-centralizado">Carlos</h3>
+                        <p class="funcao texto-centralizado">Idealizador & Documentarista</p>
+                        <p class="descricao texto-centralizado">O pai que tece narrativas entre filosofia e infância, capturando a magia do brincar através das lentes.</p>
+                        <div class="redes-sociais">
+                            <a href="#" class="icone-rede">📷</a>
+                            <a href="#" class="icone-rede">✍️</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Thaiara -->
+                <div class="membro-equipe-refinado">
+                    <div class="foto-container">
+                        <img src="imagens/equipe/thaiara.jpg" alt="Thaiara" class="foto-equipe-refinada">
+                        <div class="decoracao-foto"></div>
+                    </div>
+                    <div class="info-membro">
+                        <h3 class="nome-centralizado">Thaiara</h3>
+                        <p class="funcao texto-centralizado">Pedagoga Waldorf</p>
+                        <p class="descricao texto-centralizado">Conduz as atividades e a base antroposófica, trazendo o coração da pedagogia Waldorf para cada projeto.</p>
+                        <div class="redes-sociais">
+                            <a href="#" class="icone-rede">📚</a>
+                            <a href="#" class="icone-rede">🎨</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Guto -->
+                <div class="membro-equipe-refinado">
+                    <div class="foto-container">
+                        <img src="imagens/equipe/guto.jpg" alt="Mauro Augusto (Guto)" class="foto-equipe-refinada">
+                        <div class="decoracao-foto"></div>
+                    </div>
+                    <div class="info-membro">
+                        <h3 class="nome-centralizado">Mauro Augusto (Guto)</h3>
+                        <p class="funcao texto-centralizado">Nossa Conexão com Todas as Idades</p>
+                        <p class="descricao texto-centralizado">Aos 14 anos, é nossa âncora e traz autenticidade para os vídeos, mostrando que cada fase tem sua beleza.</p>
+                        <div class="redes-sociais">
+                            <a href="#" class="icone-rede">🎬</a>
+                            <a href="#" class="icone-rede">🎮</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sofia -->
+                <div class="membro-equipe-refinado">
+                    <div class="foto-container">
+                        <img src="imagens/equipe/sofia.jpg" alt="Sofia" class="foto-equipe-refinada">
+                        <div class="decoracao-foto"></div>
+                    </div>
+                    <div class="info-membro">
+                        <h3 class="nome-centralizado">Sofia</h3>
+                        <p class="funcao texto-centralizado">Artesã & Diretora Criativa</p>
+                        <p class="descricao texto-centralizado">Especialista em amigurumi, cuida da direção criativa, design e técnica, dando vida aos projetos com suas mãos.</p>
+                        <div class="redes-sociais">
+                            <a href="#" class="icone-rede">🧶</a>
+                            <a href="#" class="icone-rede">🎨</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Missão e Valores -->
+            <div class="missao-valores">
+                <div class="cartao-missao">
+                    <h4 class="titulo-centralizado">🌿 Nossa Missão</h4>
+                    <p class="texto-centralizado">Ser um espelho que reflete a essência do brincar livre, ajudando famílias a reconectarem-se com os ritmos naturais da infância.</p>
+                </div>
+                <div class="cartao-valores">
+                    <h4 class="titulo-centralizado">💖 Nossos Valores</h4>
+                    <ul class="lista-centralizada">
+                        <li>Respeito pelo ritmo de cada criança</li>
+                        <li>Educação como ato de amor</li>
+                        <li>Conexão com a natureza</li>
+                        <li>Brincar como linguagem universal</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mapa do Crescer - Versão Completa -->
+    <section id="mapa-do-crescer" class="secao">
+        <div class="container-quem-somos">
+            <!-- Introdução do Mapa -->
+            <div class="mapa-introducao">
+                <h2>🗺️ Mapa do Crescer</h2>
+                <p>Uma jornada através dos três setênios, unindo a <strong>Pedagogia Waldorf</strong> com os <strong>Rituais de Confúcio</strong> para criar um cotidiano sagrado em família.</p>
+            </div>
+
+            <!-- Grid dos Setênios -->
+            <div class="setenios-grid">
+                
+                <!-- Primeiro Setênio -->
+                <div class="setenio-card primeiro">
+                    <div class="setenio-header">
+                        <h3>🌱 O Jardim da Infância</h3>
+                        <span class="idade">0-7 anos - "O Mundo é Bom"</span>
+                    </div>
+                    
+                    <div class="waldorf-principios">
+                        <h4>🎯 Princípios Waldorf</h4>
+                        <ul>
+                            <li><strong>Desenvolvimento da VONTADE</strong> através do brincar livre</li>
+                            <li><strong>Aprendizagem por IMITAÇÃO</strong> - o adulto como modelo</li>
+                            <li><strong>Proteção dos sentidos</strong> e fortalecimento das forças vitais</li>
+                        </ul>
+                    </div>
+
+                    <div class="rituais-confucionistas">
+                        <h4>🎎 Rituais do Cotidiano Sagrado</h4>
+                        <div class="ritual-item">
+                            <h5>🧸 "A Colocação da Toalha no Chão"</h5>
+                            <p>Delimitar o espaço sagrado do brincar, onde a criança reina com segurança e liberdade.</p>
+                            <span class="referencia">Li - O ritual que expressa respeito pelo desenvolvimento</span>
+                        </div>
+                        <div class="ritual-item">
+                            <h5>🌅 "Despertar com Massagem nos Pés"</h5>
+                            <p>Iniciar o dia com toque amoroso em vez de pressa e gritos.</p>
+                            <span class="referencia">Ren - Benevolência que acolhe</span>
+                        </div>
+                    </div>
+
+                    <div class="atividades-waldorf">
+                        <h4>🎨 Atividades Waldorf</h4>
+                        <div class="atividade-grid">
+                            <div class="atividade">Cestos de tesouros naturais</div>
+                            <div class="atividade">Bonecas de pano simples</div>
+                            <div class="atividade">Cantigas de roda rítmicas</div>
+                            <div class="atividade">Paninhos coloridos</div>
+                            <div class="atividade">Brincar livre na natureza</div>
+                            <div class="atividade">Contação de histórias</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Segundo Setênio -->
+                <div class="setenio-card segundo">
+                    <div class="setenio-header">
+                        <h3>🌿 Aventuras do Coração</h3>
+                        <span class="idade">7-14 anos - "O Mundo é Belo"</span>
+                    </div>
+
+                    <div class="waldorf-principios">
+                        <h4>🎯 Princípios Waldorf</h4>
+                        <ul>
+                            <li><strong>Desenvolvimento do SENTIMENTO</strong> através da arte</li>
+                            <li><strong>Autoridade amorosa</strong> do educador como guia</li>
+                            <li><strong>Ensino através de imagens</strong> e narrativas</li>
+                        </ul>
+                    </div>
+
+                    <div class="rituais-confucionistas">
+                        <h4>🎎 Rituais do Cotidiano Sagrado</h4>
+                        <div class="ritual-item">
+                            <h5>🪑 "A Toalha sobe para a Mesa"</h5>
+                            <p>Transição do brincar no chão para o compartilhar na mesa - símbolo do crescimento e igualdade.</p>
+                            <span class="referencia">Xiao - Respeito entre gerações que se encontram</span>
+                        </div>
+                        <div class="ritual-item">
+                            <h5>🎴 "Noite de Jogos em Família"</h5>
+                            <p>Momentos regulares de conexão através de jogos e conversas significativas.</p>
+                            <span class="referencia">Li - Etiqueta que une corações</span>
+                        </div>
+                    </div>
+
+                    <div class="atividades-waldorf">
+                        <h4>🎨 Atividades Waldorf</h4>
+                        <div class="atividade-grid">
+                            <div class="atividade">Aquarela úmido-sobre-úmido</div>
+                            <div class="atividade">Trabalhos manuais com lã</div>
+                            <div class="atividade">Flauta doce e música</div>
+                            <div class="atividade">Jardim e culinária</div>
+                            <div class="atividade">Teatro e dramatizações</div>
+                            <div class="atividade">Tricô e crochê</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Terceiro Setênio -->
+                <div class="setenio-card terceiro">
+                    <div class="setenio-header">
+                        <h3>🎯 Portais da Juventude</h3>
+                        <span class="idade">14-21 anos - "O Mundo é Verdadeiro"</span>
+                    </div>
+
+                    <div class="waldorf-principios">
+                        <h4>🎯 Princípios Waldorf</h4>
+                        <ul>
+                            <li><strong>Desenvolvimento do PENSAR</strong> autônomo</li>
+                            <li><strong>Busca pela verdade</strong> através da experiência</li>
+                            <li><strong>Compreensão do mundo</strong> e do próprio lugar nele</li>
+                        </ul>
+                    </div>
+
+                    <div class="rituais-confucionistas">
+                        <h4>🎎 Rituais do Cotidiano Sagrado</h4>
+                        <div class="ritual-item">
+                            <h5>🚀 "A Bancada do Fazer"</h5>
+                            <p>A toalha agora é espaço de projetos - o jovem como criador do seu mundo e futuro.</p>
+                            <span class="referencia">Ren - Benevolência que se expande para o mundo</span>
+                        </div>
+                        <div class="ritual-item">
+                            <h5>📔 "Diário de Gratidão Compartilhado"</h5>
+                            <p>Registro conjunto das descobertas e aprendizados da jornada.</p>
+                            <span class="referencia">Li - Rituais que documentam a transformação</span>
+                        </div>
+                    </div>
+
+                    <div class="atividades-waldorf">
+                        <h4>🎨 Atividades Waldorf</h4>
+                        <div class="atividade-grid">
+                            <div class="atividade">Projetos de pesquisa</div>
+                            <div class="atividade">Trabalhos sociais voluntários</div>
+                            <div class="atividade">Debates filosóficos</div>
+                            <div class="atividade">Artes marciais</div>
+                            <div class="atividade">Escrita criativa</div>
+                            <div class="atividade">Estudos científicos</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Caixa dos Momentos Especiais -->
+            <section class="caixa-momentos-especiais">
+                <h3>🎁 A Caixa dos Momentos Especiais</h3>
+                <p>Inspirada na <strong>Pedagogia Waldorf</strong> e nos <strong>Rituais de Confúcio</strong> - tudo que sua família precisa para começar</p>
+                
+                <div class="itens-caixa">
+                    <div class="item-caixa">
+                        <h5>🧺 Toalha dos 3 Andares</h5>
+                        <p>Cresce com a criança: Chão → Mesa → Bancada</p>
+                    </div>
+                    <div class="item-caixa">
+                        <h5>🎴 Jogo da Memória Waldorf</h5>
+                        <p>Imagens naturais que contam histórias e desenvolvem a memória</p>
+                    </div>
+                    <div class="item-caixa">
+                        <h5>🔮 Oráculo dos Pequenos Gestos</h5>
+                        <p>Cartas para conversas que importam e conexão emocional</p>
+                    </div>
+                    <div class="item-caixa">
+                        <h5>📔 Scrapbook de Memórias</h5>
+                        <p>Registro das jornadas e descobertas da família</p>
+                    </div>
+                    <div class="item-caixa">
+                        <h5>🕯️ Vela LED e Incenso Suave</h5>
+                        <p>Para criar atmosfera e marcar o momento especial</p>
+                    </div>
+                    <div class="item-caixa">
+                        <h5>📖 Manual dos Rituais</h5>
+                        <p>Guia completo com práticas para cada setênio</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Rituais Terapêuticos -->
+            <section class="rituais-terapeuticos">
+                <h3>🌿 Rituais Terapêuticos entre Setênios</h3>
+                
+                <div class="ritual-terapeutico">
+                    <h4>🦶 Do-In Familiar</h4>
+                    <p>Técnicas simples de automassagem que pais e filhos podem praticar juntos, baseadas na Medicina Antroposófica e tradição chinesa.</p>
+                    <span class="referencia">Para harmonizar as energias e fortalecer vínculos</span>
+                </div>
+
+                <div class="ritual-terapeutico">
+                    <h4>🌅 Rituais de Passagem</h4>
+                    <p>Cerimônias simples para marcar as transições entre os setênios - dos 7 anos, 14 anos e 21 anos.</p>
+                    <span class="referencia">Honrando as mudanças e novos começos</span>
+                </div>
+
+                <div class="ritual-terapeutico">
+                    <h4>💆 Massagem Antroposófica</h4>
+                    <p>Técnicas de toque terapêutico adaptadas para cada fase do desenvolvimento infantil.</p>
+                    <span class="referencia">Para acalmar, fortalecer e conectar</span>
+                </div>
+            </section>
+        </div>
+    </section>
+
+    <!-- Escolas Waldorf -->
+    <section id="escolas-waldorf" class="secao" style="background-color: #f8f5f0;">
+        <h2 class="titulo-centralizado">Escolas Waldorf em Piracicaba</h2>
+        
+        <div style="text-align: center; max-width: 800px; margin: 0 auto 3rem auto;">
+            <p class="texto-centralizado">Em Piracicaba, temos escolas com uma proposta de educação que honra a infância, baseada na Antroposofia de Rudolf Steiner - onde o aprender nasce do afeto, da natureza e do respeito pelo desenvolvimento único de cada criança.</p>
+        </div>
+
+        <div class="escolas-grid">
+            <!-- Jardim Amanari -->
+            <div class="escola-card">
+                <img src="imagens/escolas/amanari-logo.jpg" alt="Jardim Amanari" class="escola-logo">
+                <h4>🌧️ Jardim Amanari</h4>
+                <p class="escola-descricao"><strong>"Nascida da Chuva"</strong> - Educação Infantil que acolhe os primeiros passos com suavidade e proteção.</p>
+                <p class="escola-meta">Rua Professor José Agostinho Forti, 255 – Dois Córregos</p>
+            </div>
+
+            <!-- Casulo Berçário -->
+            <div class="escola-card">
+                <img src="imagens/escolas/casulo-logo.jpg" alt="Casulo Berçário" class="escola-logo">
+                <h4>🦋 Casulo Berçário</h4>
+                <p class="escola-descricao"><strong>"Proteção que Transforma"</strong> - Cuidado amoroso para os primeiros anos de vida.</p>
+                <p class="escola-meta">Rua José Ferraz de Camargo, 661</p>
+            </div>
+
+            <!-- Escola Waldorf Novalis -->
+            <div class="escola-card">
+                <img src="imagens/escolas/novalis-logo.jpg" alt="Escola Waldorf Novalis" class="escola-logo">
+                <h4>🌱 Escola Waldorf Novalis</h4>
+                <p class="escola-descricao"><strong>"Terra Nova para Semear"</strong> - Da Educação Infantil ao Ensino Médio, formando seres humanos livres.</p>
+                <p class="escola-meta">Rua Otília Teodoro, 171 – Monte Alegre</p>
+            </div>
+
+            <!-- Ubaeté -->
+            <div class="escola-card">
+                <img src="imagens/escolas/ubaete-logo.jpg" alt="Ubaeté" class="escola-logo">
+                <h4>🛶 Ubaeté</h4>
+                <p class="escola-descricao"><strong>"Canoa Verdadeira"</strong> - Nova escola em formação, trazendo a pedagogia Waldorf para mais crianças.</p>
+                <p class="escola-meta">Em implantação - Piracicaba</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Oráculo -->
+    <section id="oraculo" class="secao">
+        <h2 class="titulo-centralizado">Oráculo para Pequenos Corações</h2>
+        <p class="texto-centralizado">Um baralho de cartas-oráculo <strong>feito por crianças, para crianças</strong>, com mensagens simples e ilustrações ingênuas que falam direto à alma em formação.</p>
+        
+        <div class="oraculo-container">
+            <h3 class="texto-centralizado">✨ Esta ideia está em evolução</h3>
+            <p class="texto-centralizado">Quer saber quando abriremos as primeiras oficinas de cocriação?</p>
+            <form style="margin-top: 1rem; text-align: center;">
+                <input type="email" placeholder="Seu melhor e-mail" style="padding: 0.8rem; border: 1px solid #ccc; border-radius: 8px; width: 300px; max-width: 100%;">
+                <button type="submit" style="padding: 0.8rem 1.5rem; background: var(--verde-musgo); color: white; border: none; border-radius: 8px; margin-left: 0.5rem;">Me avise!</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Comunidade -->
+    <section id="comunidade" class="secao">
+        <div class="comunidade-cta">
+            <h2 class="titulo-centralizado" style="color: white;">Junte-se à Nossa Comunidade</h2>
+            <p class="texto-centralizado" style="color: white; opacity: 0.9;">Faça parte da rede de famílias que estão transformando a educação a partir do afeto e do brincar.</p>
+            
+            <div style="max-width: 500px; margin: 2rem auto;">
+                <form>
+                    <input type="text" placeholder="Seu nome" style="padding: 1rem; border: none; border-radius: 8px; width: 100%; margin-bottom: 1rem;">
+                    <input type="email" placeholder="Seu e-mail" style="padding: 1rem; border: none; border-radius: 8px; width: 100%; margin-bottom: 1rem;">
+                    <select style="padding: 1rem; border: none; border-radius: 8px; width: 100%; margin-bottom: 1rem;">
+                        <option>Selecione o setênio de interesse</option>
+                        <option>Primeiro Setênio (0-7 anos)</option>
+                        <option>Segundo Setênio (7-14 anos)</option>
+                        <option>Terceiro Setênio (14-21 anos)</option>
+                    </select>
+                    <button type="submit" style="padding: 1rem 2rem; background: var(--amarelo-suave); color: #333; border: none; border-radius: 8px; width: 100%; font-weight: bold;">Fazer Parte Agora</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rodapé -->
+    <footer>
+        <p>© 2024 Espelho de Brincar Produções Educativas MEI</p>
+        <p>Piracicaba SP · De família para família</p>
+        <div style="margin-top: 1rem;">
+            <a href="#" style="color: white; margin: 0 0.5rem;">Instagram</a>
+            <a href="#" style="color: white; margin: 0 0.5rem;">YouTube</a>
+            <a href="#" style="color: white; margin: 0 0.5rem;">Contato</a>
+        </div>
+    </footer>
+
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('main-header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu functionality
+        const hamburgerBtn = document.getElementById('hamburger-btn');
+        const closeMenuBtn = document.getElementById('close-menu');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        hamburgerBtn.addEventListener('click', function() {
+            mobileMenu.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        closeMenuBtn.addEventListener('click', function() {
+            mobileMenu.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+        });
+
+        // Smooth scroll para links âncora
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Efeitos de hover para cards
+        document.querySelectorAll('.setenio-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body>
+</html>

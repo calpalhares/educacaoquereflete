@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Espelho D'Água | Educação Que Reflete</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Source+Serif+Pro&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --azul-profundo: #2c3e50;
+            --azul-reflexivo: #3498db;
+            --verde-aquatico: #16a085;
+            --cinza-claro: #ecf0f1;
+            --branco-puro: #ffffff;
+            --dourado-suave: #f9e076;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--cinza-claro) 0%, var(--branco-puro) 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* HEADER AQUÁTICO */
+        .header-aquatico {
+            background: linear-gradient(135deg, var(--azul-reflexivo) 0%, var(--verde-aquatico) 100%);
+            padding: 3rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-aquatico::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
+        }
+
+        .logo-container-aquatico {
+            position: relative;
+            z-index: 2;
+        }
+
+        .logo-img-aquatico {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 1rem auto;
+            border: 4px solid white;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            display: block;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .logo-texto-aquatico {
+            font-size: 3.5rem;
+            font-weight: 300;
+            color: white;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .logo-slogan-aquatico {
+            font-size: 1.3rem;
+            color: rgba(255,255,255,0.9);
+            font-weight: 400;
+            font-style: italic;
+        }
+
+        /* NAVEGAÇÃO AQUÁTICA */
+        .nav-aquatico {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+        }
+
+        .nav-container-aquatico {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            padding: 0 2rem;
+        }
+
+        .nav-item-aquatico {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, var(--verde-aquatico) 0%, #138d75 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(22, 160, 133, 0.3);
+        }
+
+        .nav-item-aquatico:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(22, 160, 133, 0.5);
+        }
+
+        .nav-item-aquatico i {
+            font-size: 1.3rem;
+        }
+
+        /* SEÇÃO INTRODUTÓRIA */
+        .introducao-aquatica {
+            padding: 4rem 2rem;
+            text-align: center;
+            background: linear-gradient(135deg, var(--cinza-claro) 0%, var(--branco-puro) 100%);
+        }
+
+        .container-intro {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .titulo-principal {
+            font-size: 2.8rem;
+            color: var(--azul-profundo);
+            margin-bottom: 1.5rem;
+            font-weight: 300;
+            position: relative;
+        }
+
+        .titulo-principal::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(135deg, var(--azul-reflexivo), var(--verde-aquatico));
+            margin: 1rem auto;
+            border-radius: 2px;
+        }
+
+        .texto-descritivo {
+            font-size: 1.3rem;
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 2px solid rgba(44, 62, 80, 0.1);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+        }
+
+        /* SEÇÃO DOS PERSONAGENS */
+        .personagens-section {
+            padding: 4rem 2rem;
+            background: white;
+        }
+
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: var(--azul-profundo);
+            text-align: center;
+            margin-bottom: 3rem;
+            font-weight: 300;
+        }
+
+        .personagens-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .personagem-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .personagem-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, var(--azul-reflexivo), var(--verde-aquatico));
+            border-radius: 20px 20px 0 0;
+        }
+
+        .personagem-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--azul-reflexivo);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .personagem-icone {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--azul-profundo);
+        }
+
+        .personagem-titulo {
+            font-size: 1.8rem;
+            color: var(--azul-profundo);
+            margin-bottom: 1rem;
+        }
+
+        .personagem-desc {
+            color: #666;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+            flex-grow: 1;
+        }
+
+        .personagem-link {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--verde-aquatico) 0%, #138d75 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: auto;
+        }
+
+        .personagem-link:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(22, 160, 133, 0.4);
+        }
+
+        /* SEÇÃO DO SISTEMA EMOCIONAL */
+        .sistema-section {
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, var(--cinza-claro) 0%, var(--branco-puro) 100%);
+        }
+
+        .sistema-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .sistema-titulo {
+            font-size: 2.2rem;
+            color: var(--azul-profundo);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .sistema-desc {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 3rem;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        .camadas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .camada-item {
+            background: var(--cinza-claro);
+            border-radius: 15px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            text-align: center;
+        }
+
+        .camada-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--azul-reflexivo);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        .camada-icone {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--azul-profundo);
+        }
+
+        .camada-titulo {
+            font-size: 1.3rem;
+            color: var(--azul-profundo);
+            margin-bottom: 0.5rem;
+        }
+
+        .camada-desc {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        .sistema-cta {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--verde-aquatico) 0%, #138d75 100%);
+            color: white;
+            padding: 1.2rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(22, 160, 133, 0.3);
+            margin: 0 auto;
+            display: block;
+            text-align: center;
+            max-width: 300px;
+        }
+
+        .sistema-cta:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(22, 160, 133, 0.5);
+        }
+
+        /* SEÇÃO DOS ARQUÉTIPOS */
+        .arquetipos-section {
+            padding: 4rem 2rem;
+            background: white;
+        }
+
+        .arquetipos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .arquetipo-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border-top: 4px solid var(--dourado-suave);
+        }
+
+        .arquetipo-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .arquetipo-titulo {
+            font-size: 1.5rem;
+            color: var(--azul-profundo);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .arquetipo-desc {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .elementos-lista {
+            margin: 1.5rem 0;
+        }
+
+        .elementos-lista h4 {
+            color: var(--azul-profundo);
+            margin-bottom: 0.5rem;
+        }
+
+        .elementos-lista ul {
+            list-style-type: none;
+            padding-left: 1rem;
+        }
+
+        .elementos-lista li {
+            padding: 0.3rem 0;
+            color: #666;
+            position: relative;
+        }
+
+        .elementos-lista li::before {
+            content: '🌊';
+            position: absolute;
+            left: -1rem;
+        }
+
+        /* SEÇÃO DO DIÁRIO DE BORDO */
+        .diario-section {
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, var(--cinza-claro) 0%, var(--branco-puro) 100%);
+        }
+
+        .diario-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .diario-titulo {
+            font-size: 2.2rem;
+            color: var(--azul-profundo);
+            margin-bottom: 2rem;
+        }
+
+        .diario-desc {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 3rem;
+            line-height: 1.6;
+        }
+
+        .diario-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .diario-item {
+            background: var(--cinza-claro);
+            border-radius: 15px;
+            padding: 2rem 1rem;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .diario-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--azul-reflexivo);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        .diario-icone {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--azul-profundo);
+        }
+
+        .diario-item-titulo {
+            font-size: 1.2rem;
+            color: var(--azul-profundo);
+            margin-bottom: 0.5rem;
+        }
+
+        .diario-item-desc {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .diario-cta {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--verde-aquatico) 0%, #138d75 100%);
+            color: white;
+            padding: 1.2rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(22, 160, 133, 0.3);
+        }
+
+        .diario-cta:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(22, 160, 133, 0.5);
+        }
+
+        /* RODAPÉ */
+        footer {
+            background-color: var(--azul-profundo);
+            color: white;
+            text-align: center;
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+        }
+
+        footer a {
+            color: white;
+            margin: 0 0.5rem;
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+        }
+
+        footer a:hover {
+            opacity: 0.8;
+        }
+
+        /* RESPONSIVIDADE */
+        @media (max-width: 768px) {
+            .logo-texto-aquatico {
+                font-size: 2.5rem;
+            }
+            
+            .logo-img-aquatico {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .nav-container-aquatico {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+            
+            .nav-item-aquatico {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+            
+            .titulo-principal, .section-title {
+                font-size: 2rem;
+            }
+            
+            .personagens-grid, .camadas-grid, .arquetipos-grid, .diario-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .texto-descritivo {
+                padding: 1.5rem;
+                font-size: 1.1rem;
+            }
+
+            .sistema-container, .diario-container {
+                padding: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-texto-aquatico {
+                font-size: 2rem;
+            }
+            
+            .logo-slogan-aquatico {
+                font-size: 1.1rem;
+            }
+            
+            .header-aquatico {
+                padding: 2rem 0;
+            }
+            
+            .personagem-card, .arquetipo-card {
+                padding: 1.5rem;
+            }
+
+            .sistema-container, .diario-container {
+                padding: 1.5rem;
+            }
+
+            footer {
+                padding: 2rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER AQUÁTICO -->
+    <header class="header-aquatico">
+        <div class="logo-container-aquatico">
+            <img src="imagens/logos/logo-espelho-dagua.jpg" alt="Espelho D'Água" class="logo-img-aquatico">
+            <h1 class="logo-texto-aquatico">Espelho D'Água</h1>
+            <p class="logo-slogan-aquatico">Onde as emoções se refletem e as profundezas revelam verdades</p>
+        </div>
+    </header>
+
+    <!-- NAVEGAÇÃO AQUÁTICA -->
+    <nav class="nav-aquatico">
+        <div class="nav-container-aquatico">
+            <a href="#personagens" class="nav-item-aquatico">
+                <i class="fas fa-users"></i>
+                <span>Personagens</span>
+            </a>
+            <a href="#sistema" class="nav-item-aquatico">
+                <i class="fas fa-brain"></i>
+                <span>Sistema Emocional</span>
+            </a>
+            <a href="#arquetipos" class="nav-item-aquatico">
+                <i class="fas fa-chess-queen"></i>
+                <span>Arquétipos</span>
+            </a>
+            <a href="#diario" class="nav-item-aquatico">
+                <i class="fas fa-book"></i>
+                <span>Diário de Bordo</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- SEÇÃO INTRODUTÓRIA -->
+    <section class="introducao-aquatica">
+        <div class="container-intro">
+            <h2 class="titulo-principal">Espelho D'Água</h2>
+            <p class="texto-descritivo">
+                O Espelho D'Água é onde as emoções se refletem e as profundezas revelam verdades. 
+                É um espaço para jovens de 14-21 anos explorarem sua identidade, propósito e lugar no mundo 
+                através de ferramentas emocionais, rituais de passagem e diálogos que buscam sentido.
+            </p>
+        </div>
+    </section>
+
+    <!-- SEÇÃO DOS PERSONAGENS -->
+    <section id="personagens" class="personagens-section">
+        <div class="section-container">
+            <h2 class="section-title">Nossos Personagens</h2>
+            
+            <div class="personagens-grid">
+                <!-- PERSONAGEM 1 - LÚMEN -->
+                <div class="personagem-card">
+                    <div class="personagem-icone">🌌</div>
+                    <h3 class="personagem-titulo">Lúmen</h3>
+                    <p class="personagem-desc">A criança que habita o limiar entre a luz e a sombra aquática. Fala por metáforas luminosas e carrega a fita cassete "O lado B do silêncio".</p>
+                    <a href="#" class="personagem-link">Conhecer Lúmen</a>
+                </div>
+
+                <!-- PERSONAGEM 2 - SERENATA -->
+                <div class="personagem-card">
+                    <div class="personagem-icone">🎐</div>
+                    <h3 class="personagem-titulo">Serenata</h3>
+                    <p class="personagem-desc">A guardiã das emoções que se movem como correntes. Fala cantando e carrega a fita "Canções de Água Doce e Salgada".</p>
+                    <a href="#" class="personagem-link">Conhecer Serenata</a>
+                </div>
+
+                <!-- PERSONAGEM 3 - MENINO-SEM-FRASE -->
+                <div class="personagem-card">
+                    <div class="personagem-icone">🌀</div>
+                    <h3 class="personagem-titulo">Menino-Sem-Frase</h3>
+                    <p class="personagem-desc">Aquele que comunica pelo que não diz. Sua sombra escreve enquanto ele cala, e carrega a "Fita em Branco" que guarda todas as frases não ditas.</p>
+                    <a href="#" class="personagem-link">Conhecer o Menino</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO DO SISTEMA EMOCIONAL -->
+    <section id="sistema" class="sistema-section">
+        <div class="sistema-container">
+            <h2 class="sistema-titulo">Sistema Emocional Interativo</h2>
+            <p class="sistema-desc">
+                Um mergulho nas camadas emocionais do Espelho D'Água, onde cada emoção 
+                ganha forma, cor e profundidade através da linguagem aquática que criamos juntos.
+            </p>
+            
+            <div class="camadas-grid">
+                <div class="camada-item">
+                    <div class="camada-icone">💧</div>
+                    <h3 class="camada-titulo">Superfície</h3>
+                    <p class="camada-desc">Emoções visíveis, reflexos imediatos do que sentimos na superfície</p>
+                </div>
+
+                <div class="camada-item">
+                    <div class="camada-icone">🌊</div>
+                    <h3 class="camada-titulo">Meia-Água</h3>
+                    <p class="camada-desc">Emoções em movimento, correntes que conectam superfície e profundezas</p>
+                </div>
+
+                <div class="camada-item">
+                    <div class="camada-icone">🪸</div>
+                    <h3 class="camada-titulo">Profundezas</h3>
+                    <p class="camada-desc">Emoções ancestrais, tesouros submersos e verdades fundamentais</p>
+                </div>
+            </div>
+            
+            <a href="#" class="sistema-cta">Mergulhe no Sistema Emocional</a>
+        </div>
+    </section>
+
+    <!-- SEÇÃO DOS ARQUÉTIPOS -->
+    <section id="arquetipos" class="arquetipos-section">
+        <div class="section-container">
+            <h2 class="section-title">Sistema de Arquétipos Emocionais</h2>
+            
+            <div class="arquetipos-grid">
+                <!-- ARQUÉTIPO 1 -->
+                <div class="arquetipo-card">
+                    <h3 class="arquetipo-titulo"><span>🌌</span> Lúmen & Medo/Coragem</h3>
+                    <p class="arquetipo-desc">Explora o limiar entre o conhecido e o desconhecido, entre a luz que revela e as sombras que protegem.</p>
+                    
+                    <div class="elementos-lista">
+                        <h4>Elementos:</h4>
+                        <ul>
+                            <li>Reflexos na água</li>
+                            <li>Sombras que acolhem</li>
+                            <li>Luzes tremulas</li>
+                            <li>Segredos protegidos</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- ARQUÉTIPO 2 -->
+                <div class="arquetipo-card">
+                    <h3 class="arquetipo-titulo"><span>🎐</span> Serenata & Alegria/Tristeza</h3>
+                    <p class="arquetipo-desc">Navega as correntes emocionais, honrando tanto a alegria que levanta quanto a tristeza que aprofunda.</p>
+                    
+                    <div class="elementos-lista">
+                        <h4>Elementos:</h4>
+                        <ul>
+                            <li>Ondas que vêm e vão</li>
+                            <li>Marcas na areia da alma</li>
+                            <li>Água doce e salgada</li>
+                            <li>Acalanto e saudade</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- ARQUÉTIPO 3 -->
+                <div class="arquetipo-card">
+                    <h3 class="arquetipo-titulo"><span>🌀</span> Menino-Sem-Frase & Silêncio/Expressão</h3>
+                    <p class="arquetipo-desc">Honra o poder do não-dito e a vontade de expressão que habita cada silêncio.</p>
+                    
+                    <div class="elementos-lista">
+                        <h4>Elementos:</h4>
+                        <ul>
+                            <li>Palavras invisíveis</li>
+                            <li>Frases não ditas</li>
+                            <li>Gestos que comunicam</li>
+                            <li>Silêncios elaborados</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO DO DIÁRIO DE BORDO -->
+    <section id="diario" class="diario-section">
+        <div class="diario-container">
+            <h2 class="diario-titulo">Diário de Bordo Criativo</h2>
+            <p class="diario-desc">
+                Onde Carlos compartilha o processo criativo por trás do Espelho D'Água, 
+                com toda a liberdade linguística intacta e as descobertas da jornada.
+            </p>
+            
+            <div class="diario-grid">
+                <div class="diario-item">
+                    <div class="diario-icone">📝</div>
+                    <h4 class="diario-item-titulo">Processos Criativos</h4>
+                    <p class="diario-item-desc">Como nascem os personagens, conceitos e narrativas</p>
+                </div>
+
+                <div class="diario-item">
+                    <div class="diario-icone">🎨</div>
+                    <h4 class="diario-item-titulo">Descobertas Visuais</h4>
+                    <p class="diario-item-desc">Exploração da identidade visual e linguagem aquática</p>
+                </div>
+
+                <div class="diario-item">
+                    <div class="diario-icone">🧠</div>
+                    <h4 class="diario-item-titulo">Insights Emocionais</h4>
+                    <p class="diario-item-desc">Reflexões sobre as camadas emocionais do projeto</p>
+                </div>
+
+                <div class="diario-item">
+                    <div class="diario-icone">🔮</div>
+                    <h4 class="diario-item-titulo">Futuros Possíveis</h4>
+                    <p class="diario-item-desc">Ideias em desenvolvimento e próximos mergulhos</p>
+                </div>
+            </div>
+            
+            <a href="#" class="diario-cta">Acesse o Diário de Bordo</a>
+        </div>
+    </section>
+
+    <!-- RODAPÉ -->
+    <footer>
+        <p>© 2024 Espelho D'Água | Educação Que Reflete</p>
+        <p>Piracicaba SP · De família para família</p>
+        <div style="margin-top: 1rem;">
+            <a href="#">Instagram</a>
+            <a href="#">YouTube</a>
+            <a href="#">Contato</a>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll para o menu
+        document.querySelectorAll('.nav-item-aquatico').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Efeito de digitação no slogan
+        const slogan = "Onde as emoções se refletem e as profundezas revelam verdades";
+        let i = 0;
+        const speed = 50;
+
+        function typeWriter() {
+            if (i < slogan.length) {
+                document.querySelector(".logo-slogan-aquatico").textContent += slogan.charAt(i);
+                i++;
+                setTimeout(typeWriter, speed);
+            }
+        }
+
+        // Iniciar quando a página carregar
+        window.addEventListener('load', () => {
+            document.querySelector(".logo-slogan-aquatico").textContent = "";
+            typeWriter();
+        });
+    </script>
+</body>
+</html>

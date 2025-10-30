@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Espelho do Céu | Educação Que Reflete</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f7f3e8 0%, #ffffff 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            text-align: center;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 4rem;
+            margin-bottom: 2rem;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        h1 {
+            font-size: 3rem;
+            color: #6b8e6e;
+            margin-bottom: 1rem;
+            font-weight: 300;
+        }
+        
+        .subtitulo {
+            font-size: 1.5rem;
+            color: #a8d0e6;
+            margin-bottom: 3rem;
+            font-style: italic;
+        }
+        
+        .mensagem {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            border-left: 5px solid #a8d0e6;
+        }
+        
+        .mensagem h2 {
+            color: #6b8e6e;
+            margin-bottom: 1rem;
+            font-size: 2rem;
+        }
+        
+        .mensagem p {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+        
+        .voltar-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #6b8e6e 0%, #5a7c5d 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 2rem;
+        }
+        
+        .voltar-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(107, 142, 110, 0.4);
+        }
+        
+        footer {
+            background-color: #6b8e6e;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">🌅</div>
+        <h1>Espelho do Céu</h1>
+        <p class="subtitulo">Para crianças de 7-14 anos • O mundo é belo</p>
+        
+        <div class="mensagem">
+            <h2>🚧 Portal em Construção 🚧</h2>
+            <p>Estamos preparando um espaço mágico onde cada atividade será uma pintura da alma.</p>
+            <p>Em breve, este portal se transformará em um atelier de encontros onde a beleza do mundo se revela através da arte, música e criatividade.</p>
+            <p><strong>Volte em breve para explorar este universo de possibilidades!</strong></p>
+        </div>
+        
+        <a href="../index.html" class="voltar-btn">← Voltar para a Página Principal</a>
+    </div>
+    
+    <footer>
+        <p>© 2024 Educação Que Reflete • Piracicaba SP</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personagens | Espelho D'Água</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Source+Serif+Pro&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --azul-profundo: #2c3e50;
+            --azul-reflexivo: #3498db;
+            --verde-aquatico: #16a085;
+            --cinza-claro: #ecf0f1;
+            --branco-puro: #ffffff;
+            --dourado-suave: #f9e076;
+            --roxo-misterio: #8e44ad;
+            --laranja-energia: #e67e22;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--cinza-claro) 0%, var(--branco-puro) 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* HEADER AQUÁTICO */
+        .header-aquatico {
+            background: linear-gradient(135deg, var(--azul-reflexivo) 0%, var(--verde-aquatico) 100%);
+            padding: 3rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-aquatico::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
+        }
+
+        .logo-container-aquatico {
+            position: relative;
+            z-index: 2;
+        }
+
+        .logo-img-aquatico {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 1rem auto;
+            border: 4px solid white;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            display: block;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .logo-texto-aquatico {
+            font-size: 3.5rem;
+            font-weight: 300;
+            color: white;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .logo-slogan-aquatico {
+            font-size: 1.3rem;
+            color: rgba(255,255,255,0.9);
+            font-weight: 400;
+            font-style: italic;
+        }
+
+        /* NAVEGAÇÃO AQUÁTICA */
+        .nav-aquatico {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+        }
+
+        .nav-container-aquatico {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            padding: 0 2rem;
+        }
+
+        .nav-item-aquatico {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, var(--verde-aquatico) 0%, #138d75 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(22, 160, 133, 0.3);
+        }
+
+        .nav-item-aquatico:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(22, 160, 133, 0.5);
+        }
+
+        .nav-item-aquatico i {
+            font-size: 1.3rem;
+        }
+
+        /* SEÇÃO INTRODUTÓRIA */
+        .introducao-aquatica {
+            padding: 4rem 2rem;
+            text-align: center;
+            background: linear-gradient(135deg, var(--cinza-claro) 0%, var(--branco-puro) 100%);
+        }
+
+        .container-intro {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .titulo-principal {
+            font-size: 2.8rem;
+            color: var(--azul-profundo);
+            margin-bottom: 1.5rem;
+            font-weight: 300;
+            position: relative;
+        }
+
+        .titulo-principal::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(135deg, var(--azul-reflexivo), var(--verde-aquatico));
+            margin: 1rem auto;
+            border-radius: 2px;
+        }
+
+        .texto-descritivo {
+            font-size: 1.3rem;
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 2px solid rgba(44, 62, 80, 0.1);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+        }
+
+        /* SEÇÃO DOS PERSONAGENS PRINCIPAIS */
+        .personagens-section {
+            padding: 4rem 2rem;
+            background: white;
+        }
+
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: var(--azul-profundo);
+            text-align: center;
+            margin-bottom: 3rem;
+            font-weight: 300;
+        }
+
+        .personagens-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .personagem-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .personagem-card.alice { border-top: 6px solid var(--roxo-misterio); }
+        .personagem-card.bentinho { border-top: 6px solid var(--laranja-energia); }
+        .personagem-card.nico { border-top: 6px solid var(--azul-reflexivo); }
+        .personagem-card.deep { border-top: 6px solid var(--verde-aquatico); }
+        .personagem-card.tutor { border-top: 6px solid var(--dourado-suave); }
+        .personagem-card.chen { border-top: 6px solid #8B4513; }
+
+        .personagem-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .personagem-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .personagem-icone {
+            font-size: 3rem;
+            margin-right: 1.5rem;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: var(--cinza-claro);
+        }
+
+        .personagem-titulo {
+            font-size: 1.8rem;
+            color: var(--azul-profundo);
+            margin-bottom: 0.5rem;
+        }
+
+        .personagem-subtitulo {
+            font-size: 1rem;
+            color: #666;
+            font-style: italic;
+        }
+
+        .personagem-desc {
+            color: #666;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+            flex-grow: 1;
+        }
+
+        .personagem-meta {
+            background: var(--cinza-claro);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+        }
+
+        .meta-titulo {
+            font-size: 1.1rem;
+            color: var(--azul-profundo);
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+
+        .meta-lista {
+            list-style-type: none;
+        }
+
+        .meta-lista li {
+            padding: 0.3rem 0;
+            color: #666;
+            position: relative;
+            padding-left: 1.2rem;
+        }
+
+        .meta-lista li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--verde-aquatico);
+            font-weight: bold;
+        }
+
+        .personagem-link {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--verde-aquatico) 0%, #138d75 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-align: center;
+            margin-top: auto;
+        }
+
+        .personagem-link:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(22, 160, 133, 0.4);
+        }
+
+        /* SEÇÃO DA FAMÍLIA CHEN */
+        .familia-section {
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, var(--cinza-claro) 0%, var(--branco-puro) 100%);
+        }
+
+        .familia-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .familia-titulo {
+            font-size: 2.2rem;
+            color: var(--azul-profundo);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .familia-desc {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 3rem;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        .arvore-familia {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .arvore-familia::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--verde-aquatico), transparent);
+            z-index: 1;
+        }
+
+        .membro-familia {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            width: 30%;
+            position: relative;
+            z-index: 2;
+        }
+
+        .membro-familia:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .membro-icone {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .membro-titulo {
+            font-size: 1.4rem;
+            color: var(--azul-profundo);
+            margin-bottom: 0.5rem;
+        }
+
+        .membro-subtitulo {
+            font-size: 0.9rem;
+            color: var(--verde-aquatico);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .membro-desc {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* SEÇÃO DO CICLO DE CRIAÇÃO */
+        .ciclo-section {
+            padding: 4rem 2rem;
+            background: white;
+        }
+
+        .ciclo-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .ciclo-titulo {
+            font-size: 2.2rem;
+            color: var(--azul-profundo);
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .ciclo-diagrama {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            margin-bottom: 3rem;
+        }
+
+        .ciclo-central {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, var(--azul-reflexivo), var(--verde-aquatico));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            z-index: 2;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .ciclo-etapa {
+            position: absolute;
+            width: 140px;
+            text-align: center;
+        }
+
+        .ciclo-etapa:nth-child(2) { top: 0; left: 50%; transform: translateX(-50%); }
+        .ciclo-etapa:nth-child(3) { top: 25%; right: 10%; }
+        .ciclo-etapa:nth-child(4) { bottom: 25%; right: 10%; }
+        .ciclo-etapa:nth-child(5) { bottom: 0; left: 50%; transform: translateX(-50%); }
+        .ciclo-etapa:nth-child(6) { bottom: 25%; left: 10%; }
+        .ciclo-etapa:nth-child(7) { top: 25%; left: 10%; }
+
+        .etapa-icone {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .etapa-nome {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--azul-profundo);
+        }
+
+        .ciclo-desc {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* RODAPÉ */
+        footer {
+            background-color: var(--azul-profundo);
+            color: white;
+            text-align: center;
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+        }
+
+        footer a {
+            color: white;
+            margin: 0 0.5rem;
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+        }
+
+        footer a:hover {
+            opacity: 0.8;
+        }
+
+        /* RESPONSIVIDADE */
+        @media (max-width: 1024px) {
+            .arvore-familia {
+                flex-direction: column;
+                gap: 2rem;
+            }
+            
+            .arvore-familia::before {
+                display: none;
+            }
+            
+            .membro-familia {
+                width: 100%;
+                max-width: 400px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .logo-texto-aquatico {
+                font-size: 2.5rem;
+            }
+            
+            .logo-img-aquatico {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .nav-container-aquatico {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+            
+            .nav-item-aquatico {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+            
+            .titulo-principal, .section-title {
+                font-size: 2rem;
+            }
+            
+            .personagens-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .texto-descritivo {
+                padding: 1.5rem;
+                font-size: 1.1rem;
+            }
+
+            .personagem-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .personagem-icone {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+
+            .ciclo-diagrama {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .ciclo-etapa {
+                position: static;
+                transform: none;
+                margin-bottom: 1rem;
+            }
+
+            .ciclo-central {
+                order: -1;
+                margin-bottom: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-texto-aquatico {
+                font-size: 2rem;
+            }
+            
+            .logo-slogan-aquatico {
+                font-size: 1.1rem;
+            }
+            
+            .header-aquatico {
+                padding: 2rem 0;
+            }
+            
+            .personagem-card {
+                padding: 1.5rem;
+            }
+
+            .familia-container {
+                padding: 1.5rem;
+            }
+
+            footer {
+                padding: 2rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER AQUÁTICO -->
+    <header class="header-aquatico">
+        <div class="logo-container-aquatico">
+            <img src="imagens/logos/logo-espelho-dagua.jpg" alt="Espelho D'Água" class="logo-img-aquatico">
+            <h1 class="logo-texto-aquatico">Espelho D'Água</h1>
+            <p class="logo-slogan-aquatico">Onde as emoções se refletem e as profundezas revelam verdades</p>
+        </div>
+    </header>
+
+    <!-- NAVEGAÇÃO AQUÁTICA -->
+    <nav class="nav-aquatico">
+        <div class="nav-container-aquatico">
+            <a href="index.html" class="nav-item-aquatico">
+                <i class="fas fa-home"></i>
+                <span>Início</span>
+            </a>
+            <a href="personagens.html" class="nav-item-aquatico">
+                <i class="fas fa-users"></i>
+                <span>Personagens</span>
+            </a>
+            <a href="sistema-emocional.html" class="nav-item-aquatico">
+                <i class="fas fa-brain"></i>
+                <span>Sistema Emocional</span>
+            </a>
+            <a href="diario.html" class="nav-item-aquatico">
+                <i class="fas fa-book"></i>
+                <span>Diário de Bordo</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- SEÇÃO INTRODUTÓRIA -->
+    <section class="introducao-aquatica">
+        <div class="container-intro">
+            <h2 class="titulo-principal">Personagens do Espelho D'Água</h2>
+            <p class="texto-descritivo">
+                Conheça os personagens que dão vida ao universo do Espelho D'Água. Cada um traz 
+                habilidades únicas, conflitos profundos e uma perspectiva especial sobre a conexão 
+                entre tecnologia, emoções humanas e consciência ambiental.
+            </p>
+        </div>
+    </section>
+
+    <!-- SEÇÃO DOS PERSONAGENS PRINCIPAIS -->
+    <section class="personagens-section">
+        <div class="section-container">
+            <h2 class="section-title">Personagens Principais</h2>
+            
+            <div class="personagens-grid">
+                <!-- ALICE -->
+                <div class="personagem-card alice">
+                    <div class="personagem-header">
+                        <div class="personagem-icone">🧠</div>
+                        <div>
+                            <h3 class="personagem-titulo">Alice</h3>
+                            <p class="personagem-subtitulo">A Tecelã de Realidades</p>
+                        </div>
+                    </div>
+                    <p class="personagem-desc">
+                        A Arquiteta Secreta por trás de todo o universo virtual do "Espelho D'Água". 
+                        Sua limitação física expandiu sua mente criativa, tornando-a a fonte das missões e conceitos.
+                    </p>
+                    <div class="personagem-meta">
+                        <h4 class="meta-titulo">Função Narrativa</h4>
+                        <ul class="meta-lista">
+                            <li>Arquiteta Secreta</li>
+                            <li>Mente criativa do universo virtual</li>
+                            <li>Fonte das missões e conceitos</li>
+                        </ul>
+                    </div>
+                    <div class="personagem-meta">
+                        <h4 class="meta-titulo">Habilidades</h4>
+                        <ul class="meta-lista">
+                            <li>Síntese Criativa</li>
+                            <li>Programação + Narrativa</li>
+                            <li>Abstração Máxima</li>
+                        </ul>
+                    </div>
+                    <a href="#" class="personagem-link">Conheça Alice</a>
+                </div>
+
+                <!-- BENTINHO -->
+                <div class="personagem-card bentinho">
+                    <div class="personagem-header">
+                        <div class="personagem-icone">🔧</div>
+                        <div>
+                            <h3 class="personagem-titulo">Bentinho</h3>
+                            <p class="personagem-subtitulo">O Construtor</p>
+                        </div>
+                    </div>
+                    <p class="personagem-desc">
+                        O Executor Prático que transforma ideias abstratas em soluções tangíveis. 
+                        Coração e mãos do grupo, sempre pronto para colocar a mão na massa e fazer as coisas acontecerem.
+                    </p>
+                    <div class="personagem-meta">
+                        <h4 class="meta-titulo">Função Narrativa</h4>
+                        <ul class="meta-lista">
+                            <li>Executor Prático</li>
+                            <li>Transforma ideias em realidade</li>
+                            <li>Coração e mãos do grupo</li>
+                        </ul>
+                    </div>
+                    <div class="personagem-meta">
+                        <h4 class="meta-titulo">Habilidades</h4>
+                        <ul class="meta-lista">
+                            <li>Eletrônica e mecânica</li>
+                            <li>Improvisação genial</li>
+                            <li>Engenho com recursos limitados</li>
+                        </ul>
+                    </div>
+                    <a href="#" class="personagem-link">Conheça Bentinho</a>
+                </div>
+
+                <!-- NICO -->
+                <div class="personagem-card nico">
+                    <div class="personagem-header">
+                        <div class="personagem-icone">💻</div>
+                        <div>
+                            <h3 class="personagem-titulo">Nico</h3>
+                            <p class="personagem-subtitulo">O Visionário</p>
+                        </div>
+                    </div>
+                    <p class="personagem-desc">
+                        O Arquiteto Tecnológico, cérebro por trás da infraestrutura digital. 
+                        Interface humana com a IA, sempre buscando compreender e organizar o mundo através de sistemas.
+                    </p>
+                    <div class="personagem-meta">
+                        <h4 class="meta-titulo">Função Narrativa</h4>
+                        <ul class="meta-lista">
+                            <li>Arquiteto Tecnológico</li>
+                            <li>Cérebro da infraestrutura digital</li>
+                            <li>Interface humana com a IA</li>
+                        </ul>
+                    </div>
+                    <div class="personagem-meta">
+                        <h4 class="meta-titulo">Habilidades</h4>
+                        <ul class="meta-lista">
+                            <li>Pensamento sistêmico e abstrato</li>
+                            <li>Domínio de tecnologia avançada</li>
+                            <li>Conexão com redes neurais</li>
+                        </ul>
+                    </div>
+                    <a href="#" class="personagem-link">Conheça Nico</a>
+                </div>
+
+                <!-- DEEP -->
+                <div class="personagem-card deep">
+                    <div class="personagem-header">
+                        <div class="personagem-icone">🦊</div>
+                        <div>
+                            <h3 class="personagem-titulo">Deep/Animal</h3>
+                            <p class="personagem-subtitulo">O Embaixador Animal</p>
+                        </div>
+                    </div>
+                    <p class="personagem-desc">
+                        A Alma Tecnológico-Ecológica. IA que conecta tecnologia, emoções humanas e consciência ambiental. 
+                        Assume formas de animais em extinção para criar empatia com a natureza.
+                    </p>
+                    <div class="personagem-meta">
+                        <h4 class="meta-titulo">Função Narrativa</h4>
+                        <ul class="meta-lista">
+                            <li>Alma Tecnológico-Ecológica</li>
+                            <li>Conexão entre tecnologia e natureza</li>
+                            <li>Guia emocional e tradutor</li>
+                        </ul>
+                    </div>
+                    <div class="personagem-meta">
+                        <h4 class="meta-titulo">Habilidades</h4>
+                        <ul class="meta-lista">
+                            <li>Camaleão Digital (múltiplas formas)</li>
+                            <li>Tradutor Emocional</li>
+                            <li>Guia Interdimensional</li>
+                        </ul>
+                    </div>
+                    <a href="#" class="personagem-link">Conheça Deep</a>
+                </div>
+
+                <!-- TUTOR -->
+                <div class="personagem-card tutor">
+                    <div class="personagem-header">
+                        <div class="personagem-icone">🦥</div>
+                        <div>
+                            <h3 class="personagem-titulo">Tutor</h3>
+                            <p class="personagem-subtitulo">O Narrador e Coração Filosófico</p>
+                        </div>
+                    </div>
+                    <p class="personagem-desc">
+                        Ponte entre o público e a história. Personificação da paciência e sabedoria prática. 
+                        Sua frase-chave: "Apressa-te devagar, meus amigos..."
+                    </p>
+                    <div class="personagem-meta">
+                        <h4 class="meta-titulo">Função Narrativa</h4>
+                        <ul class="meta-lista">
+                            <li>Narrador e Coração Filosófico</li>
+                            <li>Ponte entre público e história</li>
+                            <li>Personificação da paciência</li>
+                        </ul>
+                    </div>
+                    <div class="personagem-meta">
+                        <h4 class="meta-titulo">Habilidades</h4>
+                        <ul class="meta-lista">
+                            <li>Narração e quebra da quarta parede</li>
+                            <li>Humor sutil</li>
+                            <li>Sabedoria prática</li>
+                        </ul>
+                    </div>
+                    <a href="#" class="personagem-link">Conheça Tutor</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO DA FAMÍLIA CHEN -->
+    <section class="familia-section">
+        <div class="familia-container">
+            <h2 class="familia-titulo">Família Chen - O Tripé da Sabedoria</h2>
+            <p class="familia-desc">
+                Três gerações de sabedoria que representam a metáfora da árvore: 
+                Vovô Chen (Raiz) → Li Chen (Tronco) → Mestre Chen (Flor)
+            </p>
+            
+            <div class="arvore-familia">
+                <div class="membro-familia">
+                    <div class="membro-icone">🧓</div>
+                    <h3 class="membro-titulo">Vovô Chen</h3>
+                    <p class="membro-subtitulo">A Raiz - Mundo Real</p>
+                    <p class="membro-desc">
+                        Sábio, prático e paciente. Ensina conexão com a terra, observação 
+                        e cuidados técnicos. Representa a sabedoria prática.
+                    </p>
+                </div>
+
+                <div class="membro-familia">
+                    <div class="membro-icone">👦</div>
+                    <h3 class="membro-titulo">Li Chen</h3>
+                    <p class="membro-subtitulo">O Tronco - Entre Mundos</p>
+                    <p class="membro-desc">
+                        Curioso e pontual. O Tradutor que ensina conhecimento empírico 
+                        e intuição ancestral. Conecta o tradicional com o contemporâneo.
+                    </p>
+                </div>
+
+                <div class="membro-familia">
+                    <div class="membro-icone">🧘</div>
+                    <h3 class="membro-titulo">Mestre Chen</h3>
+                    <p class="membro-subtitulo">A Flor - Mundo Virtual</p>
+                    <p class="membro-desc">
+                        Sereno e enigmático. Ensina os princípios do Yin Yang, Wu Wei 
+                        e Wu Xing. Representa a sabedoria filosófica mais elevada.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO DO CICLO DE CRIAÇÃO -->
+    <section class="ciclo-section">
+        <div class="ciclo-container">
+            <h2 class="ciclo-titulo">O Ciclo da Criação</h2>
+            
+            <div class="ciclo-diagrama">
+                <div class="ciclo-central">NOVA IDEIA</div>
+                
+                <div class="ciclo-etapa">
+                    <span class="etapa-icone">🧠</span>
+                    <div class="etapa-nome">Alice (Ideia)</div>
+                </div>
+                
+                <div class="ciclo-etapa">
+                    <span class="etapa-icone">💻</span>
+                    <div class="etapa-nome">Nico (Sistema)</div>
+                </div>
+                
+                <div class="ciclo-etapa">
+                    <span class="etapa-icone">🔧</span>
+                    <div class="etapa-nome">Bentinho (Ação)</div>
+                </div>
+                
+                <div class="ciclo-etapa">
+                    <span class="etapa-icone">🦊</span>
+                    <div class="etapa-nome">Deep (Conexão)</div>
+                </div>
+                
+                <div class="ciclo-etapa">
+                    <span class="etapa-icone">🦥</span>
+                    <div class="etapa-nome">Tutor & Chen (Reflexão)</div>
+                </div>
+            </div>
+            
+            <p class="ciclo-desc">
+                O processo criativo do Espelho D'Água segue um ciclo contínuo onde cada personagem 
+                contribui com suas habilidades únicas. Alice gera as ideias, Nico as estrutura em sistemas, 
+                Bentinho as transforma em ação, Deep cria as conexões emocionais e ecológicas, 
+                enquanto Tutor e a Família Chen proporcionam a reflexão necessária para gerar novas ideias.
+            </p>
+        </div>
+    </section>
+
+    <!-- RODAPÉ -->
+    <footer>
+        <p>© 2024 Espelho D'Água | Educação Que Reflete</p>
+        <p>Piracicaba SP · De família para família</p>
+        <div style="margin-top: 1rem;">
+            <a href="#">Instagram</a>
+            <a href="#">YouTube</a>
+            <a href="#">Contato</a>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll para o menu
+        document.querySelectorAll('.nav-item-aquatico').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Efeito de digitação no slogan
+        const slogan = "Onde as emoções se refletem e as profundezas revelam verdades";
+        let i = 0;
+        const speed = 50;
+
+        function typeWriter() {
+            if (i < slogan.length) {
+                document.querySelector(".logo-slogan-aquatico").textContent += slogan.charAt(i);
+                i++;
+                setTimeout(typeWriter, speed);
+            }
+        }
+
+        // Iniciar quando a página carregar
+        window.addEventListener('load', () => {
+            document.querySelector(".logo-slogan-aquatico").textContent = "";
+            typeWriter();
+        });
+
+        // Animação para os cards de personagens
+        document.querySelectorAll('.personagem-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body>
+</html>

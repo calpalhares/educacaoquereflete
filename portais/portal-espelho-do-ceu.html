@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal do Céu | Educação Que Reflete</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Source+Serif+Pro&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --azul-celeste: #a8d0e6;
+            --azul-profundo: #4a6fa5;
+            --roxo-cosmos: #6d5d8a;
+            --dourado-estelar: #f9e076;
+            --cinza-claro: #f8f9fa;
+            --branco-puro: #ffffff;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f0f8ff 0%, #e6f0ff 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* HEADER CELESTIAL */
+        .header-celestial {
+            background: linear-gradient(135deg, var(--azul-celeste) 0%, var(--azul-profundo) 100%);
+            padding: 3rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-celestial::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
+        }
+
+        .logo-container-celestial {
+            position: relative;
+            z-index: 2;
+        }
+
+        .logo-img-celestial {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 1rem auto;
+            border: 4px solid white;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            display: block;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .logo-texto-celestial {
+            font-size: 3.5rem;
+            font-weight: 300;
+            color: white;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .logo-slogan-celestial {
+            font-size: 1.3rem;
+            color: rgba(255,255,255,0.9);
+            font-weight: 400;
+            font-style: italic;
+        }
+
+        /* NAVEGAÇÃO CELESTIAL */
+        .nav-celestial {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+        }
+
+        .nav-container-celestial {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            padding: 0 2rem;
+        }
+
+        .nav-item-celestial {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, var(--roxo-cosmos) 0%, #5d4a7a 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(109, 93, 138, 0.3);
+        }
+
+        .nav-item-celestial:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(109, 93, 138, 0.5);
+        }
+
+        .nav-item-celestial i {
+            font-size: 1.3rem;
+        }
+
+        /* SEÇÃO INTRODUTÓRIA */
+        .introducao-celestial {
+            padding: 4rem 2rem;
+            text-align: center;
+            background: linear-gradient(135deg, var(--cinza-claro) 0%, var(--branco-puro) 100%);
+        }
+
+        .container-intro {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .titulo-principal {
+            font-size: 2.8rem;
+            color: var(--roxo-cosmos);
+            margin-bottom: 1.5rem;
+            font-weight: 300;
+            position: relative;
+        }
+
+        .titulo-principal::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(135deg, var(--azul-celeste), var(--roxo-cosmos));
+            margin: 1rem auto;
+            border-radius: 2px;
+        }
+
+        .texto-descritivo {
+            font-size: 1.3rem;
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 2px solid rgba(109, 93, 138, 0.1);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+        }
+
+        /* SEÇÃO DOS PILARES */
+        .pilares-section {
+            padding: 4rem 2rem;
+            background: white;
+        }
+
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: var(--roxo-cosmos);
+            text-align: center;
+            margin-bottom: 3rem;
+            font-weight: 300;
+        }
+
+        .pilares-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .pilar-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pilar-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, var(--azul-celeste), var(--roxo-cosmos));
+            border-radius: 20px 20px 0 0;
+        }
+
+        .pilar-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--azul-celeste);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .pilar-icone {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--roxo-cosmos);
+        }
+
+        .pilar-titulo {
+            font-size: 1.8rem;
+            color: var(--roxo-cosmos);
+            margin-bottom: 1rem;
+        }
+
+        .pilar-desc {
+            color: #666;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+            flex-grow: 1;
+        }
+
+        .pilar-link {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--roxo-cosmos) 0%, #5d4a7a 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: auto;
+        }
+
+        .pilar-link:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(109, 93, 138, 0.4);
+        }
+
+        /* SEÇÃO DE ATIVIDADES POR IDADE */
+        .atividades-section {
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, var(--cinza-claro) 0%, var(--branco-puro) 100%);
+        }
+
+        .faixa-etaria-container {
+            margin-bottom: 4rem;
+        }
+
+        .faixa-titulo {
+            font-size: 2rem;
+            color: var(--roxo-cosmos);
+            margin-bottom: 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .faixa-titulo::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(135deg, var(--azul-celeste), var(--roxo-cosmos));
+            margin: 1rem auto;
+            border-radius: 2px;
+        }
+
+        .atividades-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .atividade-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--azul-celeste);
+        }
+
+        .atividade-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .atividade-titulo {
+            font-size: 1.4rem;
+            color: var(--roxo-cosmos);
+            margin-bottom: 1rem;
+        }
+
+        .atividade-desc {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .atividade-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+        }
+
+        .atividade-idade {
+            background: var(--azul-celeste);
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .atividade-link {
+            color: var(--roxo-cosmos);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .atividade-link:hover {
+            color: var(--azul-profundo);
+        }
+
+        /* SEÇÃO DE RITUAIS */
+        .rituais-section {
+            padding: 4rem 2rem;
+            background: white;
+        }
+
+        .rituais-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .ritual-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border-top: 4px solid var(--dourado-estelar);
+        }
+
+        .ritual-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .ritual-titulo {
+            font-size: 1.5rem;
+            color: var(--roxo-cosmos);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .ritual-desc {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .elementos-lista {
+            margin: 1.5rem 0;
+        }
+
+        .elementos-lista h4 {
+            color: var(--roxo-cosmos);
+            margin-bottom: 0.5rem;
+        }
+
+        .elementos-lista ul {
+            list-style-type: none;
+            padding-left: 1rem;
+        }
+
+        .elementos-lista li {
+            padding: 0.3rem 0;
+            color: #666;
+            position: relative;
+        }
+
+        .elementos-lista li::before {
+            content: '✦';
+            position: absolute;
+            left: -1rem;
+            color: var(--dourado-estelar);
+        }
+
+        /* SEÇÃO DO KIT DO EXPLORADOR */
+        .kit-section {
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, var(--cinza-claro) 0%, var(--branco-puro) 100%);
+        }
+
+        .kit-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .kit-titulo {
+            font-size: 2.2rem;
+            color: var(--roxo-cosmos);
+            margin-bottom: 2rem;
+        }
+
+        .kit-desc {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 3rem;
+            line-height: 1.6;
+        }
+
+        .kit-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .kit-item {
+            background: var(--cinza-claro);
+            border-radius: 15px;
+            padding: 2rem 1rem;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .kit-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--azul-celeste);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        .kit-icone {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--roxo-cosmos);
+        }
+
+        .kit-item-titulo {
+            font-size: 1.2rem;
+            color: var(--roxo-cosmos);
+            margin-bottom: 0.5rem;
+        }
+
+        .kit-item-desc {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .kit-cta {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--roxo-cosmos) 0%, #5d4a7a 100%);
+            color: white;
+            padding: 1.2rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(109, 93, 138, 0.3);
+        }
+
+        .kit-cta:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(109, 93, 138, 0.5);
+        }
+
+        /* RODAPÉ */
+        footer {
+            background-color: var(--roxo-cosmos);
+            color: white;
+            text-align: center;
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+        }
+
+        footer a {
+            color: white;
+            margin: 0 0.5rem;
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+        }
+
+        footer a:hover {
+            opacity: 0.8;
+        }
+
+        /* RESPONSIVIDADE */
+        @media (max-width: 768px) {
+            .logo-texto-celestial {
+                font-size: 2.5rem;
+            }
+            
+            .logo-img-celestial {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .nav-container-celestial {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+            
+            .nav-item-celestial {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+            
+            .titulo-principal, .section-title {
+                font-size: 2rem;
+            }
+            
+            .pilares-grid, .atividades-grid, .rituais-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .texto-descritivo {
+                padding: 1.5rem;
+                font-size: 1.1rem;
+            }
+
+            .kit-container {
+                padding: 2rem;
+            }
+
+            .kit-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-texto-celestial {
+                font-size: 2rem;
+            }
+            
+            .logo-slogan-celestial {
+                font-size: 1.1rem;
+            }
+            
+            .header-celestial {
+                padding: 2rem 0;
+            }
+            
+            .pilar-card, .atividade-card, .ritual-card {
+                padding: 1.5rem;
+            }
+
+            .kit-container {
+                padding: 1.5rem;
+            }
+
+            footer {
+                padding: 2rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER CELESTIAL -->
+    <header class="header-celestial">
+        <div class="logo-container-celestial">
+            <img src="imagens/logos/logo-portal-do-ceu.jpg" alt="Portal do Céu" class="logo-img-celestial">
+            <h1 class="logo-texto-celestial">Portal do Céu</h1>
+            <p class="logo-slogan-celestial">Onde aprendemos a ler as constelações internas que guiam nossa jornada exterior</p>
+        </div>
+    </header>
+
+    <!-- NAVEGAÇÃO CELESTIAL -->
+    <nav class="nav-celestial">
+        <div class="nav-container-celestial">
+            <a href="#pilares" class="nav-item-celestial">
+                <i class="fas fa-star"></i>
+                <span>Os 4 Pilares</span>
+            </a>
+            <a href="#atividades" class="nav-item-celestial">
+                <i class="fas fa-compass"></i>
+                <span>Atividades</span>
+            </a>
+            <a href="#rituais" class="nav-item-celestial">
+                <i class="fas fa-moon"></i>
+                <span>Rituais</span>
+            </a>
+            <a href="#kit" class="nav-item-celestial">
+                <i class="fas fa-toolbox"></i>
+                <span>Kit do Explorador</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- SEÇÃO INTRODUTÓRIA -->
+    <section class="introducao-celestial">
+        <div class="container-intro">
+            <h2 class="titulo-principal">Portal do Céu</h2>
+            <p class="texto-descritivo">
+                O Portal do Céu é onde aprendemos a ler as constelações internas que guiam nossa jornada exterior. 
+                É um espaço para explorar talentos, desafios e propósitos através de ferramentas filosóficas, 
+                rituais significativos e atividades que conectam terra e cosmos, razão e espírito.
+            </p>
+        </div>
+    </section>
+
+    <!-- SEÇÃO DOS PILARES -->
+    <section id="pilares" class="pilares-section">
+        <div class="section-container">
+            <h2 class="section-title">Os 4 Pilares do Portal do Céu</h2>
+            
+            <div class="pilares-grid">
+                <!-- PILAR 1 -->
+                <div class="pilar-card">
+                    <div class="pilar-icone">🌟</div>
+                    <h3 class="pilar-titulo">Constelações Internas</h3>
+                    <p class="pilar-desc">Cada pessoa tem um "céu particular" de talentos, desafios e propósitos. Aprenda a mapear suas estrelas internas e navegar por seus próprios cosmos.</p>
+                    <a href="#" class="pilar-link">Explorar</a>
+                </div>
+
+                <!-- PILAR 2 -->
+                <div class="pilar-card">
+                    <div class="pilar-icone">🧭</div>
+                    <h3 class="pilar-titulo">Bússola Filosófica</h3>
+                    <p class="pilar-desc">Ferramentas para navegar questões existenciais. Diálogos socráticos, jogos de perspectiva e rituais de questionamento para expandir o pensamento.</p>
+                    <a href="#" class="pilar-link">Explorar</a>
+                </div>
+
+                <!-- PILAR 3 -->
+                <div class="pilar-card">
+                    <div class="pilar-icone">🌌</div>
+                    <h3 class="pilar-titulo">Ponte Terra-Céu</h3>
+                    <p class="pilar-desc">Integração entre vida prática e aspirações elevadas. Como plantar jardins aqui que refletem as estrelas de lá - projetos de legado e alinhamento.</p>
+                    <a href="#" class="pilar-link">Explorar</a>
+                </div>
+
+                <!-- PILAR 4 -->
+                <div class="pilar-card">
+                    <div class="pilar-icone">📚</div>
+                    <h3 class="pilar-titulo">Sabedoria Atemporal</h3>
+                    <p class="pilar-desc">Conexão com conhecimentos ancestrais e futuros. Mitologias pessoais, arquétipos contemporâneos e futurismo prático para dar significado à jornada.</p>
+                    <a href="#" class="pilar-link">Explorar</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO DE ATIVIDADES POR IDADE -->
+    <section id="atividades" class="atividades-section">
+        <div class="section-container">
+            <h2 class="section-title">Atividades por Faixa Etária</h2>
+            
+            <!-- CRIANÇAS (7-14 ANOS) -->
+            <div class="faixa-etaria-container">
+                <h3 class="faixa-titulo">Para Crianças (7-14 anos) - "Astronomia da Alma"</h3>
+                
+                <div class="atividades-grid">
+                    <div class="atividade-card">
+                        <h4 class="atividade-titulo">Meu Céu Particular</h4>
+                        <p class="atividade-desc">Desenho das constelações internas - identificação de talentos, sonhos e qualidades especiais através de mapas estelares pessoais.</p>
+                        <div class="atividade-meta">
+                            <span class="atividade-idade">7-14 anos</span>
+                            <a href="#" class="atividade-link">Ver atividade →</a>
+                        </div>
+                    </div>
+
+                    <div class="atividade-card">
+                        <h4 class="atividade-titulo">Heróis de Verdade</h4>
+                        <p class="atividade-desc">Identificação de arquétipos em pessoas reais - explorando qualidades admiráveis em familiares, amigos e figuras inspiradoras.</p>
+                        <div class="atividade-meta">
+                            <span class="atividade-idade">7-14 anos</span>
+                            <a href="#" class="atividade-link">Ver atividade →</a>
+                        </div>
+                    </div>
+
+                    <div class="atividade-card">
+                        <h4 class="atividade-titulo">Perguntas de Estrela</h4>
+                        <p class="atividade-desc">Diário de questões importantes - exercitando a curiosidade filosófica através de perguntas sobre vida, universo e significado.</p>
+                        <div class="atividade-meta">
+                            <span class="atividade-idade">7-14 anos</span>
+                            <a href="#" class="atividade-link">Ver atividade →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- JOVENS (14-21 ANOS) -->
+            <div class="faixa-etaria-container">
+                <h3 class="faixa-titulo">Para Jovens (14-21 anos) - "Cartografia Existencial"</h3>
+                
+                <div class="atividades-grid">
+                    <div class="atividade-card">
+                        <h4 class="atividade-titulo">Mapa de Futuros Possíveis</h4>
+                        <p class="atividade-desc">Exercício de projeção e planejamento - explorando diferentes caminhos de vida e desenvolvendo habilidades de tomada de decisão.</p>
+                        <div class="atividade-meta">
+                            <span class="atividade-idade">14-21 anos</span>
+                            <a href="#" class="atividade-link">Ver atividade →</a>
+                        </div>
+                    </div>
+
+                    <div class="atividade-card">
+                        <h4 class="atividade-titulo">Bússola de Valores</h4>
+                        <p class="atividade-desc">Definição de princípios norteadores - identificação de valores pessoais e como eles orientam escolhas e relacionamentos.</p>
+                        <div class="atividade-meta">
+                            <span class="atividade-idade">14-21 anos</span>
+                            <a href="#" class="atividade-link">Ver atividade →</a>
+                        </div>
+                    </div>
+
+                    <div class="atividade-card">
+                        <h4 class="atividade-titulo">Projeto Legado</h4>
+                        <p class="atividade-desc">Primeira iniciativa de impacto - desenvolvimento de projetos pessoais que contribuem para a comunidade ou expressam valores.</p>
+                        <div class="atividade-meta">
+                            <span class="atividade-idade">14-21 anos</span>
+                            <a href="#" class="atividade-link">Ver atividade →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO DE RITUAIS -->
+    <section id="rituais" class="rituais-section">
+        <div class="section-container">
+            <h2 class="section-title">Rituais Fundacionais</h2>
+            
+            <div class="rituais-grid">
+                <!-- RITUAL 1 -->
+                <div class="ritual-card">
+                    <h3 class="ritual-titulo"><span>🌠</span> Ritual da Primeira Estrela</h3>
+                    <p class="ritual-desc">Para iniciar qualquer jornada ou projeto importante. Um momento de intenção e conexão com o cosmos interior.</p>
+                    
+                    <div class="elementos-lista">
+                        <h4>Elementos:</h4>
+                        <ul>
+                            <li>Vela (fogo)</li>
+                            <li>Água em taça (água)</li>
+                            <li>Pedra (terra)</li>
+                            <li>Incenso (ar)</li>
+                        </ul>
+                    </div>
+                    
+                    <p><strong>Processo:</strong> Acender cada elemento enquanto nomeia uma intenção específica para o projeto.</p>
+                </div>
+
+                <!-- RITUAL 2 -->
+                <div class="ritual-card">
+                    <h3 class="ritual-titulo"><span>🗺️</span> Cerimônia do Mapa Celeste</h3>
+                    <p class="ritual-desc">Para aniversários e transições importantes. Um momento de reflexão sobre conquistas, desafios e sonhos.</p>
+                    
+                    <div class="elementos-lista">
+                        <h4>Elementos:</h4>
+                        <ul>
+                            <li>Mapa em branco</li>
+                            <li>Símbolos adesivos</li>
+                            <li>Canetas coloridas</li>
+                            <li>Objetos significativos</li>
+                        </ul>
+                    </div>
+                    
+                    <p><strong>Processo:</strong> Mapear conquistas, desafios e sonhos do período, criando uma constelação pessoal de crescimento.</p>
+                </div>
+
+                <!-- RITUAL 3 -->
+                <div class="ritual-card">
+                    <h3 class="ritual-titulo"><span>🌉</span> Ritual da Ponte</h3>
+                    <p class="ritual-desc">Para integrar aprendizados e marcar transições. Simbolicamente une estados de "antes" e "depois".</p>
+                    
+                    <div class="elementos-lista">
+                        <h4>Elementos:</h4>
+                        <ul>
+                            <li>Dois objetos representativos</li>
+                            <li>Fita ou cordão</li>
+                            <li>Diário ou caderno</li>
+                            <li>Vela branca</li>
+                        </ul>
+                    </div>
+                    
+                    <p><strong>Processo:</strong> Simbolicamente unir os dois estados enquanto reflete sobre a jornada entre eles.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO DO KIT DO EXPLORADOR -->
+    <section id="kit" class="kit-section">
+        <div class="kit-container">
+            <h2 class="kit-titulo">Kit do Explorador Celeste</h2>
+            <p class="kit-desc">
+                Ferramentas fundamentais para navegar seu céu interior e cartografar sua jornada existencial. 
+                Tudo que você precisa para começar sua exploração das constelações internas.
+            </p>
+            
+            <div class="kit-grid">
+                <div class="kit-item">
+                    <div class="kit-icone">🔭</div>
+                    <h4 class="kit-item-titulo">Telescópio Interior</h4>
+                    <p class="kit-item-desc">Exercícios de autopercepção e observação interna</p>
+                </div>
+
+                <div class="kit-item">
+                    <div class="kit-icone">🗺️</div>
+                    <h4 class="kit-item-titulo">Carta Celeste Pessoal</h4>
+                    <p class="kit-item-desc">Mapa de talentos, desafios e constelações internas</p>
+                </div>
+
+                <div class="kit-item">
+                    <div class="kit-icone">🧭</div>
+                    <h4 class="kit-item-titulo">Bússola Ética</h4>
+                    <p class="kit-item-desc">Ferramenta para tomada de decisões alinhadas</p>
+                </div>
+
+                <div class="kit-item">
+                    <div class="kit-icone">📐</div>
+                    <h4 class="kit-item-titulo">Astrolábio de Propósito</h4>
+                    <p class="kit-item-desc">Instrumento para navegação existencial</p>
+                </div>
+            </div>
+            
+            <a href="#" class="kit-cta">Comece Sua Jornada Celeste</a>
+        </div>
+    </section>
+
+    <!-- RODAPÉ -->
+    <footer>
+        <p>© 2024 Portal do Céu | Educação Que Reflete</p>
+        <p>Piracicaba SP · De família para família</p>
+        <div style="margin-top: 1rem;">
+            <a href="#">Instagram</a>
+            <a href="#">YouTube</a>
+            <a href="#">Contato</a>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll para o menu
+        document.querySelectorAll('.nav-item-celestial').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Efeito de digitação no slogan
+        const slogan = "Onde aprendemos a ler as constelações internas que guiam nossa jornada exterior";
+        let i = 0;
+        const speed = 50;
+
+        function typeWriter() {
+            if (i < slogan.length) {
+                document.querySelector(".logo-slogan-celestial").textContent += slogan.charAt(i);
+                i++;
+                setTimeout(typeWriter, speed);
+            }
+        }
+
+        // Iniciar quando a página carregar
+        window.addEventListener('load', () => {
+            document.querySelector(".logo-slogan-celestial").textContent = "";
+            typeWriter();
+        });
+    </script>
+</body>
+</html>
