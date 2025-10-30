@@ -264,6 +264,62 @@
             font-family: 'Montserrat', sans-serif;
         }
 
+        /* SEÇÃO DO VÍDEO */
+        .video-section {
+            background: linear-gradient(135deg, var(--cinza-claro) 0%, #ffffff 100%);
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .video-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .video-title {
+            font-size: 2.2rem;
+            color: var(--verde-natural);
+            margin-bottom: 2rem;
+            font-weight: 300;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .video-placeholder {
+            background: linear-gradient(135deg, var(--azul-reflexivo) 0%, var(--dourado-suave) 100%);
+            border-radius: 15px;
+            padding: 3rem;
+            color: #333;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .video-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .youtube-link {
+            display: inline-block;
+            background: #ff0000;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .youtube-link:hover {
+            background: #cc0000;
+            transform: scale(1.05);
+        }
+
         .container-quem-somos {
             max-width: 1200px;
             margin: 0 auto;
@@ -896,6 +952,14 @@
             .btn-escola {
                 width: 100%;
             }
+
+            .video-container {
+                padding: 1.5rem;
+            }
+
+            .video-placeholder {
+                padding: 2rem;
+            }
         }
 
         @media (max-width: 480px) {
@@ -921,11 +985,6 @@
                 padding: 1.5rem;
             }
 
-            .cta-button {
-                padding: 1rem 2rem;
-                font-size: 1rem;
-            }
-
             .card-unificado, .portal-card {
                 min-height: 380px;
             }
@@ -945,6 +1004,14 @@
             .form-contato {
                 padding: 1.5rem;
             }
+
+            .video-container {
+                padding: 1rem;
+            }
+
+            .video-placeholder {
+                padding: 1.5rem;
+            }
         }
     </style>
 </head>
@@ -957,6 +1024,10 @@
 
             <!-- Menu Desktop -->
             <div class="nav-menu">
+                <a href="#video" class="nav-item">
+                    <i class="fas fa-play-circle" aria-hidden="true"></i>
+                    <span>Apresentação</span>
+                </a>
                 <a href="#portais" class="nav-item">
                     <i class="fas fa-door-open" aria-hidden="true"></i>
                     <span>Nossos Portais</span>
@@ -988,6 +1059,10 @@
             <i class="fas fa-times"></i>
         </button>
         
+        <a href="#video" class="mobile-nav-item" onclick="fecharMenu()">
+            <i class="fas fa-play-circle" aria-hidden="true"></i>
+            <span>Apresentação</span>
+        </a>
         <a href="#portais" class="mobile-nav-item" onclick="fecharMenu()">
             <i class="fas fa-door-open" aria-hidden="true"></i>
             <span>Nossos Portais</span>
@@ -1021,6 +1096,25 @@
     </header>
 
     <main role="main">
+        <!-- SEÇÃO DO VÍDEO (TRANSPLANTADA) -->
+        <section id="video" class="video-section">
+            <div class="video-container">
+                <h2 class="video-title">Apresentação com Thaiara</h2>
+                <div class="video-placeholder">
+                    <div class="video-icon" aria-hidden="true">🎬</div>
+                    <h3>Vídeo de Apresentação</h3>
+                    <p>Em breve: Thaiara apresenta a visão do Educação Que Reflete</p>
+                    <p><small>Espaço reservado para embed do YouTube</small></p>
+                    <!-- FUTURO: Embed do YouTube aqui -->
+                    <!-- <iframe width="560" height="315" src="https://www.youtube.com/embed/SEU_CODIGO" frameborder="0" allowfullscreen></iframe> -->
+                    <a href="#" class="youtube-link" target="_blank" rel="noopener">
+                        <i class="fab fa-youtube" aria-hidden="true"></i> Acesse nosso Canal
+                    </a>
+                </div>
+                <p>Assista à Thaiara compartilhar nossa visão transformadora da educação</p>
+            </div>
+        </section>
+
         <!-- SEÇÃO DOS 3 PORTAIS -->
         <section id="portais" class="portais-section">
             <div class="section-container">
