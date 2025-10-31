@@ -659,25 +659,51 @@
             margin-right: 0.5rem;
         }
 
-        /* SEÇÃO ESCOLAS WALDORF */
+        /* SEÇÃO ESCOLAS WALDORF - CARDS EM LINHA ÚNICA */
         .escolas-section {
             padding: 4rem 2rem;
             background: linear-gradient(135deg, #f8f5f0 0%, #ffffff 100%);
         }
 
-        .escolas-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
+        .escolas-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .escolas-scroll-container {
+            display: flex;
+            overflow-x: auto;
+            gap: 25px;
+            padding: 20px 10px;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+            scrollbar-color: var(--azul-reflexivo) var(--bege-aconchegante);
+        }
+
+        .escolas-scroll-container::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .escolas-scroll-container::-webkit-scrollbar-track {
+            background: var(--bege-aconchegante);
+            border-radius: 10px;
+        }
+
+        .escolas-scroll-container::-webkit-scrollbar-thumb {
+            background: var(--azul-reflexivo);
+            border-radius: 10px;
         }
 
         .escola-card {
+            flex: 0 0 auto;
+            width: 320px;
             background: white;
             border-radius: 20px;
-            padding: 2.5rem;
+            padding: 2rem;
             text-align: center;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.1);
             transition: all 0.3s ease;
             border: 2px solid transparent;
             display: flex;
@@ -689,9 +715,9 @@
         }
 
         .escola-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-8px);
             border-color: var(--azul-reflexivo);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            box-shadow: 0 12px 20px rgba(0,0,0,0.15);
         }
 
         .escola-card::before {
@@ -788,6 +814,40 @@
 
         .btn-maps:hover {
             background: #8bb9d8;
+        }
+
+        .escolas-navigation {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .nav-btn {
+            background: var(--azul-reflexivo);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .nav-btn:hover {
+            background: var(--verde-natural);
+            transform: scale(1.1);
+        }
+
+        .nav-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
         }
 
         /* FORMULÁRIO DE CONTATO */
@@ -913,7 +973,7 @@
                 font-size: 2rem;
             }
             
-            .portais-grid, .cards-grid, .escolas-grid {
+            .portais-grid, .cards-grid {
                 grid-template-columns: 1fr;
             }
 
@@ -960,6 +1020,10 @@
             .video-placeholder {
                 padding: 2rem;
             }
+
+            .escola-card {
+                width: 280px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -991,6 +1055,7 @@
 
             .escola-card {
                 min-height: 420px;
+                width: 260px;
             }
 
             .nav-container {
@@ -1326,16 +1391,16 @@
             </div>
         </section>
 
-        <!-- SEÇÃO ESCOLAS WALDORF -->
+        <!-- SEÇÃO ESCOLAS WALDORF - CARDS EM LINHA ÚNICA -->
         <section id="escolas-waldorf" class="escolas-section">
-            <div class="section-container">
+            <div class="escolas-container">
                 <h2 class="section-title">Escolas Waldorf em Piracicaba</h2>
                 
                 <div style="text-align: center; max-width: 800px; margin: 0 auto 3rem auto;">
                     <p class="texto-centralizado">Em Piracicaba, temos escolas com uma proposta de educação que honra a infância, baseada na Antroposofia de Rudolf Steiner - onde o aprender nasce do afeto, da natureza e do respeito pelo desenvolvimento único de cada criança.</p>
                 </div>
 
-                <div class="escolas-grid">
+                <div class="escolas-scroll-container" id="escolas-scroll">
                     <!-- Jardim Amanari -->
                     <div class="escola-card">
                         <img src="imagens/escolas/amanari-logo.jpg" 
@@ -1442,6 +1507,15 @@
                             </button>
                         </div>
                     </div>
+                </div>
+
+                <div class="escolas-navigation">
+                    <button class="nav-btn" id="prevBtn" aria-label="Escolas anteriores">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="nav-btn" id="nextBtn" aria-label="Próximas escolas">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
                 </div>
             </div>
         </section>
@@ -1588,11 +1662,38 @@
             document.getElementById('form-contato-familia').reset();
         }
 
+        // Navegação dos cards de escolas
+        const escolasScroll = document.getElementById('escolas-scroll');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+
+        function atualizarBotoesNavegacao() {
+            prevBtn.disabled = escolasScroll.scrollLeft <= 0;
+            nextBtn.disabled = escolasScroll.scrollLeft + escolasScroll.clientWidth >= escolasScroll.scrollWidth - 1;
+        }
+
+        nextBtn.addEventListener('click', () => {
+            escolasScroll.scrollBy({
+                left: 350,
+                behavior: 'smooth'
+            });
+        });
+
+        prevBtn.addEventListener('click', () => {
+            escolasScroll.scrollBy({
+                left: -350,
+                behavior: 'smooth'
+            });
+        });
+
+        escolasScroll.addEventListener('scroll', atualizarBotoesNavegacao);
+
         // Inicializar quando a página carregar
         document.addEventListener('DOMContentLoaded', function() {
             document.querySelector(".logo-slogan").textContent = "";
             typeWriter();
             inicializarCurtidas();
+            atualizarBotoesNavegacao();
         });
     </script>
 </body>
