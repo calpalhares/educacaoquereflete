@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Educação Que Reflete | Antroposofia para o Lar</title>
+    <meta name="description" content="Aplicação prática dos princípios de Rudolf Steiner no ambiente familiar">
+    
+    <!-- SEO & Social Media -->
+    <meta property="og:title" content="Educação Que Reflete | Antroposofia para o Lar">
+    <meta property="og:description" content="Aplicação prática dos princípios de Rudolf Steiner no ambiente familiar">
+    <meta property="og:image" content="https://educacaoquereflete.com/imagens/og-image.jpg">
+    <meta property="og:url" content="https://educacaoquereflete.com">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Educação Que Reflete">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Educação Que Reflete">
+    <meta name="twitter:description" content="Antroposofia aplicada no dia a dia familiar">
+    <meta name="twitter:image" content="https://educacaoquereflete.com/imagens/twitter-image.jpg">
+    
+    <!-- Performance -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/componentes.css">
+    <link rel="stylesheet" href="css/responsivo.css">
+    <link rel="stylesheet" href="css/mobile-fix.css">
+    <link rel="stylesheet" href="css/acessibilidade.css">
+    
+    <!-- Schema.org -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "EducationalOrganization",
+        "name": "Educação Que Reflete",
+        "description": "Aplicação prática dos princípios de Rudolf Steiner no ambiente familiar",
+        "url": "https://educacaoquereflete.com",
+        "logo": "https://educacaoquereflete.com/imagens/logo.jpg",
+        "sameAs": [
+            "https://youtube.com/@educacaoquereflete",
+            "https://instagram.com/educacaoquereflete",
+            "https://tiktok.com/@educacaoquereflete"
+        ],
+        "founder": {
+            "@type": "Person",
+            "name": "Equipe Educação Que Reflete"
+        },
+        "areaServed": "Brasil"
+    }
+    </script>
+    
+    <!-- PREVENÇÃO DE CACHE -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        if (!window.location.search.includes('v=')) {
+            const newUrl = window.location.href + (window.location.search ? '&' : '?') + 'v=' + Date.now();
+            window.history.replaceState(null, null, newUrl);
+        }
+    });
+    </script>
+    <script src="js/mobile-menu.js" defer></script>
+	<style>
+	/* ===== SOBRESCREVER TODOS OS ESTILOS ANTERIORES ===== */
+	.nav-toggle {
+	    display: none !important;
+	    flex-direction: column !important;
+	    justify-content: center !important;
+	    align-items: center !important;
+	    width: 44px !important;
+	    height: 44px !important;
+	    background: #2196F3 !important;
+	    border: 2px solid #1976D2 !important;
+	    border-radius: 4px !important;
+	    cursor: pointer !important;
+	    padding: 8px !important;
+	    position: relative !important;
+	    z-index: 10000 !important;
+	    margin-left: auto !important;
+	}
+
+	.hamburger {
+	    width: 24px !important;
+	    height: 3px !important;
+	    background: white !important;
+	    margin: 2px 0 !important;
+	    transition: all 0.3s ease !important;
+	    transform-origin: center !important;
+	    border-radius: 2px !important;
+	    display: block !important;
+	}
+
+	/* Menu mobile */
+	.nav-menu {
+	    display: flex !important;
+	    gap: 0.5rem !important;
+	    align-items: center !important;
+	}
+
+	/* ===== MOBILE - FORÇAR VISIBILIDADE ===== */
+	@media (max-width: 768px) {
+	    .nav-toggle {
+		display: flex !important;
+		opacity: 1 !important;
+		visibility: visible !important;
+	    }
+	    
+	    .nav-menu {
+		position: fixed !important;
+		top: 0 !important;
+		right: -100% !important;
+		width: 280px !important;
+		height: 100vh !important;
+		background: white !important;
+		flex-direction: column !important;
+		justify-content: flex-start !important;
+		align-items: stretch !important;
+		padding: 80px 20px 20px !important;
+		box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1) !important;
+		transition: right 0.3s ease !important;
+		z-index: 9999 !important;
+	    }
+	    
+	    .nav-menu.active {
+		right: 0 !important;
+	    }
+	    
+	    .nav-item {
+		padding: 12px 16px !important;
+		border-bottom: 1px solid #f0f0f0 !important;
+		text-decoration: none !important;
+		color: #333 !important;
+		display: flex !important;
+		align-items: center !important;
+		gap: 12px !important;
+		font-size: 16px !important;
+	    }
+	    
+	    /* Overlay */
+	    .nav-menu::before {
+		content: '' !important;
+		position: fixed !important;
+		top: 0 !important;
+		left: 0 !important;
+		width: 100vw !important;
+		height: 100vh !important;
+		background: rgba(0, 0, 0, 0.5) !important;
+		z-index: -1 !important;
+		opacity: 0;
+		transition: opacity 0.3s ease !important;
+	    }
+	    
+	    .nav-menu.active::before {
+		opacity: 1 !important;
+	    }
+	}
+
+	/* ===== ANIMAÇÃO HAMBURGER ===== */
+	.nav-toggle[aria-expanded="true"] .hamburger:nth-child(1) {
+	    transform: rotate(45deg) translate(6px, 6px) !important;
+	}
+
+	.nav-toggle[aria-expanded="true"] .hamburger:nth-child(2) {
+	    opacity: 0 !important;
+	}
+
+	.nav-toggle[aria-expanded="true"] .hamburger:nth-child(3) {
+	    transform: rotate(-45deg) translate(6px, -6px) !important;
+	}
+	</style>
+</head>
+<body>
+    <!-- NAVEGAÇÃO -->
+    <nav class="nav-principal" role="navigation" aria-label="Navegação principal">
+        <div class="nav-container">
+            <a href="#inicio" class="logo-menu">Educação Que Reflete</a>
+            
+            <button class="nav-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav-menu">
+                <span class="hamburger" aria-hidden="true"></span>
+                <span class="hamburger" aria-hidden="true"></span>
+                <span class="hamburger" aria-hidden="true"></span>
+            </button>
+            
+            <div class="nav-menu" id="nav-menu">
+                <a href="#inicio" class="nav-item"><i class="fas fa-home" aria-hidden="true"></i> Início</a>
+                <a href="#videos" class="nav-item"><i class="fas fa-play-circle" aria-hidden="true"></i> Vídeos</a>
+                <a href="#portais" class="nav-item"><i class="fas fa-door-open" aria-hidden="true"></i> Portais</a>
+                <a href="#familia" class="nav-item"><i class="fas fa-heart" aria-hidden="true"></i> Família</a>
+                <a href="#escolas" class="nav-item"><i class="fas fa-school" aria-hidden="true"></i> Escolas</a>
+                <a href="#contato" class="nav-item"><i class="fas fa-envelope" aria-hidden="true"></i> Contato</a>
+                
+                <!-- REDES SOCIAIS -->
+                <a href="https://youtube.com/@educacaoquereflete" target="_blank" class="nav-item social-item" title="YouTube" aria-label="Siga-nos no YouTube (abre nova janela)">
+                    <i class="fab fa-youtube" aria-hidden="true"></i>
+                </a>
+                <a href="https://instagram.com/educacaoquereflete" target="_blank" class="nav-item social-item" title="Instagram" aria-label="Siga-nos no Instagram (abre nova janela)">
+                    <i class="fab fa-instagram" aria-hidden="true"></i>
+                </a>
+                <a href="https://tiktok.com/@educacaoquereflete" target="_blank" class="nav-item social-item" title="TikTok" aria-label="Siga-nos no TikTok (abre nova janela)">
+                    <i class="fab fa-tiktok" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section id="inicio" class="hero-image" role="banner" aria-label="Imagem principal da família">
+        <img src="imagens/hero/familia-hero.jpg" alt="Família praticando educação antroposófica" loading="eager" width="1920" height="1080">
+        <div class="hero-overlay">
+            <div class="hero-text">
+                <h1>Educação Que Reflete</h1>
+                <p>Antroposofia aplicada no dia a dia familiar</p>
+                <div class="hero-destaque">"Os Três Espelhos do Desenvolvimento Infantil"</div>
+                <p>Descubra nossa série completa sobre os setênios na educação familiar</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTEÚDO DINÂMICO COM FALLBACK -->
+    <div id="conteudo-dinamico">
+        <div class="conteudo-fallback">
+            <h2>Educação Que Reflete</h2>
+            <p>Conteúdo carregando... Por favor, aguarde.</p>
+            <div class="loading-spinner" aria-hidden="true"></div>
+            <p class="fallback-text">Se o conteúdo não carregar, <a href="#contato">entre em contato conosco</a>.</p>
+        </div>
+    </div>
+
+    <!-- REDES SOCIAIS NO FOOTER -->
+    <section class="redes-footer" role="contentinfo" aria-label="Redes sociais">
+        <div class="container">
+            <h3 class="section-title">Siga-nos nas Redes Sociais</h3>
+            <div class="redes-sociais-footer">
+                <a href="https://facebook.com/educacaoquereflete" target="_blank" class="rede-social-link" title="Facebook" aria-label="Siga-nos no Facebook (abre nova janela)">
+                    <i class="fab fa-facebook-f" aria-hidden="true"></i>
+                    <span>Facebook</span>
+                </a>
+                <a href="https://instagram.com/educacaoquereflete" target="_blank" class="rede-social-link" title="Instagram" aria-label="Siga-nos no Instagram (abre nova janela)">
+                    <i class="fab fa-instagram" aria-hidden="true"></i>
+                    <span>Instagram</span>
+                </a>
+                <a href="https://youtube.com/@educacaoquereflete" target="_blank" class="rede-social-link" title="YouTube" aria-label="Siga-nos no YouTube (abre nova janela)">
+                    <i class="fab fa-youtube" aria-hidden="true"></i>
+                    <span>YouTube</span>
+                </a>
+                <a href="https://tiktok.com/@educacaoquereflete" target="_blank" class="rede-social-link" title="TikTok" aria-label="Siga-nos no TikTok (abre nova janela)">
+                    <i class="fab fa-tiktok" aria-hidden="true"></i>
+                    <span>TikTok</span>
+                </a>
+            </div>
+            <p class="redes-descricao">Acompanhe nosso dia a dia, dicas e conteúdos exclusivos!</p>
+        </div>
+    </section>
+
+    <!-- JavaScript -->
+    <script src="js/acessibilidade.js" defer></script>
+    <script src="js/carregar-conteudo.js" defer></script>
+	<script>
+	// ===== MENU MOBILE - SOBRESCREVER TUDO =====
+	document.addEventListener('DOMContentLoaded', function() {
+	    console.log('🚀 Iniciando menu mobile...');
+	    
+	    const navToggle = document.querySelector('.nav-toggle');
+	    const navMenu = document.querySelector('.nav-menu');
+	    const body = document.body;
+	    
+	    console.log('Toggle:', navToggle);
+	    console.log('Menu:', navMenu);
+	    
+	    if (!navToggle || !navMenu) {
+		console.error('❌ Elementos não encontrados!');
+		return;
+	    }
+	    
+	    // Forçar estilos iniciais
+	    navToggle.style.display = 'none';
+	    navToggle.setAttribute('aria-expanded', 'false');
+	    navToggle.setAttribute('aria-label', 'Abrir menu');
+	    
+	    // Verificar se estamos em mobile
+	    function isMobile() {
+		return window.innerWidth <= 768;
+	    }
+	    
+	    // Mostrar/ocultar toggle baseado no tamanho da tela
+	    function updateToggleVisibility() {
+		if (isMobile()) {
+		    navToggle.style.display = 'flex';
+		} else {
+		    navToggle.style.display = 'none';
+		    navMenu.classList.remove('active');
+		    navToggle.setAttribute('aria-expanded', 'false');
+		}
+	    }
+	    
+	    // Toggle do menu
+	    function toggleMenu() {
+		const isExpanded = navToggle.getAttribute('aria-expanded') === 'true';
+		
+		if (isExpanded) {
+		    // Fechar menu
+		    navMenu.classList.remove('active');
+		    navToggle.setAttribute('aria-expanded', 'false');
+		    navToggle.setAttribute('aria-label', 'Abrir menu');
+		    body.style.overflow = '';
+		} else {
+		    // Abrir menu
+		    navMenu.classList.add('active');
+		    navToggle.setAttribute('aria-expanded', 'true');
+		    navToggle.setAttribute('aria-label', 'Fechar menu');
+		    body.style.overflow = 'hidden';
+		}
+		
+		console.log('Menu:', isExpanded ? 'fechado' : 'aberto');
+	    }
+	    
+	    // Event listeners
+	    navToggle.addEventListener('click', function(e) {
+		e.preventDefault();
+		e.stopPropagation();
+		toggleMenu();
+	    });
+	    
+	    // Fechar menu ao clicar em links
+	    navMenu.addEventListener('click', function(e) {
+		if (e.target.closest('.nav-item')) {
+		    setTimeout(() => {
+		        navMenu.classList.remove('active');
+		        navToggle.setAttribute('aria-expanded', 'false');
+		        navToggle.setAttribute('aria-label', 'Abrir menu');
+		        body.style.overflow = '';
+		    }, 300);
+		}
+	    });
+	    
+	    // Fechar menu ao redimensionar para desktop
+	    window.addEventListener('resize', updateToggleVisibility);
+	    
+	    // Inicializar
+	    updateToggleVisibility();
+	    
+	    console.log('✅ Menu mobile carregado!');
+	    
+	    // Debug: verificar estilos aplicados
+	    setTimeout(() => {
+		const style = window.getComputedStyle(navToggle);
+		console.log('📱 Status final do toggle:', {
+		    display: style.display,
+		    visibility: style.visibility,
+		    opacity: style.opacity
+		});
+	    }, 1000);
+	});
+
+	// Fallback ultra simples
+	window.addEventListener('load', function() {
+	    const toggle = document.querySelector('.nav-toggle');
+	    const menu = document.querySelector('.nav-menu');
+	    
+	    if (toggle && menu) {
+		toggle.onclick = function() {
+		    menu.classList.toggle('active');
+		};
+	    }
+	});
+	</script>
+</body>
+</html>
