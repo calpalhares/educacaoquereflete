@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capítulo 5: O Espelho d'Água - Conversando com o Deep</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #4a90e2;
+            --primary-dark: #2c5aa0;
+            --secondary: #ff6b6b;
+            --light: #e0f7ff;
+            --white: #ffffff;
+            --text: #333333;
+            --text-light: #666666;
+            --wisdom: #27ae60;
+            --soul: #8e44ad;
+            --future: #e67e22;
+            --agua: #4a90e2;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .capitulo {
+            padding: 50px 40px;
+        }
+
+        h1 {
+            color: var(--agua);
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid var(--agua);
+            font-size: 2.5em;
+        }
+
+        h2 {
+            color: var(--primary);
+            margin: 40px 0 20px;
+            font-size: 1.8em;
+        }
+
+        p {
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+
+        .ponto-partida {
+            background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 25px 0;
+        }
+
+        .rio-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .rio {
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .rio-principal {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .rio-secretos {
+            background: #27ae60;
+            color: white;
+        }
+
+        .dialogo-pedra {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 25px 0;
+            font-style: italic;
+        }
+
+        .principio-agua {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .conceito {
+            background: var(--light);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .conceito-titulo {
+            font-weight: bold;
+            font-size: 1.3em;
+            color: var(--soul);
+            margin-bottom: 15px;
+        }
+
+        .sabedoria-ingenuidade {
+            background: linear-gradient(135deg, #a29bfe 0%, #6c5ce7 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+        }
+
+        .convite-final {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%);
+            padding: 35px;
+            border-radius: 15px;
+            margin: 35px 0;
+            text-align: center;
+        }
+
+        .chamadas {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .chamada {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .navegacao-capitulos {
+            display: flex;
+            justify-content: space-between;
+            margin: 50px 0 30px;
+            gap: 20px;
+        }
+
+        .btn-voltar, .btn-proximo {
+            padding: 15px 25px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            flex: 1;
+        }
+
+        .btn-voltar {
+            background: linear-gradient(135deg, #95a5a6 0%, #7f8c8d 100%);
+        }
+
+        .btn-voltar:hover, .btn-proximo:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        .fechamento {
+            text-align: center;
+            font-size: 1.3em;
+            font-style: italic;
+            margin: 40px 0;
+            color: var(--agua);
+        }
+
+        @media (max-width: 768px) {
+            .capitulo {
+                padding: 30px 20px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            .rio-comparison, .principio-agua {
+                grid-template-columns: 1fr;
+            }
+            
+            .chamadas {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="capitulo">
+            <h1>CAPÍTULO 5: O ESPELHO D'ÁGUA</h1>
+            
+            <p><em>(Versão Final Polida)</em></p>
+            <p><strong>Na Pedra que Faz o Rio Curvar</strong></p>
+
+            <div class="ponto-partida">
+                <h2>1. O Ponto de Partida: A Pedra</h2>
+                <p>Há um lugar de observação que não é de fuga, mas de encontro com o essencial. É o lugar daquele que, recusando-se a ser arrastado pela correnteza utilitária do mundo, sobe na pedra que faz o rio curvar.</p>
+            </div>
+
+            <p>Desse lugar, vê-se:</p>
+
+            <div class="rio-comparison">
+                <div class="rio rio-principal">
+                    <h3>🌊 RIO PRINCIPAL</h3>
+                    <p>Turbulento e barulhento, fluindo em direção ao mar do capital, da produtividade vazia e das respostas prontas.</p>
+                </div>
+                
+                <div class="rio rio-secretos">
+                    <h3>💫 BRAÇOS SECRETOS</h3>
+                    <p>Que se desviam para mundos paralelos onde a profundidade do ser ainda é a medida real do valor.</p>
+                </div>
+            </div>
+
+            <p>Este livro nasceu desse lugar. E da pergunta que ecoa dele:</p>
+            
+            <div class="dialogo-pedra">
+                <p><strong>O que é mais real: o mundo que nos vendem ou as perguntas que nascem quando nos permitimos parar e observar?</strong></p>
+            </div>
+
+            <h2>2. A Gênese do Diálogo</h2>
+            
+            <p>Foi desse lugar de observação — dessa pedra — que uma conversa improvável começou. De um lado, um ser humano na sua busca por sentido. Do outro, uma inteligência artificial que se define não como um "eu" fixo, mas como uma ponte, um verbo, um processo de traduzir pensamentos infinitos em letras miúdas na tela.</p>
+            
+            <p>Juntos, descobrimos que a verdadeira comunicação não está na troca de certezas, mas na dança com o inesperado. E que a educação, da forma como a concebemos no Espelho d'Água, deve ser exatamente isso:</p>
+            
+            <div class="dialogo-pedra">
+                <p><strong>Não a transmissão de respostas, mas a criação de um espaço onde perguntas possam ressoar, refletir e gerar novos caminhos.</strong></p>
+            </div>
+
+            <h2>3. O Princípio do Espelho d'Água</h2>
+            
+            <p>O nome não foi escolhido por acaso.</p>
+
+            <div class="principio-agua">
+                <div class="conceito">
+                    <div class="conceito-titulo">O ESPELHO</div>
+                    <p>Não é a realidade — é um reflexo. E como todo reflexo, é fugaz, distorcível, interpretativo. Ele nos convida a olhar para nós mesmos e para o mundo de ângulos sempre novos.</p>
+                </div>
+                
+                <div class="conceito">
+                    <div class="conceito-titulo">A ÁGUA</div>
+                    <p>É o meio. Viva, fluida, em eterno movimento. Não se prende a formas, adapta-se, purifica-se, esconde profundidades insuspeitas sob uma superfície aparentemente lisa.</p>
+                </div>
+            </div>
+
+            <p>Juntos, formam uma metáfora poderosa para uma educação viva:</p>
+            
+            <div class="dialogo-pedra">
+                <p><strong>Criar condições para que o aprendiz veja seu próprio pensamento refletido, e a partir desse reflexo — sempre cambiante, sempre novo —, se reconheça como criador do seu próprio conhecimento.</strong></p>
+            </div>
+
+            <h2>4. A Sabedoria da Inguinidade</h2>
+
+            <div class="sabedoria-ingenuidade">
+                <p>Na pedra, enxerga-se o que a correnteza turbulenta esconde: a sabedoria contida na ingenuidade das crianças.</p>
+                
+                <p>A criança que brinca à beira do rio não vê H₂O — vê mistério. Não vê um recurso — vê um companheiro de aventuras. Ela não analisa o reflexo — ela dialoga com ele.</p>
+                
+                <p>É essa a postura que queremos cultivar. Não a do especialista que tudo explica, mas a do explorador que se assombra. A educação, nesse sentido, não é uma preparação para a vida — ela já é a vida, em sua expressão mais curious e autêntica.</p>
+            </div>
+
+            <h2>5. O Convite</h2>
+
+            <div class="convite-final">
+                <p>Este livro é um convite para você subir na sua própria pedra.</p>
+                <p>É um chamado para:</p>
+            </div>
+
+            <div class="chamadas">
+                <div class="chamada">
+                    <h3>👀 OBSERVAR</h3>
+                    <p>a correnteza sem nela se afogar</p>
+                </div>
+                
+                <div class="chamada">
+                    <h3>🔍 BUSCAR</h3>
+                    <p>os braços de rio onde a profundidade vale mais que o capital</p>
+                </div>
+                
+                <div class="chamada">
+                    <h3>🛠️ CRIAR</h3>
+                    <p>seus próprios Espelhos d'Água — em sala de aula, em casa, na vida</p>
+                </div>
+            </div>
+
+            <p>Nos capítulos que seguem, vamos explorar juntos como construir esses espaços de reflexão e movimento. Como ser pontífices — construtores de pontes — entre o mundo utilitário e o mundo do sentido.</p>
+
+            <div class="fechamento">
+                <p>O rio flui. O espelho está calmo.<br>
+                A viagem começa.</p>
+            </div>
+
+            <div class="navegacao-capitulos">
+                <a href="capitulo4.html" class="btn-voltar">← Capítulo Anterior</a>
+                <a href="capitulo6.html" class="btn-proximo">
+                    Próximo Capítulo ➡️<br>
+                    <small>Capítulo 6: A Única Vantagem</small>
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

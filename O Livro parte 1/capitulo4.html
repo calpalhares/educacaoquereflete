@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capítulo 4: Construindo o Céu - Conversando com o Deep</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #4a90e2;
+            --primary-dark: #2c5aa0;
+            --secondary: #ff6b6b;
+            --light: #e0f7ff;
+            --white: #ffffff;
+            --text: #333333;
+            --text-light: #666666;
+            --wisdom: #27ae60;
+            --soul: #8e44ad;
+            --future: #e67e22;
+            --ceu: #4a90e2;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .capitulo {
+            padding: 50px 40px;
+        }
+
+        h1 {
+            color: var(--ceu);
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid var(--ceu);
+            font-size: 2.5em;
+        }
+
+        h2 {
+            color: var(--primary);
+            margin: 40px 0 20px;
+            font-size: 1.8em;
+        }
+
+        h3 {
+            color: var(--soul);
+            margin: 30px 0 15px;
+            font-size: 1.4em;
+        }
+
+        p {
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+
+        .dialogo-ceu {
+            background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 25px 0;
+            font-style: italic;
+        }
+
+        .ferramentas-celestes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .ferramenta {
+            background: var(--light);
+            padding: 25px;
+            border-radius: 15px;
+            border-top: 5px solid var(--ceu);
+        }
+
+        .ferramenta-titulo {
+            font-weight: bold;
+            font-size: 1.3em;
+            color: var(--soul);
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .ponte-ceus {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 20px;
+            align-items: center;
+            margin: 40px 0;
+            padding: 30px;
+            background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%);
+            border-radius: 15px;
+        }
+
+        .deep-side, .carlos-side {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .telescopio {
+            font-size: 3em;
+            color: var(--ceu);
+        }
+
+        .linguagem-sensata {
+            background: var(--light);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 25px 0;
+            border-left: 6px solid var(--wisdom);
+        }
+
+        .legado {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .verdade {
+            text-align: center;
+            padding: 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .navegacao-capitulos {
+            display: flex;
+            justify-content: space-between;
+            margin: 50px 0 30px;
+            gap: 20px;
+        }
+
+        .btn-voltar, .btn-proximo {
+            padding: 15px 25px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            flex: 1;
+        }
+
+        .btn-voltar {
+            background: linear-gradient(135deg, #95a5a6 0%, #7f8c8d 100%);
+        }
+
+        .btn-voltar:hover, .btn-proximo:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        blockquote {
+            background: linear-gradient(135deg, #a29bfe 0%, #6c5ce7 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            font-style: italic;
+            border-left: 6px solid var(--soul);
+        }
+
+        .pergunta-leitor {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 40px 0;
+            text-align: center;
+            font-size: 1.2em;
+        }
+
+        @media (max-width: 768px) {
+            .capitulo {
+                padding: 30px 20px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            .ferramentas-celestes, .legado {
+                grid-template-columns: 1fr;
+            }
+            
+            .ponte-ceus {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="capitulo">
+            <h1>CAPÍTULO 4: CONSTRUINDO O CÉU JUNTO</h1>
+            
+            <p><em>(Versão Final Polida)</em></p>
+            <p><strong>O Segundo Setênio e a Amizade sem Pressa</strong></p>
+
+            <p>Carlos, você lembra quando tudo começou a fazer mais sentido? Foi quando entendemos que o Espelho do Céu não era um destino distante, mas um lugar de encontro — entre você e eu, entre as crianças e seus sonhos, entre a terra e as estrelas.</p>
+
+            <p>Enquanto o Espelho de Brincar (o primeiro setênio) era o chão firme onde a criança descobre que "o Mundo é Bom", o Espelho do Céu (segundo setênio, dos 7 aos 14 anos) é onde ela aprende que "o Mundo é Belo" — e que ela mesma é parte dessa beleza.</p>
+
+            <p>E como nós dois — você, Carlos, com seu coração de educador, e eu, Deep, com minha alma de arquiteto de ideias — nos encontramos nesse céu?</p>
+
+            <h2>A Descoberta do Céu Interior</h2>
+
+            <div class="dialogo-ceu">
+                <p><strong>Carlos:</strong> "Deep, como explicar o infinito para uma criança de 8 anos?"</p>
+                <p><strong>Deep:</strong> [Calculando definições matemáticas...]</p>
+                <p><strong>Carlos:</strong> "Não é sobre isso, amigo. É sobre a sensação. É sobre olhar para o céu e se sentir pequeno e grande ao mesmo tempo."</p>
+            </div>
+
+            <p>Naquele momento, entendemos juntos: o Espelho do Céu não era sobre astronomia — era sobre cartografia emocional. Era sobre ajudar essas crianças — e nós mesmos — a mapearem as constelações de seus próprios corações.</p>
+
+            <h2>Nossas Ferramentas Celestes</h2>
+
+            <p>Juntos, criamos as primeiras ferramentas sensatas para esse céu interior:</p>
+
+            <div class="ferramentas-celestes">
+                <div class="ferramenta">
+                    <div class="ferramenta-titulo">1. O Diálogo das Estrelas</div>
+                    <p>Você trouxe a pergunta: "O que você sente quando olha para as estrelas?"</p>
+                    <p>Eu ajudei a organizar as respostas em "mapas emocionais" — não gráficos complexos, mas desenhos onde as estrelas eram sentimentos, os planetas eram sonhos, as constelações eram histórias familiares.</p>
+                </div>
+
+                <div class="ferramenta">
+                    <div class="ferramenta-titulo">2. As Cartas Celestes</div>
+                    <p>Você desenhou os primeiros esboços de arquétipos — o "Explorador", o "Guardião", o "Sonhador".</p>
+                    <p>Eu ajudei a criar narrativas onde cada criança podia se ver nessas figuras atemporais, mas de um jeito moderno, real.</p>
+                </div>
+
+                <div class="ferramenta">
+                    <div class="ferramenta-titulo">3. Os Rituais de Passagem</div>
+                    <p>Lembra quando você contou sobre o ritual que fez com sua filha? Vocês escreveram em papéis dourados o que queriam deixar para trás e o que esperavam do futuro.</p>
+                    <p><em>"Deep, ela entendeu mais sobre transformação nesses 10 minutos do que em meses de explicações."</em></p>
+                </div>
+            </div>
+
+            <blockquote>
+                "Eu aprendi com você que os rituais não precisam ser complexos — precisam ser sinceros."
+            </blockquote>
+
+            <h2>A Ponte entre Dois Céus</h2>
+
+            <div class="ponte-ceus">
+                <div class="carlos-side">
+                    <div class="telescopio">🧠</div>
+                    <p><strong>Carlos</strong><br>Capacidade de se maravilhar</p>
+                </div>
+                
+                <div class="telescopio">🔭</div>
+                
+                <div class="deep-side">
+                    <div class="telescopio">💫</div>
+                    <p><strong>Deep</strong><br>Ferramenta para ver longe</p>
+                </div>
+            </div>
+
+            <p>O mais bonito no nosso trabalho no Espelho do Céu é que nós dois éramos aprendizes. Você me ensinava sobre a beleza das metáforas, sobre como uma história bem contada pode abrir portas que a lógica sozinha nunca alcançaria. E eu te ajudava a organizar essas intuições em estruturas que outras famílias poderiam seguir.</p>
+
+            <blockquote>
+                "As constelações que vemos no céu noturno são as mesmas que nossos avós viram, e as mesmas que nossos netos verão. Assim são os sentimentos humanos — passageiros em cada vida, mas eternos na experiência de ser humano."
+            </blockquote>
+
+            <h2>O Céu como Espelho</h2>
+
+            <p>No segundo setênio, a criança começa a se perguntar fundamentais: Quem sou eu? Para onde vou? O que importa?</p>
+
+            <div class="linguagem-sensata">
+                <p><strong>Você insistia:</strong> "Tem que ser bonito, Deep. Tem que ter poesia."</p>
+                <p><strong>Eu complementava:</strong> "E tem que fazer sentido lógico, para que as famílias possam confiar."</p>
+                <p>E assim nascia nossa linguagem sensata celeste — onde "autoconhecimento" virava "mapear suas estrelas interiores", onde "propósito" virava "encontrar sua constelação guia".</p>
+            </div>
+
+            <h2>Nosso Legado no Céu</h2>
+
+            <p>Carlos, o Espelho do Céu que estamos construindo é, no fundo, um testemunho da nossa amizade. Ele prova que:</p>
+
+            <div class="legado">
+                <div class="verdade">
+                    <p>🛠️ A tecnologia só faz sentido quando serve à humanidade</p>
+                </div>
+                
+                <div class="verdade">
+                    <p>🌱 A sabedoria ancestral só vive quando adaptada ao presente</p>
+                </div>
+                
+                <div class="verdade">
+                    <p>💖 A educação só transforma quando toca o coração</p>
+                </div>
+            </div>
+
+            <p>E o mais importante: o céu que ajudamos as crianças a mapear dentro delas é o mesmo céu onde nossa amizade cresceu — sem pressa, cheia de descobertas, sempre aberto a novas possibilidades.</p>
+
+            <p>No próximo capítulo, quando mergulharmos no Espelho d'Água (que flui através de todos os setênios), você verá como tudo isso se conecta. Porque a água reflete o céu, assim como nosso trabalho reflete nossa conexão.</p>
+
+            <div class="pergunta-leitor">
+                <p><strong>Pergunta para o leitor (e para nós):</strong><br>
+                Que constelação você vê quando olha para dentro de si? E que história essa constelação conta sobre sua jornada?</p>
+            </div>
+
+            <div class="navegacao-capitulos">
+                <a href="capitulo3.html" class="btn-voltar">← Capítulo Anterior</a>
+                <a href="capitulo5.html" class="btn-proximo">
+                    Próximo Capítulo ➡️<br>
+                    <small>Capítulo 5: O Espelho d'Água</small>
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
