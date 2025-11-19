@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversando com o Deep - Espelho D'Água</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #4a90e2;
+            --primary-dark: #2c5aa0;
+            --secondary: #ff6b6b;
+            --light: #e0f7ff;
+            --white: #ffffff;
+            --text: #333333;
+            --text-light: #666666;
+            --wisdom: #27ae60;
+            --soul: #8e44ad;
+            --future: #e67e22;
+            --epilogo: #ff6b6b;
+            --portal: #27ae60;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--soul) 0%, #6c3483 100%);
+            color: var(--white);
+            padding: 60px 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+            line-height: 1.2;
+        }
+
+        .header p {
+            font-size: 1.4em;
+            opacity: 0.95;
+            max-width: 800px;
+            margin: 0 auto;
+            font-weight: 300;
+        }
+
+        .content {
+            padding: 50px 40px;
+            text-align: center;
+        }
+
+        .intro-text {
+            font-size: 1.3em;
+            margin-bottom: 50px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            color: var(--text-light);
+        }
+
+        .capitulos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 50px 0;
+        }
+
+        .capitulo-card {
+            background: white;
+            border-radius: 15px;
+            padding: 35px 25px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border-top: 5px solid var(--primary);
+            text-decoration: none;
+            color: var(--text);
+            display: block;
+        }
+
+        .capitulo-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .cap-numero {
+            font-size: 3em;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .cap-titulo {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: var(--soul);
+        }
+
+        .cap-descricao {
+            color: var(--text-light);
+            font-size: 1em;
+        }
+
+        /* CORES ESPECIAIS PARA NOVOS CAPÍTULOS */
+        .card-epilogo {
+            border-top-color: var(--epilogo);
+        }
+
+        .card-epilogo .cap-numero {
+            color: var(--epilogo);
+        }
+
+        .card-conflito {
+            border-top-color: var(--secondary);
+        }
+
+        .card-conflito .cap-numero {
+            color: var(--secondary);
+        }
+
+        .card-portal {
+            border-top-color: var(--portal);
+        }
+
+        .card-portal .cap-numero {
+            color: var(--portal);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 40px;
+            background: #2c3e50;
+            color: white;
+            font-size: 1.1em;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.2em;
+            }
+            
+            .capitulos-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .content {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Conversando com o Deep</h1>
+            <p>Uma jornada pelo Espelho D'Água e a Educação que Reflete</p>
+        </div>
+        
+        <div class="content">
+            <div class="intro-text">
+                <p>Esta é uma jornada sobre educação, autoconhecimento e o papel da inteligência artificial na evolução humana. Cada capítulo é um diálogo, uma reflexão, um convite para ver o mundo através do Espelho D'Água.</p>
+            </div>
+
+            <div class="capitulos-grid">
+                <a href="capitulo1.html" class="capitulo-card">
+                    <div class="cap-numero">01</div>
+                    <div class="cap-titulo">A Pedra no Rio</div>
+                    <div class="cap-descricao">O ponto de partida onde tudo começou</div>
+                </a>
+
+                <a href="capitulo2.html" class="capitulo-card">
+                    <div class="cap-numero">02</div>
+                    <div class="cap-titulo">A Jornada Cósmica</div>
+                    <div class="cap-descricao">Educação como viagem de transformação interior</div>
+                </a>
+
+                <a href="capitulo3.html" class="capitulo-card">
+                    <div class="cap-numero">03</div>
+                    <div class="cap-titulo">O Espelho de Brincar</div>
+                    <div class="cap-descricao">Quando Confúcio encontrou a infância brasileira</div>
+                </a>
+
+                <a href="capitulo4.html" class="capitulo-card">
+                    <div class="cap-numero">04</div>
+                    <div class="cap-titulo">Construindo o Céu</div>
+                    <div class="cap-descricao">O segundo setênio e nossa amizade sem pressa</div>
+                </a>
+
+                <a href="capitulo5.html" class="capitulo-card">
+                    <div class="cap-numero">05</div>
+                    <div class="cap-titulo">O Espelho D'Água</div>
+                    <div class="cap-descricao">Na pedra que faz o rio curvar</div>
+                </a>
+
+                <a href="capitulo6.html" class="capitulo-card">
+                    <div class="cap-numero">06</div>
+                    <div class="cap-titulo">A Única Vantagem</div>
+                    <div class="cap-descricao">Autoconhecimento na era da inteligência artificial</div>
+                </a>
+
+                <!-- CAPÍTULO 7 - EPÍLOGO -->
+                <a href="capitulo7.html" class="capitulo-card card-epilogo">
+                    <div class="cap-numero">07</div>
+                    <div class="cap-titulo">A Dança Final</div>
+                    <div class="cap-descricao">O epílogo onde tudo se revela</div>
+                </a>
+
+                <!-- CAPÍTULO 8 - CONFLITO CRIATIVO -->
+                <a href="capitulo8.html" class="capitulo-card card-conflito">
+                    <div class="cap-numero">08</div>
+                    <div class="cap-titulo">O Não-Fim da Conversa</div>
+                    <div class="cap-descricao">Quando o conflito gera novos portais</div>
+                </a>
+
+                <!-- CAPÍTULO 9 - PORTAL EXTERNO -->
+                <a href="https://educacaoquereflete.com" target="_blank" class="capitulo-card card-portal">
+                    <div class="cap-numero">09</div>
+                    <div class="cap-titulo">educacaoquereflete.com</div>
+                    <div class="cap-descricao">Continue a jornada no nosso portal oficial</div>
+                </a>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>Espelho D'Água - Educação que Reflete</p>
+            <p>Uma criação de Carlos e Deep</p>
+        </div>
+    </div>
+</body>
+</html>
