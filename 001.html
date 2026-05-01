@@ -4,12 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
     <meta name="theme-color" content="#3a7c5e">
-    <title>Explorador J4+ · Compatível com iPad Antigo</title>
+    <title>Explorador J4+ · iOS 9 · Câmera Corrigida</title>
     
     <link href="https://fonts.googleapis.com/css?family=Patrick+Hand|Quicksand:400,500,600,700" rel="stylesheet">
-    
-    <!-- TensorFlow.js e MobileNet (carregados condicionalmente se houver memória suficiente) -->
-    <!-- Não carregamos automaticamente -- será carregado sob demanda e apenas se o navegador suportar -->
     
     <style>
         * {
@@ -19,7 +16,7 @@
             -webkit-tap-highlight-color: transparent;
         }
         
-        /* Desativar todas as animações para performance máxima */
+        /* Desativar todas as animações para performance */
         *, *::before, *::after {
             -webkit-transition: none !important;
             transition: none !important;
@@ -174,6 +171,7 @@
             border-radius: 20px;
             overflow: hidden;
             margin: 10px 0;
+            position: relative;
         }
         
         video {
@@ -203,6 +201,22 @@
             height: 100%;
             width: 0%;
             border-radius: 10px;
+        }
+        
+        .botoes-duplos {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            gap: 8px;
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+        }
+        
+        .botoes-duplos .btn {
+            -webkit-box-flex: 1;
+            -ms-flex: 1;
+            flex: 1;
+            min-width: 120px;
         }
         
         .membro-item {
@@ -359,10 +373,28 @@
             to { -webkit-transform: rotate(360deg); transform: rotate(360deg); }
         }
         
-        /* Compatibilidade com iOS antigo */
+        /* Flash da câmera */
+        .flash-effect {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            opacity: 0.8;
+            z-index: 9999;
+            pointer-events: none;
+        }
+        
         @media (max-width: 600px) {
             .foto-card {
                 width: calc(50% - 4px);
+            }
+            .botoes-duplos {
+                -webkit-box-orient: vertical;
+                -webkit-box-direction: normal;
+                -ms-flex-direction: column;
+                flex-direction: column;
             }
         }
     </style>
@@ -371,7 +403,7 @@
     <div id="app">
         <header class="app-header">
             <div class="header-top">
-                <div class="app-title">🔬 Explorador J4+ Antigo</div>
+                <div class="app-title">🔬 Explorador J4+ · Câmera OK</div>
                 <div style="display: flex; gap: 6px; flex-wrap: wrap;">
                     <span class="badge badge-ia" id="iaStatus">🧠 IA</span>
                     <span class="badge badge-rede" id="redeStatus">📡 Rede</span>
@@ -410,10 +442,10 @@
             maxPhotos: 50,
             iaDelay: 4000,
             iaEnabled: true,
-            versao: "2.0-legacy"
+            versao: "2.1-camera-fixed"
         };
         
-        // Detectar memória (se disponível)
+        // Detectar memória
         if (navigator.deviceMemory && navigator.deviceMemory < 2) {
             CONFIG.iaEnabled = false;
             document.getElementById('iaStatus').innerHTML = '⚠️ IA';
@@ -438,7 +470,6 @@
         };
         
         function salvarDados() {
-            var dados;
             try {
                 if (explorador.descobertas.length > CONFIG.maxPhotos) {
                     explorador.descobertas = explorador.descobertas.slice(0, CONFIG.maxPhotos);
@@ -494,7 +525,7 @@
             }, 2500);
         }
         
-        // ==================== IA E CÂMERA (versão simplificada e compatível) ====================
+        // ==================== IA E CÂMERA ====================
         var model = null;
         var modelCarregado = false;
         var videoStream = null;
@@ -538,9 +569,8 @@
             if (modelCarregado) return;
             if (mobileNetScriptLoaded) return;
             
-            mostrarToast('🧠 Carregando IA (pode levar um tempo)...');
+            mostrarToast('🧠 Carregando IA...');
             
-            // Carregamos os scripts dinamicamente
             var tfScript = document.createElement('script');
             tfScript.src = 'https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.15.0/dist/tf.min.js';
             tfScript.onload = function() {
@@ -556,7 +586,6 @@
                             if (cameraAtiva) iniciarIdentificacao();
                         }).catch(function(e) {
                             document.getElementById('iaStatus').innerHTML = '⚠️ IA';
-                            console.log('Erro load mobilenet', e);
                         });
                     }
                 };
@@ -580,7 +609,7 @@
                     else if (CONFIG.iaEnabled) carregarIA();
                 })
                 .catch(function(e) {
-                    mostrarToast('📷 Erro na câmera');
+                    mostrarToast('📷 Erro na câmera. Verifique permissões.');
                 });
         }
         
@@ -610,7 +639,7 @@
                                     '<strong>' + inseto.nome + '</strong>' +
                                     '<div class="confianca-bar"><div class="confianca-fill" style="width: ' + Math.round(pred[0].probability * 100) + '%;"></div></div>' +
                                     '<p style="font-size:0.75rem;">' + inseto.dica + '</p>' +
-                                    '<button class="btn btn-primary" style="margin-top:8px; padding:8px;" onclick="usarSugestaoIA()">📸 Registrar</button>' +
+                                    '<button class="btn btn-primary" style="margin-top:8px; padding:8px;" onclick="capturarFotoAtual()">📸 Registrar agora</button>' +
                                     '</div>';
                                 ultimoIA = inseto;
                             }
@@ -620,18 +649,73 @@
             }, CONFIG.iaDelay);
         }
         
-        function usarSugestaoIA() {
+        // ========== FUNÇÃO PRINCIPAL: TIRAR FOTO DO FRAME ATUAL ==========
+        function capturarFotoAtual() {
             var video = document.getElementById('cameraVideo');
-            if (video && ultimoIA) {
-                var canvas = document.createElement('canvas');
-                canvas.width = video.videoWidth || 640;
-                canvas.height = video.videoHeight || 480;
-                var ctx = canvas.getContext('2d');
-                ctx.drawImage(video, 0, 0);
-                abrirFormulario(canvas.toDataURL('image/jpeg', CONFIG.imageQuality), ultimoIA.nome, ultimoIA.dica);
+            if (!video) {
+                mostrarToast('📷 Câmera não está ativa');
+                return;
             }
+            
+            if (video.readyState < 2) {
+                mostrarToast('⏳ Aguarde a câmera estabilizar');
+                return;
+            }
+            
+            // Criar canvas e capturar o frame atual
+            var canvas = document.createElement('canvas');
+            canvas.width = video.videoWidth || 640;
+            canvas.height = video.videoHeight || 480;
+            var ctx = canvas.getContext('2d');
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+            
+            var fotoBase64 = canvas.toDataURL('image/jpeg', CONFIG.imageQuality);
+            
+            // Efeito de flash
+            var flash = document.createElement('div');
+            flash.className = 'flash-effect';
+            document.body.appendChild(flash);
+            setTimeout(function() {
+                flash.remove();
+            }, 100);
+            
+            mostrarToast('📸 Foto capturada! Analisando...');
+            
+            // Processar a foto com IA
+            processarFotoComIA(fotoBase64);
         }
         
+        // ========== ANALISAR FOTO JÁ CAPTURADA ==========
+        function processarFotoComIA(fotoBase64) {
+            var img = new Image();
+            img.onload = function() {
+                if (modelCarregado && CONFIG.iaEnabled) {
+                    model.classify(img).then(function(pred) {
+                        var nomeSugerido = '';
+                        var dicaSugerida = '';
+                        if (pred && pred[0]) {
+                            var inseto = identificarInseto(pred[0].className);
+                            if (inseto) {
+                                nomeSugerido = inseto.nome;
+                                dicaSugerida = inseto.dica;
+                                mostrarToast('🤖 IA identificou: ' + inseto.nome);
+                            } else {
+                                nomeSugerido = pred[0].className.split(',')[0].substring(0, 30);
+                                mostrarToast('🔍 IA sugere: ' + nomeSugerido);
+                            }
+                        }
+                        abrirFormulario(fotoBase64, nomeSugerido, dicaSugerida);
+                    }).catch(function() {
+                        abrirFormulario(fotoBase64, '', '');
+                    });
+                } else {
+                    abrirFormulario(fotoBase64, '', '');
+                }
+            };
+            img.src = fotoBase64;
+        }
+        
+        // ========== ESCOLHER FOTO DA GALERIA ==========
         function uploadFotoComIA() {
             var input = document.createElement('input');
             input.type = 'file';
@@ -639,39 +723,11 @@
             input.onchange = function(e) {
                 var file = e.target.files[0];
                 if (!file) return;
-                mostrarToast('🔍 Analisando foto...');
+                
+                mostrarToast('🔍 Analisando foto da galeria...');
                 var reader = new FileReader();
                 reader.onload = function(ev) {
-                    var fotoBase64 = ev.target.result;
-                    var img = new Image();
-                    img.onload = function() {
-                        if (!modelCarregado && CONFIG.iaEnabled) {
-                            carregarIA();
-                            // Neste caso, não esperamos a IA, apenas abrimos formulário sem sugestão
-                            abrirFormulario(fotoBase64, '', '');
-                        } else if (modelCarregado && model) {
-                            model.classify(img).then(function(pred) {
-                                var nomeSugerido = '';
-                                var dicaSugerida = '';
-                                if (pred && pred[0]) {
-                                    var inseto = identificarInseto(pred[0].className);
-                                    if (inseto) {
-                                        nomeSugerido = inseto.nome;
-                                        dicaSugerida = inseto.dica;
-                                        mostrarToast('🤖 IA identificou: ' + inseto.nome);
-                                    } else {
-                                        nomeSugerido = pred[0].className.split(',')[0].substring(0, 30);
-                                    }
-                                }
-                                abrirFormulario(fotoBase64, nomeSugerido, dicaSugerida);
-                            }).catch(function() {
-                                abrirFormulario(fotoBase64, '', '');
-                            });
-                        } else {
-                            abrirFormulario(fotoBase64, '', '');
-                        }
-                    };
-                    img.src = fotoBase64;
+                    processarFotoComIA(ev.target.result);
                 };
                 reader.readAsDataURL(file);
             };
@@ -706,8 +762,6 @@
                 if (m === '<') return '&lt;';
                 if (m === '>') return '&gt;';
                 return m;
-            }).replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, function(c) {
-                return c;
             });
         }
         
@@ -968,11 +1022,12 @@
             var content = document.getElementById('content');
             content.innerHTML = 
                 '<div class="camera-container">' +
-                '<video id="cameraVideo" autoplay playsinline style="width:100%; display:block;"></video>+
+                '<video id="cameraVideo" autoplay playsinline style="width:100%; display:block;"></video>' +
                 '</div>' +
                 '<div id="iaResultado"></div>' +
-                '<div class="card">' +
-                '<button class="btn btn-secondary" onclick="uploadFotoComIA()">📷 Analisar foto da galeria</button>' +
+                '<div class="card botoes-duplos">' +
+                '<button class="btn btn-primary" onclick="capturarFotoAtual()">📸 Tirar Foto AGORA</button>' +
+                '<button class="btn btn-secondary" onclick="uploadFotoComIA()">📷 Escolher da galeria</button>' +
                 '</div>' +
                 '<div class="card">' +
                 '<div style="display:flex; justify-content:space-between;">' +
@@ -998,12 +1053,12 @@
                     '</div>';
             }
             if (fotosHtml === '') {
-                fotosHtml = '<div class="card" style="grid-column:span 2; text-align:center;">🐛 Nenhuma descoberta</div>';
+                fotosHtml = '<div class="card" style="grid-column:span 2; text-align:center;">🐛 Nenhuma descoberta ainda.<br>Use a câmera para começar!</div>';
             }
             content.innerHTML = 
                 '<div class="upload-area" onclick="uploadFotoComIA()">' +
                 '<div style="font-size:1.8rem;">➕📸</div>' +
-                '<p>Nova descoberta (com IA)</p>' +
+                '<p>Adicionar foto da galeria</p>' +
                 '</div>' +
                 '<div class="grid-fotos">' + fotosHtml + '</div>';
         }
@@ -1065,6 +1120,7 @@
                 '<div class="card">' +
                 '<h3>📱 Sobre o App</h3>' +
                 '<p>Versão ' + CONFIG.versao + ' - Otimizado para iPad antigo</p>' +
+                '<p>📸 <strong>Como usar a câmera:</strong> Clique em "Tirar Foto AGORA" para capturar o que está na tela!</p>' +
                 '<p>IA: ' + (CONFIG.iaEnabled && modelCarregado ? '✅ Ativa' : (CONFIG.iaEnabled ? '⏳ Carregando' : '⚠️ Desativada (economia)')) + '</p>' +
                 '<button class="btn btn-secondary" onclick="resetarDados()" style="background:#d32f2f; color:white; margin-top:8px;">🗑️ Resetar todos os dados</button>' +
                 '</div>';
@@ -1075,10 +1131,11 @@
         atualizarNivel();
         iniciarRede();
         
-        // Registrar funções globais (necessário para chamadas HTML)
+        // Registrar funções globais
         window.navegarPara = navegarPara;
+        window.capturarFotoAtual = capturarFotoAtual;
         window.uploadFotoComIA = uploadFotoComIA;
-        window.usarSugestaoIA = usarSugestaoIA;
+        window.processarFotoComIA = processarFotoComIA;
         window.salvarDescobertaCompleta = salvarDescobertaCompleta;
         window.verDescoberta = verDescoberta;
         window.editarNome = editarNome;
