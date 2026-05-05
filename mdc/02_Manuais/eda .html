@@ -1,0 +1,606 @@
+<html lang="pt-BR"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌊 Espelho D'Água · Aquário como Jornada</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(145deg, #0a2f44 0%, #1b5e6b 50%, #144d4d 100%);
+            min-height: 100vh;
+            padding: 2rem 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Efeito de água sutil */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 50%, rgba(255,255,255,0.1) 0%, transparent 30%),
+                        repeating-linear-gradient(45deg, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 2px, transparent 2px, transparent 6px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .master-container {
+            max-width: 1400px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(8px);
+            border-radius: 3rem 3rem 2rem 2rem;
+            box-shadow: 0 30px 50px -20px rgba(0, 0, 0, 0.6), inset 0 0 0 1px rgba(255,255,255,0.3);
+            overflow: hidden;
+            position: relative;
+            z-index: 2;
+            border: 1px solid rgba(255,255,255,0.4);
+        }
+
+        /* Onda decorativa no topo */
+        .water-wave {
+            height: 20px;
+            background: repeating-linear-gradient( transparent 0px, transparent 10px, rgba(255,255,255,0.3) 10px, rgba(255,255,255,0.3) 12px, transparent 12px);
+            opacity: 0.5;
+        }
+
+        .header-wave {
+            background: linear-gradient(90deg, #1a4b5e, #0f6b7a, #1a4b5e);
+            padding: 2.5rem 2rem 2rem;
+            text-align: center;
+            color: white;
+            position: relative;
+            border-bottom: 4px solid #fdbb2d;
+        }
+
+        .header-wave h1 {
+            font-size: 3.2rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .header-wave h1 span {
+            background: #fdbb2d;
+            color: #0a2f44;
+            font-size: 1.2rem;
+            padding: 0.3rem 1.2rem;
+            border-radius: 40px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .sub-header {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .meta-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            padding: 2rem 2rem 1rem;
+        }
+
+        .meta-card {
+            background: rgba(26, 75, 94, 0.15);
+            border-radius: 2rem;
+            padding: 1.2rem 0.8rem;
+            text-align: center;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255,255,255,0.3);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        .meta-num {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #fdbb2d;
+            line-height: 1;
+        }
+
+        .meta-label {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #1a4b5e;
+            font-weight: 600;
+        }
+
+        .nav-espelho {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.8rem;
+            padding: 1rem 2rem 2rem;
+            border-bottom: 2px dashed rgba(253, 187, 45, 0.5);
+        }
+
+        .nav-btn {
+            background: transparent;
+            border: 2px solid #1a4b5e;
+            padding: 0.8rem 1.8rem;
+            border-radius: 40px;
+            font-weight: 600;
+            color: #1a4b5e;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-btn:hover, .nav-btn.ativo {
+            background: #1a4b5e;
+            color: white;
+            border-color: #fdbb2d;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(0,40,40,0.3);
+        }
+
+        /* Seções principais */
+        .secao {
+            display: none;
+            padding: 2.5rem 2rem;
+            animation: emergir 0.4s ease;
+        }
+
+        .secao.ativa {
+            display: block;
+        }
+
+        @keyframes emergir {
+            0% { opacity: 0; transform: translateY(10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .card-destaque {
+            background: white;
+            border-radius: 2rem;
+            padding: 2rem;
+            box-shadow: 0 15px 30px -12px rgba(0,0,0,0.2);
+            border-left: 8px solid;
+            transition: all 0.2s;
+        }
+
+        .card-destaque.virtual {
+            border-color: #6b46c1;
+        }
+        .card-destaque.real {
+            border-color: #2e7d32;
+        }
+        .card-destaque.filosofia {
+            border-color: #fdbb2d;
+        }
+
+        .personagem-grupo {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .personagem-tag {
+            background: #e9f2f5;
+            border-radius: 50px;
+            padding: 0.4rem 1.2rem;
+            font-size: 0.95rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            border: 1px solid #b3d4dc;
+        }
+
+        .timeline-final {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 1.5rem;
+            background: #f5fafc;
+            padding: 1.5rem;
+            border-radius: 1.5rem;
+            border-left: 6px solid;
+        }
+
+        .timeline-item.cena1 { border-color: #0284c7; }
+        .timeline-item.cena4 { border-color: #7e22ce; }
+        .timeline-item.cena8 { border-color: #fdbb2d; }
+
+        .timeline-time {
+            font-weight: 700;
+            font-size: 1.3rem;
+            min-width: 90px;
+            color: #0a2f44;
+        }
+
+        .setenio-tabs {
+            display: flex;
+            justify-content: space-around;
+            background: #f0f7fa;
+            border-radius: 60px;
+            padding: 0.4rem;
+            margin-bottom: 2rem;
+        }
+
+        .setenio-tab {
+            flex: 1;
+            text-align: center;
+            padding: 0.8rem;
+            border-radius: 40px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #1f4e5f;
+            transition: 0.2s;
+        }
+
+        .setenio-tab.primeiro.ativo {
+            background: #fdbb2d;
+            color: #0a2f44;
+        }
+        .setenio-tab.segundo.ativo {
+            background: #1a4b5e;
+            color: white;
+        }
+        .setenio-tab.terceiro.ativo {
+            background: #2e7d32;
+            color: white;
+        }
+
+        .conteudo-setenio {
+            display: none;
+        }
+        .conteudo-setenio.ativo {
+            display: block;
+        }
+
+        .obsidian-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+            gap: 1.2rem;
+            margin: 2rem 0;
+        }
+
+        .obsidian-node {
+            background: #eef4f6;
+            border-radius: 20px;
+            padding: 1.2rem;
+            border-left: 6px solid #1a4b5e;
+            font-size: 0.95rem;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+            transition: 0.1s ease;
+        }
+
+        .obsidian-node strong {
+            color: #0a2f44;
+            font-size: 1.1rem;
+            display: block;
+            margin-bottom: 0.4rem;
+        }
+
+        .tag-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin: 0.8rem 0 0;
+        }
+        .tag {
+            background: white;
+            border-radius: 30px;
+            padding: 0.2rem 0.8rem;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #1a4b5e;
+            border: 1px solid #bcd4db;
+        }
+
+        .footer-mestre {
+            background: #1a4b5e;
+            color: rgba(255,255,255,0.9);
+            padding: 2rem;
+            text-align: center;
+            border-top: 5px solid #fdbb2d;
+            margin-top: 1rem;
+        }
+
+        .btn-download {
+            background: #fdbb2d;
+            border: none;
+            color: #0a2f44;
+            font-weight: 700;
+            padding: 1rem 2rem;
+            border-radius: 60px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 1rem;
+            box-shadow: 0 5px 0 #a0791e;
+        }
+
+        .btn-download:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 0 #a0791e;
+        }
+
+        @media (max-width: 800px) {
+            .grid-2 { grid-template-columns: 1fr; }
+            .meta-grid { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="master-container">
+        <div class="water-wave"></div>
+        <div class="header-wave">
+            <h1>
+                🌊 ESPELHO D'ÁGUA 
+                <span>A JORNADA DO AQUÁRIO</span>
+            </h1>
+            <div class="sub-header">
+                <div>🎬 Episódio 1 "Dia da Preguiça" + 🎭 Final "Metamorfose"</div>
+                <div>🐟 Aquário Low-Tech • 🌱 Setênios • 🧠 Obsidian</div>
+            </div>
+        </div>
+
+        <!-- métricas -->
+        <div class="meta-grid">
+            <div class="meta-card"><span class="meta-num">40-60L</span><div class="meta-label">tamanho mínimo</div></div>
+            <div class="meta-card"><span class="meta-num">3</span><div class="meta-label">setênios</div></div>
+            <div class="meta-card"><span class="meta-num">8</span><div class="meta-label">personagens</div></div>
+            <div class="meta-card"><span class="meta-num">∞</span><div class="meta-label">conexões vivas</div></div>
+        </div>
+
+        <!-- navegação espelho -->
+        <div class="nav-espelho">
+            <button class="nav-btn ativo" data-secao="jornada">🌀 JORNADA SETÊNIOS</button>
+            <button class="nav-btn" data-secao="aquario">🐟 AQUÁRIO LOW-TECH</button>
+            <button class="nav-btn" data-secao="personagens">🎭 PERSONAGENS</button>
+            <button class="nav-btn" data-secao="obsidian">🧠 OBSIDIAN · NÓS VIVOS</button>
+            <button class="nav-btn" data-secao="episodios">📺 EPISÓDIOS</button>
+        </div>
+
+        <!-- ========= SEÇÃO 1: JORNADA SETÊNIOS ========= -->
+        <div id="secao-jornada" class="secao ativa">
+            <h2 style="font-size: 2.2rem; color: #0a2f44; margin-bottom: 1rem;">🌀 A metamorfose em três tempos</h2>
+            <div class="setenio-tabs">
+                <div class="setenio-tab primeiro ativo" data-setenio="primeiro">🌱 1º setênio (0-7)</div>
+                <div class="setenio-tab segundo" data-setenio="segundo">🌿 2º setênio (7-14)</div>
+                <div class="setenio-tab terceiro" data-setenio="terceiro">🌳 3º setênio (14-21)</div>
+            </div>
+
+            <!-- conteúdo 1º setênio -->
+            <div id="conteudo-primeiro" class="conteudo-setenio ativo">
+                <div class="grid-2">
+                    <div class="card-destaque filosofia">
+                        <h3 style="display: flex; gap: 0.6rem;">🧒 Ritmo e imitação</h3>
+                        <p><strong>Aquário:</strong> alimentação no mesmo horário, luz com timer, canções, observação deitado no chão.</p>
+                        <p><strong>Episódio 1:</strong> Ari (ariranha) guia pela experiência sensorial, “não fazer nada” como sabedoria.</p>
+                        <div class="personagem-grupo">
+                            <span class="personagem-tag">🐾 Ari</span>
+                            <span class="personagem-tag">🎵 canção da alimentação</span>
+                        </div>
+                    </div>
+                    <div class="card-destaque virtual">
+                        <h3>📺 Cena–chave: O lago de Mestre Chen</h3>
+                        <p>“A verdadeira pescaria é pescar entendimento.” A criança sente o ritmo da natureza sem pressa.</p>
+                        <p style="margin-top: 0.8rem;"><em>⟡ primeiro contato com o “espelho”</em></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2º setênio -->
+            <div id="conteudo-segundo" class="conteudo-setenio">
+                <div class="grid-2">
+                    <div class="card-destaque real">
+                        <h3>🔬 Beleza, reprodução, experimentos</h3>
+                        <p>Escolha de espécies, registro em diário, testes de água, observação de acasalamento (camarões, lebistes).</p>
+                        <p><strong>Personagem espelho:</strong> Nico e Bentinho – a curiosidade científica aplicada.</p>
+                    </div>
+                    <div class="card-destaque filosofia">
+                        <h3>🧪 O aquário como laboratório vivo</h3>
+                        <p>“Por que a planta cresce para a luz?” Anotações, desenhos, primeiras hipóteses.</p>
+                        <div class="tag-container"><span class="tag">ciclo do nitrogênio</span><span class="tag">reprodução</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3º setênio -->
+            <div id="conteudo-terceiro" class="conteudo-setenio">
+                <div class="grid-2">
+                    <div class="card-destaque real">
+                        <h3>🌍 Ética, tecnologia, ação no mundo</h3>
+                        <p>Documentário, expedições virtuais, debate sobre comércio de peixes, construção de interfaces (Rafael + Alice).</p>
+                    </div>
+                    <div class="card-destaque virtual">
+                        <h3>🎥 Episódio final: a metamorfose</h3>
+                        <p>Alice, o peixe-palhaço e o exoesqueleto: “Todas as formas de ser são válidas.”</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========= SEÇÃO 2: AQUÁRIO LOW-TECH ========= -->
+        <div id="secao-aquario" class="secao">
+            <h2 style="font-size: 2.2rem; color: #0a2f44;">🐟 Aquário Low-Tech · microcosmo</h2>
+            <div class="grid-2" style="margin-top: 2rem;">
+                <div class="card-destaque real">
+                    <h3>🌱 Princípios</h3>
+                    <ul style="margin-left: 1.5rem;">
+                        <li>Iluminação simples (0,2-0,5W/L), 6-8h/dia com timer</li>
+                        <li>Filtro interno 4-5x volume</li>
+                        <li>Plantas fáceis: anubias, java moss, vallisneria</li>
+                        <li>Ciclagem de 3-6 semanas (paciência!)</li>
+                    </ul>
+                </div>
+                <div class="card-destaque filosofia">
+                    <h3>⏳ Ritmo de observação</h3>
+                    <p>➜ TPA quinzenal de 30%<br>➜ Alimentar sem excesso<br>➜ Diário: desenhos, parâmetros, comportamento</p>
+                    <p style="margin-top: 1rem;">“O aquário não se controla – compreende-se.”</p>
+                </div>
+            </div>
+            <div style="background: #d9eef5; border-radius: 2rem; padding: 1.5rem; margin-top: 2rem;">
+                <h3>📏 Tamanho mínimo para cada família</h3>
+                <p>40-60L (móvel de 50cm) → comunidade pequena, estável.<br>80-120L → ponto doce para interações.<br>150L+ → ecossistema consolidado.</p>
+            </div>
+        </div>
+
+        <!-- ========= SEÇÃO 3: PERSONAGENS ========= -->
+        <div id="secao-personagens" class="secao">
+            <h2 style="color: #0a2f44;">🎭 Arquétipos da metamorfose</h2>
+            <div class="grid-2" style="margin-top: 2rem;">
+                <div><div class="card-destaque virtual"><strong>🧠 Nico</strong> visionário, insight no lago</div></div>
+                <div><div class="card-destaque real"><strong>🔧 Bentinho</strong> técnico que aprende com Li</div></div>
+                <div><div class="card-destaque filosofia"><strong>🤖 Deep / Ari</strong> IA que vira animal: só aprende observando</div></div>
+                <div><div class="card-destaque filosofia"><strong>🧩 Alice / Professora</strong> a revelação: “ambos são reais”</div></div>
+                <div><div class="card-destaque real"><strong>🌿 Li</strong> “tecnologia mais avançada já existe na natureza”</div></div>
+                <div><div class="card-destaque virtual"><strong>🧘 Mestre Chen</strong> sabedoria da paciência</div></div>
+            </div>
+        </div>
+
+        <!-- ========= SEÇÃO 4: OBSIDIAN ========= -->
+        <div id="secao-obsidian" class="secao">
+            <h2 style="color: #0a2f44;">🧠 Obsidian · grafos vivos</h2>
+            <div class="obsidian-grid">
+                <div class="obsidian-node"><strong>Aquário Low-Tech</strong>tags: #projeto #natureza #educação <br>conexões: Setênios, Ep1, Metamorfose</div>
+                <div class="obsidian-node"><strong>Metáforas Vivas</strong>peixe-palhaço → metamorfose / simbiose → comunidade</div>
+                <div class="obsidian-node"><strong>Alice / Professora</strong>dupla identidade, revelação final</div>
+                <div class="obsidian-node"><strong>Ritmo</strong>luz, alimentação, TPAs → primeiro setênio</div>
+                <div class="obsidian-node"><strong>Reprodução</strong>segundo setênio, lebistes, camarões</div>
+                <div class="obsidian-node"><strong>Expedições</strong>terceiro setênio, documentário, ética</div>
+            </div>
+            <p style="margin-top: 2rem; font-style: italic;">✦ cada nó se conecta, como num aquário em equilíbrio ✦</p>
+        </div>
+
+        <!-- ========= SEÇÃO 5: EPISÓDIOS ========= -->
+        <div id="secao-episodios" class="secao">
+            <h2 style="color: #0a2f44;">📺 Episódio 1 + Final integrados</h2>
+            <!-- timeline resumida -->
+            <div class="timeline-final">
+                <div class="timeline-item cena1">
+                    <span class="timeline-time">01:00</span>
+                    <div><strong>Cena 1 (virtual):</strong> Nico e Ari na praça – “conexão neural”</div>
+                </div>
+                <div class="timeline-item cena1">
+                    <span class="timeline-time">07:00</span>
+                    <div><strong>Lago:</strong> Mestre Chen, insight “ecossistema”</div>
+                </div>
+                <div class="timeline-item cena1">
+                    <span class="timeline-time">15:00</span>
+                    <div><strong>Transição:</strong> parte real – Li ensina low-tech</div>
+                </div>
+                <div class="timeline-item cena4">
+                    <span class="timeline-time">26:00</span>
+                    <div><strong>Alice observa</strong> padrões (preparação)</div>
+                </div>
+                <div class="timeline-item cena4">
+                    <span class="timeline-time">final ep1</span>
+                    <div>Mistério semeado</div>
+                </div>
+            </div>
+            <h3 style="margin-top: 2rem;">🎬 Episódio Final “A Metamorfose do Espelho”</h3>
+            <div class="timeline-final">
+                <div class="timeline-item cena8">
+                    <span class="timeline-time">cena 1</span> Aquário: peixe-palhaço muda de cor
+                </div>
+                <div class="timeline-item cena8">
+                    <span class="timeline-time">cena 4</span> Revelação: Alice = Professora das Ideias
+                </div>
+                <div class="timeline-item cena8">
+                    <span class="timeline-time">cena 8</span> Primeiro passo com exoesqueleto
+                </div>
+            </div>
+        </div>
+
+        <!-- rodapé interativo -->
+        <div class="footer-mestre">
+            <p style="font-size: 1.4rem;">🌊 “A menina que movia mundos com a mente... moveu seu próprio mundo.”</p>
+            <button class="btn-download" id="downloadBtn">📥 Baixar este espelho (HTML completo)</button>
+            <p style="margin-top: 1.5rem; opacity: 0.8;">Projeto Espelho D'Água · filosofia aplicada · setênios + aquário + obsidian</p>
+        </div>
+    </div>
+
+    <script>
+        // Navegação entre seções
+        const botoes = document.querySelectorAll('.nav-btn');
+        const secoes = document.querySelectorAll('.secao');
+
+        botoes.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const target = btn.dataset.secao;
+                botoes.forEach(b => b.classList.remove('ativo'));
+                btn.classList.add('ativo');
+                secoes.forEach(s => s.classList.remove('ativa'));
+                document.getElementById('secao-' + target).classList.add('ativa');
+            });
+        });
+
+        // Abas dos setênios
+        const tabs = document.querySelectorAll('.setenio-tab');
+        const conteudos = document.querySelectorAll('.conteudo-setenio');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('ativo'));
+                tab.classList.add('ativo');
+                conteudos.forEach(c => c.classList.remove('ativo'));
+                const id = 'conteudo-' + tab.dataset.setenio;
+                document.getElementById(id).classList.add('ativo');
+            });
+        });
+
+        // Download do HTML (auto-contido)
+        document.getElementById('downloadBtn').addEventListener('click', function() {
+            const htmlContent = document.documentElement.outerHTML;
+            const blob = new Blob([htmlContent], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'espelho-dagua-completo.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        });
+
+        // Pequeno efeito de ondas ao clicar (opcional)
+        const container = document.querySelector('.master-container');
+        container.addEventListener('click', function(e) {
+            if(e.target.tagName === 'BUTTON') {
+                // apenas feedback visual
+            }
+        });
+    </script>
+
+</body></html>

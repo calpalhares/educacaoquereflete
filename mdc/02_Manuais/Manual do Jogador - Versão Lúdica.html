@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual do Jogador | Mosaico do Caminho</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #d9cdb0;
+            font-family: 'Georgia', 'Times New Roman', serif;
+            padding: 2rem 1rem;
+            color: #2c2b26;
+        }
+
+        .manual {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #fffef5;
+            border-radius: 32px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+
+        .capa-manual {
+            background: linear-gradient(135deg, #4a7c59 0%, #2d5a3b 100%);
+            color: #fdf8e7;
+            text-align: center;
+            padding: 3rem 2rem;
+            position: relative;
+        }
+
+        .capa-manual h1 {
+            font-size: 2.8rem;
+            font-family: 'Georgia', serif;
+            margin-bottom: 0.5rem;
+        }
+
+        .capa-manual .subtitulo {
+            font-size: 1.2rem;
+            font-style: italic;
+            margin-bottom: 1.5rem;
+        }
+
+        .capa-manual .passaro {
+            font-size: 4rem;
+            margin: 1rem 0;
+        }
+
+        .conteudo {
+            padding: 2rem 2.5rem;
+        }
+
+        .balao {
+            background: #fef5e6;
+            border-radius: 30px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-left: 8px solid #e7b874;
+            font-style: italic;
+        }
+
+        .balao p:first-child {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .secao {
+            margin-bottom: 2.5rem;
+        }
+
+        .secao h2 {
+            color: #4a7c59;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            border-left: 6px solid #e7b874;
+            padding-left: 1rem;
+        }
+
+        .secao h3 {
+            color: #5a3e2b;
+            font-size: 1.3rem;
+            margin: 1.2rem 0 0.8rem 0;
+        }
+
+        .grid-cores {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .card-cor {
+            background: white;
+            border-radius: 20px;
+            padding: 1rem;
+            border-left: 6px solid;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .card-cor h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .grid-formas {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .card-forma {
+            background: #faf5ea;
+            border-radius: 16px;
+            padding: 1rem;
+            text-align: center;
+            border: 1px solid #e0cfbc;
+        }
+
+        .card-forma .simbolo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .rituais {
+            background: #e8f0e8;
+            border-radius: 24px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .passo {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            align-items: flex-start;
+        }
+
+        .numero-passo {
+            background: #e7b874;
+            color: #2c2b26;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .dica {
+            background: #fff2e0;
+            border-radius: 20px;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-left: 4px solid #ffb347;
+        }
+
+        .personagens {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .personagem {
+            background: #e8f0e8;
+            border-radius: 40px;
+            padding: 0.3rem 1rem;
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: #4a7c59;
+        }
+
+        .footer-manual {
+            background: #2c2b26;
+            color: #e2d8c2;
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 700px) {
+            .conteudo {
+                padding: 1.5rem;
+            }
+            .grid-formas {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .capa-manual h1 {
+                font-size: 2rem;
+            }
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .manual {
+                box-shadow: none;
+                border-radius: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="manual">
+    <div class="capa-manual">
+        <div class="passaro">🦜</div>
+        <h1>Mosaico do Caminho</h1>
+        <p class="subtitulo">Manual do Jogador — Versão Lúdica</p>
+        <p style="font-size: 1rem; margin-top: 1rem;">“As cores nunca foram embora. Elas só estavam esperando que a gente se sentasse junto.”</p>
+    </div>
+
+    <div class="conteudo">
+        <!-- Boas-vindas lúdicas com a história corrigida -->
+        <div class="balao">
+            <p>📖 Uma palavra antes de começar</p>
+            <p>Há tempos, em <strong>Alter do Chão</strong>, às margens do <strong>Rio Tapajós</strong>, um menino chamado <strong>Lucas</strong> viajou com sua avó, dona <strong>Victória</strong>. Ele nunca tinha estado lá. Mas ao deitar-se em uma rede dentro de um barco, o sono veio — e com ele, um sonho.</p>
+            <p>Lucas sonhou com uma maloca coberta de palha. Lá dentro, um velho sábio chamado <strong>Uirá</strong> sentava-se em uma esteira. No ombro dele, um papagaio de madeira. O nome do papagaio era <strong>Tauá</strong>.</p>
+            <p>Tauá não falava. Ele brilhava. Cada cor que aparecia em suas penas era uma pergunta. E cada resposta de Lucas virava uma pedra colorida sobre um pano estendido. Foi assim que nasceu o Mosaico.</p>
+            <p>O que você tem em mãos é herança desse sonho. Não importa se suas pedras são de verdade ou feitas de tampinhas. O que importa é que você vai se sentar em roda, vai escolher uma cor, vai responder uma pergunta — e, com isso, vai desenhar o caminho da sua família, dos seus amigos, do seu grupo.</p>
+            <p style="margin-top: 0.8rem;"><strong>Bem-vindo ao Mosaico do Caminho.</strong> Vamos caminhar juntos?</p>
+        </div>
+
+        <!-- Personagens da história -->
+        <div class="personagens">
+            <span class="personagem">🧒 Lucas</span>
+            <span class="personagem">👵 Dona Victória</span>
+            <span class="personagem">🦜 Tauá</span>
+            <span class="personagem">👴 Uirá</span>
+            <span class="personagem">🌙 Jacy</span>
+        </div>
+
+        <!-- O QUE É -->
+        <div class="secao">
+            <h2>🧩 O que é isso?</h2>
+            <p>O Mosaico do Caminho é um <strong>jogo de construir histórias</strong>. Não tem vencedor, não tem erro. É uma roda onde cada pessoa, na sua vez, escolhe uma pedra colorida, coloca sobre um pano e conta o que aquela cor e forma significam para ela naquele momento.</p>
+            <p>Juntas, as pedras formam um mosaico — um desenho coletivo que mostra o caminho que o grupo está percorrendo. Pode ser um caminho sobre um projeto, sobre um sonho, sobre um desafio, ou simplesmente sobre como cada um está se sentindo hoje.</p>
+            <div class="dica">
+                💡 <strong>Dica de Tauá, o papagaio:</strong> “O mosaico não precisa ser bonito. Precisa ser verdadeiro. O desenho mais torto pode ser o mais importante se ele contar uma história de verdade.”
+            </div>
+        </div>
+
+        <!-- O QUE VEM NO KIT (OU COMO FAZER) -->
+        <div class="secao">
+            <h2>📦 O que você precisa</h2>
+            <p><strong>Se você tem o kit completo:</strong> uma base de linho, 78 pedras coloridas (13 de cada cor), um baralho de cartas e um diário.</p>
+            <p><strong>Se você vai fazer em casa:</strong> um pano claro (pode ser uma toalha), 78 tampinhas ou botões ou pedrinhas pintadas (13 verdes, 13 azuis, 13 amarelas, 13 vermelhas, 13 pretas, 13 brancas) e uma caneta para desenhar os símbolos.</p>
+            <p><strong>E o mais importante:</strong> um grupo de pessoas dispostas a sentar em roda, escutar e compartilhar.</p>
+        </div>
+
+        <!-- AS CORES E PERGUNTAS -->
+        <div class="secao">
+            <h2>🎨 As cores que perguntam</h2>
+            <p>Cada cor carrega uma pergunta. Quando você escolhe uma pedra, é essa pergunta que você está respondendo — com sua história, com seu sentimento, com o que vier.</p>
+            <div class="grid-cores">
+                <div class="card-cor" style="border-left-color: #4a7c59;">
+                    <h4>🟢 Verde-Tronco</h4>
+                    <p><em>“O que te sustenta?”</em></p>
+                    <p style="font-size: 0.85rem; color: #666;">O que te dá força, segurança, raiz. Como as árvores que não caem.</p>
+                </div>
+                <div class="card-cor" style="border-left-color: #6bc5e8;">
+                    <h4>🔵 Azul-Rio</h4>
+                    <p><em>“O que precisa fluir?”</em></p>
+                    <p style="font-size: 0.85rem; color: #666;">O que está guardado e quer ser dito, sentido, liberado. Como as águas do Tapajós.</p>
+                </div>
+                <div class="card-cor" style="border-left-color: #ffd93d;">
+                    <h4>🟡 Amarelo-Sol</h4>
+                    <p><em>“O que ilumina seu caminho?”</em></p>
+                    <p style="font-size: 0.85rem; color: #666;">Alegria, clareza, esperança, uma ideia que brilha.</p>
+                </div>
+                <div class="card-cor" style="border-left-color: #ff6b6b;">
+                    <h4>🔴 Vermelho-Lar</h4>
+                    <p><em>“Qual é a força que te move?”</em></p>
+                    <p style="font-size: 0.85rem; color: #666;">Paixão, coragem, energia, o que te faz agir. Como o fogo da maloca.</p>
+                </div>
+                <div class="card-cor" style="border-left-color: #5d576b;">
+                    <h4>⚫ Preto-Passagem</h4>
+                    <p><em>“O que está em repouso, esperando?”</em></p>
+                    <p style="font-size: 0.85rem; color: #666;">O silêncio, o mistério, o que ainda vai nascer.</p>
+                </div>
+                <div class="card-cor" style="border-left-color: #f0f0f0;">
+                    <h4>⚪ Branco-Nuvem</h4>
+                    <p><em>“Como tudo se conecta?”</em></p>
+                    <p style="font-size: 0.85rem; color: #666;">O todo, a união, a paz, a síntese. Como o pano de linho que acolhe as pedras.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- AS FORMAS -->
+        <div class="secao">
+            <h2>🔺 As formas que dão sentido</h2>
+            <p>Cada pedra também tem uma forma. Ela ajuda a contar o que aquela cor está fazendo ali. As formas vieram das antigas placas de cerâmica <strong>Konduri</strong>.</p>
+            <div class="grid-formas">
+                <div class="card-forma"><div class="simbolo">○</div><strong>Redonda</strong><br><span style="font-size: 0.8rem;">O passo que se dá</span></div>
+                <div class="card-forma"><div class="simbolo">△</div><strong>Triangular</strong><br><span style="font-size: 0.8rem;">A direção que se escolhe</span></div>
+                <div class="card-forma"><div class="simbolo">□</div><strong>Quadrada</strong><br><span style="font-size: 0.8rem;">A base que sustenta</span></div>
+                <div class="card-forma"><div class="simbolo">~</div><strong>Ondulada</strong><br><span style="font-size: 0.8rem;">A ponte que se curva</span></div>
+                <div class="card-forma"><div class="simbolo">✸</div><strong>Estrelada</strong><br><span style="font-size: 0.8rem;">O sonho que brilha</span></div>
+                <div class="card-forma"><div class="simbolo">!</div><strong>Irregular</strong><br><span style="font-size: 0.8rem;">O inesperado</span></div>
+            </div>
+            <p><em>Quando você coloca uma pedra, pode dizer: “Coloco este <strong>Triângulo Vermelho</strong> aqui porque...” — e aí a magia acontece.</em></p>
+        </div>
+
+        <!-- COMO JOGAR (PASSO A PASSO LÚDICO) -->
+        <div class="secao">
+            <h2>🗺️ Como caminhar com o mosaico</h2>
+            <div class="rituais">
+                <div class="passo">
+                    <div class="numero-passo">1</div>
+                    <div><strong>Prepare o chão</strong><br>Estenda o pano no centro da roda. Espalhe as pedras ao redor, como sementes esperando para ser plantadas.</div>
+                </div>
+                <div class="passo">
+                    <div class="numero-passo">2</div>
+                    <div><strong>Escolha um tema (ou não)</strong><br>Podem decidir sobre o que vão caminhar hoje: “Nosso próximo ano”, “Esse desafio que estamos vivendo”, ou apenas “Como estamos agora”.</div>
+                </div>
+                <div class="passo">
+                    <div class="numero-passo">3</div>
+                    <div><strong>Cada um, na sua vez</strong><br>Quem se sentir chamado começa. Pega uma pedra, coloca no pano e fala. Pode ser uma frase, uma história, uma palavra. Quem ouve, só escuta — sem perguntar, sem responder. Só acolhe.</div>
+                </div>
+                <div class="passo">
+                    <div class="numero-passo">4</div>
+                    <div><strong>O mosaico cresce</strong><br>Uma pedra de cada vez. Quem colocou, pode perguntar: “Isso faz eco em alguém?” — e se alguém quiser, compartilha uma conexão rápida.</div>
+                </div>
+                <div class="passo">
+                    <div class="numero-passo">5</div>
+                    <div><strong>Olhar de cima</strong><br>Quando alguém sentir que o mosaico está ficando bonito ou completo, convida todos a se levantarem. Olhem em silêncio. O que vocês veem? Cada um fala uma palavra.</div>
+                </div>
+                <div class="passo">
+                    <div class="numero-passo">6</div>
+                    <div><strong>Finalizar (ou não)</strong><br>Se sentirem que a história está contada, cada um diz um próximo passo — algo pequeno que vai fazer depois da roda. Tirem uma foto do mosaico. Anotem no diário. E depois, desfaçam com cuidado, agradecendo às pedras.</div>
+                </div>
+            </div>
+            <div class="dica">
+                🎴 <strong>Cartas Ponto de Vista (se tiver):</strong> São as perguntas que Uirá ensinou. Quando quiserem aprofundar, sorteiam uma carta. Elas estão organizadas em quatro momentos: Semente (começo), Caminhada (meio), Olhar (pausa), Destino (final). Cada carta traz uma pergunta e um pequeno rito.
+            </div>
+        </div>
+
+        <!-- OS RITUAIS -->
+        <div class="secao">
+            <h2>✨ Pequenos ritos para tornar cada jogada especial</h2>
+            <div class="rituais">
+                <p><strong>Antes de começar:</strong> cada um segura uma pedra em silêncio por um instante, sentindo seu peso, sua cor.</p>
+                <p><strong>Ao colocar uma pedra:</strong> segure-a no centro do pano, respire uma vez, e só então coloque no lugar.</p>
+                <p><strong>Quando alguém compartilha algo forte:</strong> um aceno, um “obrigado por compartilhar”, ou apenas um silêncio respeitoso.</p>
+                <p><strong>Para finalizar:</strong> juntem as mãos sobre o mosaico (sem tocar nas pedras) e digam uma palavra de encerramento: “caminhamos”, “obrigado”, “até a próxima”.</p>
+            </div>
+            <div class="balao">
+                <p>🦜 Tauá sussurra:</p>
+                <p>“Não tenha pressa. O mosaico mais bonito é aquele que levou tempo para ser desenhado. Se alguém ficar em silêncio, não apresse. O silêncio também é uma pedra.”</p>
+            </div>
+        </div>
+
+        <!-- PARA FAMÍLIAS COM CRIANÇAS -->
+        <div class="secao">
+            <h2>👶 Para famílias com crianças pequenas</h2>
+            <p>Crianças adoram as cores e as formas. Podem jogar assim:</p>
+            <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                <li><strong>De 3 a 5 anos:</strong> só as cores. O adulto pergunta: “Que cor você quer? O que ela te faz lembrar?”</li>
+                <li><strong>De 6 a 9 anos:</strong> já conseguem responder às perguntas das cores com frases curtas.</li>
+                <li><strong>De 10 a 12 anos:</strong> podem usar as cartas e já entender os arcos.</li>
+            </ul>
+            <div class="dica">
+                💡 <strong>Dica:</strong> se a criança não quiser falar, ela pode só colocar a pedra. Depois, talvez ela conte por que escolheu aquela cor.
+            </div>
+        </div>
+
+        <!-- DIÁRIO DO CARTÓGRAFO -->
+        <div class="secao">
+            <h2>📖 Diário do Cartógrafo</h2>
+            <p>O mosaico que vocês fizeram hoje é um mapa. Guarde esse mapa. Anote:</p>
+            <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                <li>Data e quem estava na roda</li>
+                <li>O tema (se escolheram um)</li>
+                <li>Tire uma foto do mosaico</li>
+                <li>As perguntas que mais mexeram com o grupo</li>
+                <li>O próximo passo que cada um escolheu</li>
+            </ul>
+            <p>Com o tempo, você vai ter um livro de caminhos. E vai ver como os mosaicos vão mudando — assim como vocês.</p>
+        </div>
+
+        <!-- PERGUNTAS FREQUENTES SIMPLES -->
+        <div class="secao">
+            <h2>❓ O que mais perguntam</h2>
+            <p><strong>Posso jogar sozinho?</strong> Pode! É um diálogo com você mesmo. Escolha uma cor, coloque a pedra, responda em voz alta ou escreva. Funciona como um diário especial.</p>
+            <p><strong>E se eu não souber o que dizer?</strong> Tudo bem. Você pode só descrever a pedra: “Coloco um quadrado verde aqui. Parece algo firme.” A história vem depois.</p>
+            <p><strong>Quanto tempo dura uma sessão?</strong> Entre 30 minutos e 1h30. Vocês sentem quando o mosaico está completo.</p>
+            <p><strong>Precisa ter um tema?</strong> Não. Às vezes o tema aparece sozinho depois das primeiras pedras.</p>
+        </div>
+
+        <!-- ENCERRAMENTO POÉTICO -->
+        <div class="balao" style="background: #e8f0e8;">
+            <p style="text-align: center; font-size: 1.2rem;">🪨 ○ △ □ ~ ✸ ! 🎨</p>
+            <p style="text-align: center;">“O caminho não está traçado. Ele se desenha sob seus pés, a cada passo narrado.”</p>
+            <p style="text-align: center; margin-top: 1rem;"><strong>Que seu mosaico seja cheio de cores.</strong></p>
+            <p style="text-align: center; margin-top: 0.8rem; font-size: 0.85rem;">— Uirá, o sábio que escutava os brilhos de Tauá</p>
+        </div>
+    </div>
+
+    <div class="footer-manual">
+        <p>🧩 Mosaico do Caminho · Educação que Reflete</p>
+        <p>Manual Lúdico — Versão 2.0 (atualizada com a história final)</p>
+        <p>Inspirado no sonho de Lucas, nos ensinamentos de Uirá e nos brilhos de Tauá.</p>
+    </div>
+</div>
+</body>
+</html>

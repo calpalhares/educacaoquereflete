@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual | Mosaico do Caminho</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --verde-tronco: #4a7c59; --azul-rio: #6bc5e8; --amarelo-sol: #ffd93d;
+            --vermelho-lar: #ff6b6b; --onix: #5d576b; --branco-nuvem: #f0f0f0;
+            --purple: #8A2BE2; --light: #F8F9FA; --dark: #2C2C2C;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, sans-serif; }
+        
+        body {
+            background: linear-gradient(135deg, #eef2f3 0%, #d9e4f1 100%);
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .manual-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.12);
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--verde-tronco), #2e5a3e);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::after {
+            content: "🧩";
+            position: absolute;
+            font-size: 15rem;
+            opacity: 0.07;
+            right: 5%;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        h1 { font-size: 3.2rem; margin-bottom: 1rem; font-weight: 800; }
+        .subtitle { font-size: 1.4rem; opacity: 0.95; max-width: 700px; margin: 0 auto 1.5rem; }
+        .tagline { font-size: 1.1rem; font-style: italic; opacity: 0.85; }
+        
+        .nav-tabs {
+            display: flex;
+            background: var(--light);
+            padding: 0;
+            border-bottom: 3px solid var(--verde-tronco);
+            flex-wrap: wrap;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        
+        .nav-tab {
+            padding: 1.2rem 1.8rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--dark);
+            transition: all 0.3s ease;
+            flex: 1;
+            min-width: 140px;
+            text-align: center;
+            border-right: 1px solid #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .nav-tab:last-child { border-right: none; }
+        .nav-tab:hover { background: rgba(74, 124, 89, 0.08); }
+        .nav-tab.active { background: var(--verde-tronco); color: white; }
+        
+        .tab-content { display: none; padding: 3rem; animation: fadeIn 0.5s ease; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .section { margin-bottom: 4rem; }
+        .section h2 {
+            color: var(--verde-tronco);
+            margin-bottom: 2rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 2px solid var(--light);
+            font-size: 2.2rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+            border-left: 6px solid var(--verde-tronco);
+            transition: transform 0.3s ease;
+        }
+        .card:hover { transform: translateY(-5px); }
+        
+        .color-system-grid, .shape-system-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.8rem;
+            margin: 2.5rem 0;
+        }
+        
+        .color-card, .shape-card {
+            padding: 2rem;
+            border-radius: 14px;
+            border-left: 6px solid;
+            transition: all 0.3s ease;
+            background: white;
+        }
+        .color-card:hover, .shape-card:hover { box-shadow: 0 10px 20px rgba(0,0,0,0.08); }
+        
+        .color-card.verde { border-left-color: var(--verde-tronco); background: rgba(74, 124, 89, 0.03); }
+        .color-card.azul { border-left-color: var(--azul-rio); background: rgba(107, 197, 232, 0.03); }
+        .color-card.amarelo { border-left-color: var(--amarelo-sol); background: rgba(255, 217, 61, 0.03); }
+        .color-card.vermelho { border-left-color: var(--vermelho-lar); background: rgba(255, 107, 107, 0.03); }
+        .color-card.onix { border-left-color: var(--onix); background: rgba(93, 87, 107, 0.03); }
+        .color-card.branco { border-left-color: #aaa; background: rgba(240, 240, 240, 0.3); }
+        
+        .shape-card.circulo { border-left-color: #FF9800; }
+        .shape-card.triangulo { border-left-color: #F44336; }
+        .shape-card.quadrado { border-left-color: #2196F3; }
+        .shape-card.onda { border-left-color: #009688; }
+        .shape-card.estrela { border-left-color: #9C27B0; }
+        .shape-card.irregular { border-left-color: #795548; }
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 1.2rem;
+        }
+        
+        .color-dot, .shape-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        
+        .step-by-step-guide { display: flex; flex-direction: column; gap: 2.5rem; margin: 3rem 0; }
+        .step {
+            display: flex;
+            gap: 2rem;
+            align-items: flex-start;
+            padding-bottom: 2.5rem;
+            border-bottom: 2px dashed #e0e0e0;
+        }
+        .step:last-child { border-bottom: none; }
+        
+        .step-number {
+            background: linear-gradient(135deg, var(--verde-tronco), var(--azul-rio));
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.8rem;
+            flex-shrink: 0;
+            box-shadow: 0 6px 15px rgba(74, 124, 89, 0.3);
+        }
+        
+        .arc-cards { margin: 3rem 0; }
+        .arc-section { margin-bottom: 3rem; }
+        .arc-title {
+            font-size: 1.5rem;
+            color: var(--onix);
+            margin-bottom: 1.5rem;
+            padding-left: 1rem;
+            border-left: 4px solid;
+        }
+        .arc-semente .arc-title { border-left-color: var(--verde-tronco); }
+        .arc-caminhada .arc-title { border-left-color: var(--azul-rio); }
+        .arc-olhar .arc-title { border-left-color: var(--amarelo-sol); }
+        .arc-destino .arc-title { border-left-color: var(--vermelho-lar); }
+        
+        .carta-exemplo {
+            background: #f9f9f9;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid #eee;
+        }
+        
+        .destaque-principios {
+            background: linear-gradient(135deg, rgba(74, 124, 89, 0.08), rgba(107, 197, 232, 0.08));
+            border: 2px solid var(--verde-tronco);
+            padding: 2rem;
+            border-radius: 16px;
+            margin: 2rem 0;
+        }
+        
+        .ritual-turno {
+            background: #fffaf0;
+            border-left: 6px solid var(--amarelo-sol);
+            padding: 1.5rem;
+            border-radius: 0 12px 12px 0;
+            margin: 1.5rem 0;
+        }
+        
+        .personagens-badge {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin: 1rem 0;
+        }
+        .personagem {
+            background: #e8f0e8;
+            padding: 0.3rem 1rem;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: var(--verde-tronco);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 3rem;
+            background: linear-gradient(135deg, var(--dark), #1a1a1a);
+            color: white;
+            margin-top: 3rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        @media (max-width: 992px) {
+            h1 { font-size: 2.5rem; }
+            .nav-tabs { flex-direction: column; }
+            .nav-tab { min-width: 100%; border-right: none; border-bottom: 1px solid #e0e0e0; }
+            .step { flex-direction: column; text-align: center; }
+            .step-number { align-self: center; }
+        }
+        
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            header { padding: 3rem 1.5rem; }
+            h1 { font-size: 2rem; }
+            .tab-content { padding: 1.5rem; }
+            .color-system-grid, .shape-system-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="manual-container">
+        <header>
+            <h1><i class="fas fa-shapes"></i> Manual do Mosaico do Caminho</h1>
+            <p class="subtitle">Um instrumento para narrar jornadas, tecer significados e caminhar juntos</p>
+            <p class="tagline">"O caminho não está traçado. Ele se desenha sob seus pés, a cada passo narrado."</p>
+        </header>
+        
+        <div class="nav-tabs">
+            <button class="nav-tab active" data-tab="introducao"><i class="fas fa-seedling"></i> Introdução</button>
+            <button class="nav-tab" data-tab="sistema"><i class="fas fa-palette"></i> Sistema Visual</button>
+            <button class="nav-tab" data-tab="jogar"><i class="fas fa-play-circle"></i> Como Jogar</button>
+            <button class="nav-tab" data-tab="cartas"><i class="fas fa-comments"></i> Cartas</button>
+            <button class="nav-tab" data-tab="rituais"><i class="fas fa-hands"></i> Rituais</button>
+            <button class="nav-tab" data-tab="faq"><i class="fas fa-question-circle"></i> FAQ</button>
+        </div>
+        
+        <!-- ABA: INTRODUÇÃO -->
+        <div class="tab-content active" id="introducao">
+            <div class="section">
+                <h2><i class="fas fa-seedling"></i> Bem-vindo ao Mosaico do Caminho</h2>
+                
+                <!-- Nova seção: a história que inspirou -->
+                <div class="card">
+                    <h3><i class="fas fa-book-open"></i> A história que inspirou o jogo</h3>
+                    <p><strong>Lucas</strong>, um menino da cidade, nunca tinha visto o Rio Tapajós. Mas ao deitar-se em uma rede dentro de um barco com sua avó <strong>Victória</strong> (cujo nome é como a vitória-régia), ele sonhou.</p>
+                    <p>No sonho, Lucas caminhou por <strong>Alter do Chão</strong> até uma maloca coberta de palha. Lá dentro, encontrou <strong>Uirá</strong>, um velho sábio, e <strong>Tauá</strong>, um papagaio de madeira que brilhava em diferentes cores. Cada cor trazia uma pergunta. Cada resposta de Lucas virava uma pedra colorida sobre um pano estendido.</p>
+                    <p>Quando Lucas acordou, as pedras estavam em sua mochila. E ele descobriu que as cores nunca haviam ido embora — só estavam esperando que alguém se sentasse em roda para ouvi-las.</p>
+                    <p><strong>Este manual é um convite para que você também sente em roda, escute as perguntas das cores e construa seu próprio mosaico.</strong></p>
+                    
+                    <div class="personagens-badge">
+                        <span class="personagem">🧒 Lucas</span>
+                        <span class="personagem">👵 Dona Victória</span>
+                        <span class="personagem">🦜 Tauá</span>
+                        <span class="personagem">👴 Uirá</span>
+                        <span class="personagem">🌙 Jacy</span>
+                        <span class="personagem">🏺 Konduri</span>
+                        <span class="personagem">🌊 Borari</span>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <p>O <strong>Mosaico do Caminho</strong> é mais que um jogo. É uma <strong>prática narrativa coletiva</strong> onde vocês transformam pedras coloridas em uma cartografia única de suas jornadas — sejam elas internas, familiares ou comunitárias.</p>
+                    <p>Inspirado na <strong>Pedagogia Intuitiva</strong> e nas tradições orais da Amazônia, este instrumento confia na sabedoria do grupo para dar forma e sentido ao caminho que construirá juntos.</p>
+                </div>
+                
+                <div class="destaque-principios">
+                    <h3><i class="fas fa-star"></i> Os Princípios do Caminhante</h3>
+                    <ul>
+                        <li><strong>Não há mapa prévio:</strong> O caminho se faz ao caminhar, e ao narrar cada passo.</li>
+                        <li><strong>O silêncio é parte da conversa:</strong> Ele preenche os espaços entre as palavras.</li>
+                        <li><strong>Cada pedra tem uma história:</strong> E cada história é uma peça do mosaico coletivo.</li>
+                        <li><strong>O fim é sentido, não contado:</strong> A jornada termina quando o grupo sente que a história está contada.</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h3><i class="fas fa-box-open"></i> O Que Vem na Caixa?</h3>
+                    <ul>
+                        <li><strong>Base de Linho Cru (90x90cm):</strong> O "campo das possibilidades" onde o mosaico nascerá.</li>
+                        <li><strong>78 Peças do Mosaico:</strong> 13 de cada cor, nas 6 formas arquetípicas.</li>
+                        <li><strong>Baralho com 24 Cartas "Ponto de Vista":</strong> Organizadas em 4 arcos narrativos.</li>
+                        <li><strong>Diário do Cartógrafo:</strong> Para registrar os mapas criados e as histórias que os geraram.</li>
+                        <li><strong>Bolsas de Tecido Natural:</strong> Para guardar as peças com cuidado.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- ABA: SISTEMA VISUAL (mantido igual, já está correto) -->
+        <div class="tab-content" id="sistema">
+            <div class="section">
+                <h2><i class="fas fa-palette"></i> A Linguagem das Cores e Formas</h2>
+                <p>Esta é a gramática do seu mosaico. Cada peça é uma palavra. Sua combinação cria a poesia do caminho.</p>
+                
+                <h3><i class="fas fa-fill-drip"></i> O Sistema de Cores</h3>
+                <div class="color-system-grid">
+                    <div class="color-card verde">
+                        <div class="card-header"><div class="color-dot verde-dot"></div><h3>🟢 VERDE-TRONCO</h3></div>
+                        <p><strong>Significado Central:</strong> Crescimento, raiz, nutrição, saúde, solidez.</p>
+                        <p><strong>Pergunta ao Colocar:</strong> <em>"O que me sustenta ou precisa ser cuidado aqui?"</em></p>
+                        <p><strong>Rito Sugerido:</strong> Tocar o solo com as mãos.</p>
+                    </div>
+                    <div class="color-card azul">
+                        <div class="card-header"><div class="color-dot azul-dot"></div><h3>🔵 AZUL-RIO</h3></div>
+                        <p><strong>Significado Central:</strong> Fluxo, emoção, adaptabilidade, comunicação, intuição.</p>
+                        <p><strong>Pergunta ao Colocar:</strong> <em>"O que precisa fluir ou ser expresso?"</em></p>
+                        <p><strong>Rito Sugerido:</strong> Fazer um movimento de água com as mãos.</p>
+                    </div>
+                    <div class="color-card amarelo">
+                        <div class="card-header"><div class="color-dot amarelo-dot"></div><h3>🟡 AMARELO-SOL</h3></div>
+                        <p><strong>Significado Central:</strong> Clareza, alegria, criatividade, foco, otimismo.</p>
+                        <p><strong>Pergunta ao Colocar:</strong> <em>"O que ilumina ou precisa de atenção aqui?"</em></p>
+                        <p><strong>Rito Sugerido:</strong> Virar o rosto para a luz.</p>
+                    </div>
+                    <div class="color-card vermelho">
+                        <div class="card-header"><div class="color-dot vermelho-dot"></div><h3>🔴 VERMELHO-LAR</h3></div>
+                        <p><strong>Significado Central:</strong> Paixão, ação, coragem, vitalidade, presença física.</p>
+                        <p><strong>Pergunta ao Colocar:</strong> <em>"Qual é a força motriz ou impulso aqui?"</em></p>
+                        <p><strong>Rito Sugerido:</strong> Dar um passo firme no lugar.</p>
+                    </div>
+                    <div class="color-card onix">
+                        <div class="card-header"><div class="color-dot onix-dot"></div><h3>⚫ ONIX-PASSAGEM</h3></div>
+                        <p><strong>Significado Central:</strong> Mistério, potencial, descanso, interiorização, transformação.</p>
+                        <p><strong>Pergunta ao Colocar:</strong> <em>"O que está em repouso ou prestes a nascer?"</em></p>
+                        <p><strong>Rito Sugerido:</strong> Momento de silêncio intencional.</p>
+                    </div>
+                    <div class="color-card branco">
+                        <div class="card-header"><div class="color-dot branco-dot"></div><h3>⚪ BRANCO-NUVEM</h3></div>
+                        <p><strong>Significado Central:</strong> Unidade, espiritualidade, síntese, paz, perspectiva ampla.</p>
+                        <p><strong>Pergunta ao Colocar:</strong> <em>"Como isto se conecta ao todo?"</em></p>
+                        <p><strong>Rito Sugerido:</strong> Olhar para o alto; juntar as mãos no peito.</p>
+                    </div>
+                </div>
+                
+                <h3><i class="fas fa-shapes"></i> O Sistema de Formas</h3>
+                <div class="shape-system-grid">
+                    <div class="shape-card circulo"><div class="card-header"><div class="shape-icon" style="background:#FF9800; color:white;">○</div><h3>○ PEDRA REDONDA</h3></div><p><strong>Arquétipo:</strong> A Semente / O Passo</p></div>
+                    <div class="shape-card triangulo"><div class="card-header"><div class="shape-icon" style="background:#F44336; color:white;">△</div><h3>△ PEDRA TRIANGULAR</h3></div><p><strong>Arquétipo:</strong> A Direção / A Meta</p></div>
+                    <div class="shape-card quadrado"><div class="card-header"><div class="shape-icon" style="background:#2196F3; color:white;">□</div><h3>□ PEDRA QUADRADA</h3></div><p><strong>Arquétipo:</strong> O Recurso / A Base</p></div>
+                    <div class="shape-card onda"><div class="card-header"><div class="shape-icon" style="background:#009688; color:white;">~</div><h3>~ PEDRA ONDULADA</h3></div><p><strong>Arquétipo:</strong> A Transição / A Ponte</p></div>
+                    <div class="shape-card estrela"><div class="card-header"><div class="shape-icon" style="background:#9C27B0; color:white;">✸</div><h3>✸ PEDRA ESTRELADA</h3></div><p><strong>Arquétipo:</strong> O Sonho / A Inspiração</p></div>
+                    <div class="shape-card irregular"><div class="card-header"><div class="shape-icon" style="background:#795548; color:white;">!</div><h3>🧩 PEDRA IRREGULAR</h3></div><p><strong>Arquétipo:</strong> O Inesperado / O Destino</p></div>
+                </div>
+                
+                <div class="card">
+                    <h3><i class="fas fa-magic"></i> Combinando Cor + Forma</h3>
+                    <p>A verdadeira magia acontece quando você combina os dois sistemas. Uma <strong>Pedra Triangular Vermelha</strong> pode ser uma <em>"Meta que exige Coragem"</em>. Uma <strong>Pedra Ondulada Azul</strong> pode ser uma <em>"Transição Emocional"</em>. Ao colocar a peça, você dá a ela seu significado específico dentro da história que está sendo tecida — como Lucas fez no sonho com Uirá e Tauá.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- ABA: COMO JOGAR (mantido) -->
+        <div class="tab-content" id="jogar">
+            <div class="section">
+                <h2><i class="fas fa-play-circle"></i> A Jornada de Uma Sessão</h2>
+                <div class="step-by-step-guide">
+                    <div class="step"><div class="step-number">1</div><div class="step-content"><h3>Preparar o Campo</h3><p>Estenda a base de linho no centro do grupo. Espalhe as peças ao redor. Decidam coletivamente o <strong>Tema da Jornada</strong>.</p><div class="ritual-turno"><strong>Ritual Inicial:</strong> Sorteiem <strong>uma carta do Arco da Semente</strong>.</div></div></div>
+                    <div class="step"><div class="step-number">2</div><div class="step-content"><h3>Iniciar a Caminhada</h3><p>O jogador que se sentir chamado começa, seguindo o <strong>Ritual do Turno</strong>. Não há ordem fixa.</p></div></div>
+                    <div class="step"><div class="step-number">3</div><div class="step-content"><h3>Convocar Novos Olhares</h3><p>Qualquer jogador pode sentir que é um <strong>"momento para um novo olhar"</strong> e sortear uma carta do Arco da Caminhada ou do Olhar.</p></div></div>
+                    <div class="step"><div class="step-number">4</div><div class="step-content"><h3>Sentir o Fim do Caminho</h3><p>Quando alguém sentir que o mosaico pode estar completo, propõe uma <strong>"Pausa para Sentir"</strong>.</p></div></div>
+                    <div class="step"><div class="step-number">5</div><div class="step-content"><h3>Consolidar e Registrar</h3><p>Respondam à pergunta da carta final do <strong>Arco do Destino</strong>. Registrem no Diário do Cartógrafo.</p></div></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- ABA: CARTAS (mantido) -->
+        <div class="tab-content" id="cartas">
+            <div class="section">
+                <h2><i class="fas fa-comments"></i> Cartas Ponto de Vista</h2>
+                <p>Estas cartas não dão respostas. Elas suscitam perguntas, deslocam olhares e aprofundam a narrativa coletiva — como as perguntas que Tauá fazia a Lucas.</p>
+                <div class="arc-cards">
+                    <div class="arc-section arc-semente"><h3 class="arc-title">🌱 Arco da Semente (Intenção & Origem)</h3><div class="carta-exemplo"><h4>A Fonte que Sonha</h4><p><strong>Pergunta:</strong> <em>"Qual é o primeiro desejo, tranquilo e persistente, que dá origem a esta jornada?"</em></p><p><strong>Rito:</strong> Molhe os lábios com um gole de água antes de colocar a primeira pedra.</p></div></div>
+                    <div class="arc-section arc-caminhada"><h3 class="arc-title">🚶 Arco da Caminhada (Processo & Experiência)</h3><div class="carta-exemplo"><h4>A Encruzilhada Suave</h4><p><strong>Pergunta:</strong> <em>"Que escolha silenciosa você encontra diante de si agora?"</em></p><p><strong>Rito:</strong> Com o dedo, trace no ar os dois caminhos possíveis.</p></div></div>
+                    <div class="arc-section arc-olhar"><h3 class="arc-title">👁️ Arco do Olhar (Perspectiva & Insight)</h3><div class="carta-exemplo"><h4>A Visão do Pássaro</h4><p><strong>Pergunta:</strong> <em>"Que padrão ou surpresa você enxerga que não havia notado antes?"</em></p><p><strong>Rito:</strong> Levante-se e observe o mosaico de cima em silêncio.</p></div></div>
+                    <div class="arc-section arc-destino"><h3 class="arc-title">🎯 Arco do Destino (Síntese & Direção)</h3><div class="carta-exemplo"><h4>O Próximo Passo</h4><p><strong>Pergunta:</strong> <em>"Qual é o passo simples e concreto que este mapa te convida a dar?"</em></p><p><strong>Rito:</strong> Toque com firmeza a próxima pedra como selando um compromisso.</p></div></div>
+                </div>
+                <div class="card"><h3>Como e Quando Sortear</h3><ul><li><strong>No Início:</strong> 1 carta do Arco da Semente</li><li><strong>Durante:</strong> cartas da Caminhada ou do Olhar</li><li><strong>No Final:</strong> 1 carta do Arco do Destino</li></ul></div>
+            </div>
+        </div>
+        
+        <!-- ABA: RITUAIS (mantido) -->
+        <div class="tab-content" id="rituais">
+            <div class="section">
+                <h2><i class="fas fa-hands"></i> Rituais do Caminhante</h2>
+                <div class="card"><h3>O Ritual do Turno (Tomar • Narrar • Oferecer)</h3><div class="ritual-turno"><h4>1. TOMAR</h4><p>Olhe para o mosaico e as peças. Escolha uma.</p><h4>2. NARRAR</h4><p>Coloque a peça enquanto fala: <em>"Coloco este [FORMA] [COR] aqui para representar..."</em></p><h4>3. OFERECER</h4><p>Pergunte: <em>"Isso faz ressoar algo em vocês?"</em></p></div><p><strong>Exemplo:</strong> <em>"Coloco este Triângulo Vermelho aqui no alto, como o pico que estamos subindo juntos."</em></p></div>
+                <div class="card"><h3>Modo Solo: Diálogo com o Coletivo Interno</h3><p>Jogar sozinho é um diálogo profundo. Você será o Anfitrião (sorteia cartas, faz as perguntas) e os Convidados (as diferentes vozes internas que respondem).</p></div>
+            </div>
+        </div>
+        
+        <!-- ABA: FAQ (mantido) -->
+        <div class="tab-content" id="faq">
+            <div class="section">
+                <h2>❓ Perguntas Frequentes</h2>
+                <div class="card"><h3>Sobre o Jogo</h3><p><strong>É muito complexo para crianças?</strong> Crianças a partir de 7 anos conseguem participar plenamente.</p><p><strong>Quanto tempo dura?</strong> Entre 45 minutos e 1h30.</p><p><strong>Posso jogar sozinho?</strong> Sim! O Modo Solo é um diálogo interno profundo.</p></div>
+                <div class="card"><h3>Sobre a Filosofia</h3><p><strong>Isso é uma terapia?</strong> Não. É uma ferramenta pedagógica e lúdica de narrativa e conexão.</p><p><strong>Como se conecta a outros jogos?</strong> O Mosaico projeta o futuro, o Memória olha o passado, o Pega-Varetas trabalha o presente.</p></div>
+            </div>
+        </div>
+        
+        <footer>
+            <p style="font-size: 1.8rem; margin-bottom: 1rem;">🧩 Mosaico do Caminho</p>
+            <p>Manual Completo • Versão 2.0 • Educação que Reflete</p>
+            <div class="footer-links"><span><i class="fas fa-map-marked-alt"></i> Construa • Narre • Conecte</span></div>
+            <p style="margin-top: 2rem; font-size: 0.9rem; opacity: 0.8;">"O caminho mais bonito é aquele que criamos juntos, a cada passo contado." — Uirá</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabs = document.querySelectorAll('.nav-tab');
+            const contents = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const targetTab = this.getAttribute('data-tab');
+                    tabs.forEach(t => t.classList.remove('active'));
+                    contents.forEach(c => c.classList.remove('active'));
+                    this.classList.add('active');
+                    document.getElementById(targetTab).classList.add('active');
+                    document.getElementById(targetTab).scrollIntoView({ behavior: 'smooth', block: 'start' });
+                });
+            });
+            window.addEventListener('beforeprint', () => {
+                document.querySelectorAll('.tab-content').forEach(tab => {
+                    tab.style.display = 'block';
+                    tab.style.opacity = '1';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

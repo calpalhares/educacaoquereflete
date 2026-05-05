@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Folder Mosaico do Caminho - Roda da Família</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: #d9d0c0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            padding: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        .folder {
+            max-width: 1200px;
+            width: 100%;
+            background: white;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        
+        .frente, .verso {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            min-height: 400px;
+        }
+        
+        .frente {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-bottom: 3px solid #4a7c59;
+        }
+        
+        .verso {
+            background: linear-gradient(135deg, #e9ecef 0%, #f8f9fa 100%);
+            border-top: 3px solid #4a7c59;
+        }
+        
+        .painel {
+            padding: 20px;
+            border-right: 2px dashed #c0b7a9;
+            min-height: 450px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .painel:last-child {
+            border-right: none;
+        }
+        
+        .painel-1 { background: #e8f5e9; }
+        .painel-2 { background: #fff9c4; }
+        .painel-3 { background: #e3f2fd; }
+        .painel-4 { background: #fff3e0; }
+        .painel-5 { background: #f3e5f5; }
+        .painel-6 { background: #fafafa; }
+        
+        h1 {
+            font-size: 2rem;
+            color: #2c5530;
+            margin-bottom: 5px;
+            font-weight: 800;
+        }
+        
+        h2 {
+            font-size: 1.4rem;
+            color: #4a7c59;
+            margin: 15px 0 10px;
+            border-bottom: 2px solid #4a7c59;
+            padding-bottom: 5px;
+        }
+        
+        h3 {
+            font-size: 1.1rem;
+            color: #5d576b;
+            margin: 10px 0 5px;
+        }
+        
+        .icone {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        
+        .destaque {
+            background: white;
+            border-radius: 15px;
+            padding: 12px;
+            margin: 10px 0;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            border-left: 5px solid #4a7c59;
+        }
+        
+        .tabela-cores {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.8rem;
+            margin: 10px 0;
+        }
+        
+        .tabela-cores td {
+            padding: 6px 4px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .cor-bolinha {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin-right: 5px;
+            vertical-align: middle;
+        }
+        
+        .verde { background: #4a7c59; }
+        .azul { background: #6bc5e8; }
+        .amarelo { background: #ffd93d; }
+        .vermelho { background: #ff6b6b; }
+        .preto { background: #5d576b; }
+        .branco { background: #f8f9fa; border: 1px solid #ccc; }
+        
+        .cartao {
+            background: white;
+            border-radius: 10px;
+            padding: 10px;
+            margin: 8px 0;
+            border-left: 4px solid;
+            font-size: 0.85rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        
+        .cartao-semente { border-left-color: #4a7c59; }
+        .cartao-caminhada { border-left-color: #6bc5e8; }
+        .cartao-olhar { border-left-color: #ffd93d; }
+        .cartao-destino { border-left-color: #ff6b6b; }
+        
+        .frase-magica {
+            font-style: italic;
+            padding: 6px 8px;
+            background: rgba(255,255,255,0.8);
+            border-radius: 20px;
+            margin: 4px 0;
+            font-size: 0.85rem;
+        }
+        
+        .tabela-idades {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0;
+            font-size: 0.8rem;
+        }
+        
+        .tabela-idades td {
+            padding: 6px;
+            border: 1px solid #ddd;
+            vertical-align: top;
+        }
+        
+        .tabela-idades tr:first-child {
+            background: #4a7c59;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .tabela-e-se {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.8rem;
+        }
+        
+        .tabela-e-se td {
+            padding: 5px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .tabela-e-se td:first-child {
+            font-weight: bold;
+            color: #5d576b;
+            width: 35%;
+        }
+        
+        .rodape {
+            margin-top: auto;
+            font-size: 0.7rem;
+            color: #666;
+            text-align: center;
+            border-top: 1px dashed #ccc;
+            padding-top: 8px;
+        }
+        
+        .formas-mini {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin: 10px 0;
+            font-size: 0.75rem;
+        }
+        
+        .forma-item {
+            background: #e8e2d1;
+            padding: 2px 8px;
+            border-radius: 20px;
+        }
+        
+        @media print {
+            body { background: white; padding: 0; }
+            .folder { box-shadow: none; border-radius: 0; }
+            .painel { border-right: 2px dashed #ccc; }
+        }
+        
+        @media (max-width: 900px) {
+            .frente, .verso { grid-template-columns: 1fr; }
+            .painel { border-right: none; border-bottom: 2px dashed #c0b7a9; }
+        }
+    </style>
+</head>
+<body>
+    <div class="folder">
+        <!-- FRENTE -->
+        <div class="frente">
+            <!-- PAINEL 1 - CAPA -->
+            <div class="painel painel-1">
+                <div class="icone">🧩</div>
+                <h1>Mosaico<br>do Caminho</h1>
+                <h2 style="color: #ff6b6b; border-bottom: 2px solid #ff6b6b;">🏠 RODA DA FAMÍLIA</h2>
+                
+                <div style="text-align: center; margin: 15px 0;">
+                    <div style="font-size: 3.5rem;">👨‍👩‍👧‍👦</div>
+                    <div style="background: white; border-radius: 30px; padding: 12px; font-style: italic; font-size: 1rem;">
+                        "Conversar com o coração<br>na ponta dos dedos"
+                    </div>
+                </div>
+                
+                <div style="margin-top: auto;">
+                    <div style="background: #5d576b; color: white; padding: 6px; text-align: center; border-radius: 30px; font-size: 0.8rem;">
+                        📱 GUIA DE BOLSO · 78 PEDRAS · 6 CORES · 6 FORMAS
+                    </div>
+                </div>
+            </div>
+            
+            <!-- PAINEL 2 - O QUE PRECISA + CORES E PERGUNTAS -->
+            <div class="painel painel-2">
+                <h2>📦 O QUE PRECISA</h2>
+                
+                <table style="width: 100%; font-size: 0.8rem; background: white; border-radius: 10px; padding: 6px;">
+                    <tr><th style="text-align: left;">COM KIT</th><th style="text-align: left;">VERSÃO CASEIRA</th></tr>
+                    <tr><td>▢ Base de linho</td><td>Toalha/tapete</td></tr>
+                    <tr><td>▢ 78 pedras (13 cores)</td><td>Botões/tampinhas</td></tr>
+                    <tr><td>▢ 24 cartas</td><td>Imprima as perguntas</td></tr>
+                </table>
+                
+                <h2 style="margin-top: 12px;">🎨 CORES E PERGUNTAS</h2>
+                
+                <table class="tabela-cores">
+                    <tr><td><span class="cor-bolinha verde"></span> VERDE</td><td><em>“O que te sustenta?”</em></td></tr>
+                    <tr><td><span class="cor-bolinha azul"></span> AZUL</td><td><em>“O que precisa fluir?”</em></td></tr>
+                    <tr><td><span class="cor-bolinha amarelo"></span> AMARELO</td><td><em>“O que ilumina seu caminho?”</em></td></tr>
+                    <tr><td><span class="cor-bolinha vermelho"></span> VERMELHO</td><td><em>“Qual é a força que te move?”</em></td></tr>
+                    <tr><td><span class="cor-bolinha preto"></span> PRETO</td><td><em>“O que está em repouso?”</em></td></tr>
+                    <tr><td><span class="cor-bolinha branco"></span> BRANCO</td><td><em>“Como tudo se conecta?”</em></td></tr>
+                </table>
+                
+                <div class="formas-mini">
+                    <span class="forma-item">○ Redonda (passo)</span>
+                    <span class="forma-item">△ Triangular (direção)</span>
+                    <span class="forma-item">□ Quadrada (base)</span>
+                    <span class="forma-item">~ Ondulada (ponte)</span>
+                    <span class="forma-item">✸ Estrelada (sonho)</span>
+                    <span class="forma-item">! Irregular (inesperado)</span>
+                </div>
+                
+                <div style="background: #ffd93d; padding: 4px 8px; border-radius: 20px; font-size: 0.7rem; text-align: center;">
+                    💡 Vale o que a criança sentir!
+                </div>
+            </div>
+            
+            <!-- PAINEL 3 - ROTEIRO BÁSICO -->
+            <div class="painel painel-3">
+                <h2>🗺️ ROTEIRO (30-45 min)</h2>
+                
+                <div class="destaque" style="padding: 8px;">
+                    <strong>1️⃣ PREPARAR (5 min)</strong><br>
+                    Estenda o pano. Espalhe as pedras. Escolham um tema.
+                </div>
+                
+                <div class="destaque" style="padding: 8px;">
+                    <strong>2️⃣ ABRIR (5 min)</strong><br>
+                    Cada um escolhe UMA pedra e coloca:<br>
+                    <em>“Coloco este [COR] aqui porque...”</em>
+                </div>
+                
+                <div class="destaque" style="padding: 8px;">
+                    <strong>3️⃣ CONSTRUIR (15-25 min)</strong><br>
+                    • Um de cada vez coloca uma pedra<br>
+                    • Quem coloca, fala (a pergunta da cor)<br>
+                    • Quem ouve, só escuta
+                </div>
+                
+                <div class="destaque" style="padding: 8px;">
+                    <strong>4️⃣ OLHAR (3 min)</strong><br>
+                    Silêncio. Observem o desenho de cima.
+                </div>
+                
+                <div class="destaque" style="padding: 8px;">
+                    <strong>5️⃣ FECHAR (2 min)</strong><br>
+                    Cada um diz uma palavra sobre como saiu.
+                </div>
+            </div>
+        </div>
+        
+        <!-- VERSO -->
+        <div class="verso">
+            <!-- PAINEL 4 - FRASES + CARTAS -->
+            <div class="painel painel-4">
+                <h2>💬 FRASES MÁGICAS</h2>
+                
+                <div class="frase-magica">• "Obrigado por compartilhar isso."</div>
+                <div class="frase-magica">• "Que bom que você tá aqui conosco."</div>
+                <div class="frase-magica">• "Não tem resposta certa, só a sua."</div>
+                <div class="frase-magica">• "Silêncio também é resposta."</div>
+                <div class="frase-magica">• "Vamos respirar um pouco?"</div>
+                
+                <h2 style="margin-top: 12px;">🃏 CARTAS (exemplos)</h2>
+                
+                <div class="cartao cartao-semente">
+                    <strong>🌱 SEMENTE</strong><br>
+                    “Qual é o primeiro desejo que dá origem a esta jornada?”
+                </div>
+                
+                <div class="cartao cartao-caminhada">
+                    <strong>🚶 CAMINHADA</strong><br>
+                    “O que precisa de uma pausa para ser digerido?”
+                </div>
+                
+                <div class="cartao cartao-olhar">
+                    <strong>👁️ OLHAR</strong><br>
+                    “Que padrão você enxerga de cima?”
+                </div>
+                
+                <div class="cartao cartao-destino">
+                    <strong>🎯 DESTINO</strong><br>
+                    “Qual é o próximo passo concreto?”
+                </div>
+            </div>
+            
+            <!-- PAINEL 5 - IDADES + E SE... -->
+            <div class="painel painel-5">
+                <h2>👶 ADAPTAÇÕES</h2>
+                
+                <table class="tabela-idades">
+                    <tr><td>3-5 anos</td><td>Só cores. Adulto narra. 20 min.</td></tr>
+                    <tr><td>6-9 anos</td><td>Já fala frases. 30-40 min.</td></tr>
+                    <tr><td>10-12 anos</td><td>Pode passar a vez. Use cartas.</td></tr>
+                </table>
+                
+                <h2>🆘 E SE...</h2>
+                
+                <table class="tabela-e-se">
+                    <tr><td>NÃO QUER</td><td>"Tudo bem, pode só olhar"</td></tr>
+                    <tr><td>BRIGAM</td><td>"Temos várias! Quem quer primeiro?"</td></tr>
+                    <tr><td>CHORA</td><td>Abraço. "Tudo bem sentir."</td></tr>
+                    <tr><td>ADULTO FALA DEMAIS</td><td>Silêncio. Deixar espaço.</td></tr>
+                    <tr><td>TRAVADOS</td><td>Sorteie uma carta ou passe a vez</td></tr>
+                </table>
+            </div>
+            
+            <!-- PAINEL 6 - CONTRA CAPA -->
+            <div class="painel painel-6">
+                <h2>📸 DEPOIS DA RODA</h2>
+                
+                <div style="margin: 12px 0;">
+                    <div style="background: #e8f5e9; padding: 8px; border-radius: 10px; margin-bottom: 8px;">
+                        ① Fotografem o mosaico<br>
+                        <small>(cria um álbum da família)</small>
+                    </div>
+                    
+                    <div style="background: #e8f5e9; padding: 8px; border-radius: 10px; margin-bottom: 8px;">
+                        ② Desmontem com cuidado<br>
+                        <small>"Obrigada, pedrinhas"</small>
+                    </div>
+                    
+                    <div style="background: #e8f5e9; padding: 8px; border-radius: 10px;">
+                        ③ Repitam!<br>
+                        <small>Vira tradição</small>
+                    </div>
+                </div>
+                
+                <div style="background: #5d576b; color: white; padding: 12px; border-radius: 15px; margin: 12px 0; font-size: 0.8rem;">
+                    🌟 LEMBRE-SE<br>
+                    • Não é terapia<br>
+                    • Não tem erro<br>
+                    • Importa a conversa<br>
+                    • Você também compartilha
+                </div>
+                
+                <div class="rodape">
+                    🧩 Mosaico do Caminho · 78 pedras · 6 cores · 6 formas<br>
+                    Educação que Reflete · Versão 2.0
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

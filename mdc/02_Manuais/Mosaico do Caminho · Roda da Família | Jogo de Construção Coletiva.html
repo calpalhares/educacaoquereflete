@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Mosaico do Caminho · Roda da Família | Jogo de Construção Coletiva</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:opsz,wght@14..32,300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #e8dcc8 0%, #d4c4b0 100%);
+            color: #2c2418;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, #fef5e6, #fff8ef);
+            border-radius: 48px;
+            border: 1px solid rgba(139, 107, 74, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: "🧩";
+            font-size: 8rem;
+            position: absolute;
+            bottom: -30px;
+            right: -20px;
+            opacity: 0.08;
+            pointer-events: none;
+        }
+
+        .hero-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            background: linear-gradient(135deg, #6b3e1c, #c49a6c, #8A2BE2);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            font-style: italic;
+            color: #7a5a4a;
+            margin-bottom: 1rem;
+        }
+
+        .frase-sagrada {
+            background: rgba(139, 107, 74, 0.1);
+            border-radius: 60px;
+            padding: 0.8rem 1.5rem;
+            display: inline-block;
+            font-size: 0.95rem;
+            color: #6b3e1c;
+        }
+
+        section {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(4px);
+            border-radius: 32px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            border: 1px solid rgba(139, 107, 74, 0.15);
+        }
+
+        h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            color: #6b3e1c;
+            margin-bottom: 1.5rem;
+            border-left: 5px solid #c49a6c;
+            padding-left: 1rem;
+        }
+
+        h3 {
+            font-size: 1.2rem;
+            color: #9b5e2c;
+            margin: 1rem 0 0.5rem;
+        }
+
+        .grid-2, .grid-3, .grid-4 {
+            display: grid;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .grid-2 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+        .grid-3 { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+        .grid-4 { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+
+        .card {
+            background: white;
+            border-radius: 24px;
+            padding: 1.5rem;
+            transition: transform 0.2s;
+            border: 1px solid #f0e6da;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: #c49a6c;
+        }
+
+        .card-icon {
+            font-size: 2rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .color-dot {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+        .verde { background: #4a7c59; }
+        .azul { background: #6bc5e8; }
+        .amarelo { background: #ffd93d; }
+        .vermelho { background: #ff6b6b; }
+        .preto { background: #5d576b; }
+        .branco { background: #f5f2e8; border: 1px solid #ccc; }
+
+        .forma-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 1rem 0;
+            justify-content: center;
+        }
+        .forma-item {
+            background: #f5ede1;
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .forma-simbolo {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .passo {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: #fef8ef;
+            border-radius: 20px;
+            align-items: flex-start;
+        }
+        .passo-numero {
+            width: 36px;
+            height: 36px;
+            background: #c49a6c;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .carta-exemplo {
+            background: #fffef5;
+            border-radius: 16px;
+            padding: 1rem;
+            border-left: 4px solid;
+            margin: 0.5rem 0;
+        }
+        .carta-semente { border-left-color: #4a7c59; }
+        .carta-caminhada { border-left-color: #6bc5e8; }
+        .carta-olhar { border-left-color: #ffd93d; }
+        .carta-destino { border-left-color: #ff6b6b; }
+
+        .quote {
+            background: linear-gradient(135deg, #f5ede1, #fef5e8);
+            padding: 1.5rem;
+            border-radius: 28px;
+            text-align: center;
+            font-style: italic;
+            font-size: 1.1rem;
+            color: #6b3e1c;
+            border-left: 6px solid #d4af37;
+            margin: 1.5rem 0;
+        }
+
+        .personagens {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.8rem;
+            margin: 1rem 0;
+        }
+        .personagem {
+            background: #e8f0e8;
+            border-radius: 40px;
+            padding: 0.3rem 1rem;
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: #4a7c59;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #c49a6c;
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.2s;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .btn:hover {
+            background: #8b5a34;
+            transform: translateY(-2px);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(139, 107, 74, 0.2);
+            font-size: 0.8rem;
+            color: #8b694a;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2rem; }
+            .hero { padding: 1.5rem; }
+            .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="hero">
+        <div class="hero-icon">🧩🦜</div>
+        <h1>Mosaico do Caminho</h1>
+        <p class="tagline">Roda da Família · Jogo de Construção Coletiva</p>
+        <div class="frase-sagrada">
+            “Conversar com o coração na ponta dos dedos”
+        </div>
+    </div>
+
+    <!-- SEÇÃO: A HISTÓRIA QUE INSPIROU (NOVA) -->
+    <section>
+        <h2>📖 A história que inspirou o jogo</h2>
+        <div class="personagens">
+            <span class="personagem">🧒 Lucas</span>
+            <span class="personagem">👵 Dona Victória</span>
+            <span class="personagem">🦜 Tauá</span>
+            <span class="personagem">👴 Uirá</span>
+            <span class="personagem">🌙 Jacy</span>
+            <span class="personagem">🏺 Konduri</span>
+        </div>
+        <p><strong>Lucas</strong>, um menino da cidade, nunca tinha visto o Rio Tapajós. Mas ao deitar-se em uma rede dentro de um barco com sua avó <strong>Victória</strong> (cujo nome é como a vitória-régia), ele sonhou.</p>
+        <p>No sonho, Lucas caminhou por <strong>Alter do Chão</strong> até uma maloca coberta de palha. Lá dentro, encontrou <strong>Uirá</strong>, um velho sábio, e <strong>Tauá</strong>, um papagaio de madeira que brilhava em diferentes cores. Cada cor trazia uma pergunta. Cada resposta de Lucas virava uma pedra colorida sobre um pano estendido.</p>
+        <p>Quando Lucas acordou, as pedras estavam em sua mochila. E ele descobriu que as cores nunca haviam ido embora — só estavam esperando que alguém se sentasse em roda para ouvi-las.</p>
+        <div class="quote">
+            “As cores nunca foram embora. Elas só estavam esperando que a gente se sentasse junto, pegasse uma pedra e contasse quem a gente é.”
+        </div>
+    </section>
+
+    <!-- O QUE É -->
+    <section>
+        <h2>🧩 O que é o Mosaico do Caminho?</h2>
+        <p>O <strong>Mosaico do Caminho — Roda da Família</strong> é um jogo de construção coletiva onde cada pessoa, na sua vez, escolhe uma <strong>pedra colorida</strong>, coloca sobre um pano e conta o que aquela cor e forma significam para ela naquele momento.</p>
+        <p>Juntas, as pedras formam um <strong>mosaico</strong> — um desenho coletivo que mostra o caminho que o grupo está percorrendo. Pode ser um caminho sobre um projeto, sobre um sonho, sobre um desafio, ou simplesmente sobre como cada um está se sentindo hoje.</p>
+    </section>
+
+    <!-- AS 6 CORES -->
+    <section>
+        <h2>🎨 As 6 Cores · As Perguntas que Sustentam</h2>
+        <div class="grid-3">
+            <div class="card"><div class="card-icon">🟢</div><h3>Verde-Tronco</h3><p><em>“O que te sustenta?”</em><br>Raízes, segurança, alimento, pessoas queridas</div>
+            <div class="card"><div class="card-icon">🔵</div><h3>Azul-Rio</h3><p><em>“O que precisa fluir?”</em><br>Emoções, palavras, ideias que pedem passagem</div>
+            <div class="card"><div class="card-icon">🟡</div><h3>Amarelo-Sol</h3><p><em>“O que ilumina seu caminho?”</em><br>Alegria, esperança, clareza, sonhos</div>
+            <div class="card"><div class="card-icon">🔴</div><h3>Vermelho-Lar</h3><p><em>“Qual é a força que te move?”</em><br>Coragem, paixão, ação, transformação</div>
+            <div class="card"><div class="card-icon">⚫</div><h3>Preto-Passagem</h3><p><em>“O que está em repouso, esperando?”</em><br>Silêncio, mistério, pausa, o que ainda vai nascer</div>
+            <div class="card"><div class="card-icon">⚪</div><h3>Branco-Nuvem</h3><p><em>“Como tudo se conecta?”</em><br>Síntese, união, paz, a beleza do todo</div>
+        </div>
+    </section>
+
+    <!-- AS 6 FORMAS -->
+    <section>
+        <h2>🔺 As 6 Formas · Os Gestos que Dão Sentido</h2>
+        <div class="forma-grid">
+            <span class="forma-item"><span class="forma-simbolo">○</span> Redonda · O passo</span>
+            <span class="forma-item"><span class="forma-simbolo">△</span> Triangular · A direção</span>
+            <span class="forma-item"><span class="forma-simbolo">□</span> Quadrada · A base</span>
+            <span class="forma-item"><span class="forma-simbolo">~</span> Ondulada · A ponte</span>
+            <span class="forma-item"><span class="forma-simbolo">✸</span> Estrelada · O sonho</span>
+            <span class="forma-item"><span class="forma-simbolo">!</span> Irregular · O inesperado</span>
+        </div>
+        <p style="text-align: center; margin-top: 1rem;">As formas vieram das antigas placas de cerâmica <strong>Konduri</strong>, que Uirá mostrou a Lucas no sonho.</p>
+    </section>
+
+    <!-- COMO JOGAR -->
+    <section>
+        <h2>🗺️ Como caminhar com o mosaico</h2>
+        <div class="passo"><div class="passo-numero">1</div><div><strong>Prepare o chão</strong><br>Estenda o pano no centro da roda. Espalhe as pedras ao redor.</div></div>
+        <div class="passo"><div class="passo-numero">2</div><div><strong>Escolha um tema (ou não)</strong><br>Podem decidir sobre o que vão caminhar hoje.</div></div>
+        <div class="passo"><div class="passo-numero">3</div><div><strong>Cada um, na sua vez</strong><br>Quem se sentir chamado começa. Pega uma pedra, coloca no pano e fala. Quem ouve, só escuta.</div></div>
+        <div class="passo"><div class="passo-numero">4</div><div><strong>O mosaico cresce</strong><br>Uma pedra de cada vez. Quem colocou pode perguntar: “Isso faz eco em alguém?”</div></div>
+        <div class="passo"><div class="passo-numero">5</div><div><strong>Olhar de cima</strong><br>Quando alguém sentir que o mosaico está completo, todos se levantam e observam em silêncio.</div></div>
+        <div class="passo"><div class="passo-numero">6</div><div><strong>Finalizar</strong><br>Cada um diz um próximo passo. Tirem uma foto do mosaico. Anotem no diário.</div></div>
+    </section>
+
+    <!-- AS CARTAS PONTO DE VISTA -->
+    <section>
+        <h2>🃏 As Cartas Ponto de Vista</h2>
+        <p>Quando a roda pedir uma pausa, um aprofundamento ou uma nova direção, sorteie uma carta. São as perguntas que Tauá, o papagaio de madeira, sussurrou a Lucas no sonho com Uirá.</p>
+        <div class="grid-2">
+            <div class="carta-exemplo carta-semente"><strong>🌱 Arco da Semente</strong><br>“Qual é o primeiro desejo, tranquilo e persistente, que dá origem a esta jornada?”</div>
+            <div class="carta-exemplo carta-caminhada"><strong>🚶 Arco da Caminhada</strong><br>“O que, nesta caminhada, pede uma pausa para ser digerido?”</div>
+            <div class="carta-exemplo carta-olhar"><strong>👁️ Arco do Olhar</strong><br>“Que conexão invisível você percebe tecendo este mosaico?”</div>
+            <div class="carta-exemplo carta-destino"><strong>🎯 Arco do Destino</strong><br>“Qual é o passo simples e concreto que você se compromete a dar?”</div>
+        </div>
+    </section>
+
+    <!-- ADAPTAÇÕES POR IDADE -->
+    <section>
+        <h2>👶 Adaptações para Famílias</h2>
+        <div class="grid-3">
+            <div class="card"><div class="card-icon">🧸</div><h3>3-5 anos</h3><p>Só cores. O adulto narra. Duração: 20 min.</p></div>
+            <div class="card"><div class="card-icon">📖</div><h3>6-9 anos</h3><p>Já fala frases. 30-40 min. Usa as perguntas das cores.</p></div>
+            <div class="card"><div class="card-icon">🎴</div><h3>10-12 anos</h3><p>Pode passar a vez. Use as cartas do oráculo.</p></div>
+        </div>
+        <div class="quote" style="margin-top: 1rem;">💡 Dica: se a criança não quiser falar, ela pode só colocar a pedra. Depois, talvez ela conte por que escolheu aquela cor.</div>
+    </section>
+
+    <!-- O QUE VEM NA CAIXA -->
+    <section>
+        <h2>📦 O que vem na Caixa</h2>
+        <div class="grid-3">
+            <div class="card"><div class="card-icon">🪨</div><h3>78 Pedras</h3><p>13 de cada cor. 6 formas diferentes.</p></div>
+            <div class="card"><div class="card-icon">🃏</div><h3>24 Cartas</h3><p>Perguntas e ritos para aprofundar a conversa.</p></div>
+            <div class="card"><div class="card-icon">🧵</div><h3>Base de Linho</h3><p>Tecido natural que delimita o espaço sagrado da roda.</p></div>
+            <div class="card"><div class="card-icon">📓</div><h3>Diário do Cartógrafo</h3><p>Registre os mosaicos, as perguntas e os aprendizados.</p></div>
+            <div class="card"><div class="card-icon">📖</div><h3>Conto + Guia</h3><p>“O Mosaico das Cores Perdidas” e manual completo.</p></div>
+        </div>
+    </section>
+
+    <footer>
+        <p>🧩 Mosaico do Caminho — Roda da Família</p>
+        <p>78 pedras · 6 cores · 6 formas · 24 cartas · infinitas conversas</p>
+        <p>Inspirado no sonho de Lucas, nos ensinamentos de Uirá e nos brilhos de Tauá.</p>
+        <p>“O caminho não está traçado. Ele se desenha sob seus pés, a cada passo narrado.”</p>
+    </footer>
+</div>
+</body>
+</html>
