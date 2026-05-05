@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mosaico do Caminho · Biblioteca Completa</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #e2d4be;
+            font-family: 'Segoe UI', 'Georgia', system-ui, sans-serif;
+            padding: 2rem 1.5rem;
+            color: #2c2b26;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, #4a7c59, #c49a6c);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .header .sub {
+            color: #7a5a3a;
+            font-size: 1.1rem;
+            margin-top: 0.5rem;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            background: #fffef5;
+            padding: 0.3rem 1rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        /* Filtros rápidos */
+        .filtros {
+            display: flex;
+            justify-content: center;
+            gap: 0.8rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .filtro-btn {
+            background: #fffef5;
+            border: none;
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.85rem;
+            transition: 0.2s;
+            color: #5a3e2b;
+        }
+
+        .filtro-btn.active {
+            background: #4a7c59;
+            color: white;
+        }
+
+        .filtro-btn:hover:not(.active) {
+            background: #e7b874;
+        }
+
+        /* Grid de documentos */
+        .docs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 1.2rem;
+        }
+
+        .doc-card {
+            background: #fffef5;
+            border-radius: 20px;
+            overflow: hidden;
+            display: flex;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 1px solid #e0cfbc;
+            position: relative;
+        }
+
+        .doc-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px -8px rgba(0,0,0,0.2);
+            border-color: #c49a6c;
+        }
+
+        /* Indicador de tipo */
+        .tipo-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 0.65rem;
+            background: #e0cfbc;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        .tipo-jogo { background: #4a7c59; color: white; }
+        .tipo-manual { background: #6bc5e8; color: #1a3a4a; }
+        .tipo-cartas { background: #e9b44c; color: #2c2b26; }
+        .tipo-folder { background: #ff6b6b; color: white; }
+        .tipo-mood { background: #5d576b; color: white; }
+        .tipo-tecnico { background: #c49a6c; color: white; }
+        .tipo-indice { background: #2c2b26; color: white; }
+
+        .card-icon {
+            width: 70px;
+            background: #f5ede1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+
+        .card-content {
+            flex: 1;
+            padding: 1rem 1rem 1rem 0.8rem;
+        }
+
+        .card-title {
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
+            color: #4a7c59;
+            padding-right: 60px;
+        }
+
+        .card-desc {
+            font-size: 0.8rem;
+            color: #7a5a3a;
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+        }
+
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.7rem;
+            color: #b5926e;
+            border-top: 1px dashed #e0cfbc;
+            padding-top: 0.5rem;
+            margin-top: 0.3rem;
+        }
+
+        .open-hint {
+            font-size: 0.7rem;
+            background: #e8e2d1;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 2.5rem;
+            padding: 1.5rem;
+            border-top: 2px dashed #d4b48c;
+            color: #7a5a3a;
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 700px) {
+            body {
+                padding: 1rem;
+            }
+            .docs-grid {
+                grid-template-columns: 1fr;
+            }
+            .card-icon {
+                width: 55px;
+                font-size: 1.5rem;
+            }
+            .card-title {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>🧩 Mosaico do Caminho</h1>
+        <p class="sub">Biblioteca completa — clique em qualquer documento para abrir</p>
+        <div class="stats">
+            <span class="stat">📄 21 documentos</span>
+            <span class="stat">🎨 6 cores</span>
+            <span class="stat">🔺 6 formas</span>
+            <span class="stat">🃏 24 cartas</span>
+        </div>
+    </div>
+
+    <div class="filtros">
+        <button class="filtro-btn active" data-filtro="todos">📚 Todos</button>
+        <button class="filtro-btn" data-filtro="jogo">🧩 Jogo</button>
+        <button class="filtro-btn" data-filtro="manual">📖 Manuais</button>
+        <button class="filtro-btn" data-filtro="cartas">🃏 Cartas</button>
+        <button class="filtro-btn" data-filtro="tecnico">⚙️ Técnico</button>
+    </div>
+
+    <div id="docsGrid" class="docs-grid"></div>
+
+    <div class="footer">
+        <p>🦜 Todos os documentos são interativos e abrem em nova aba.</p>
+        <p>Clique no que precisar — o índice permanece sempre aqui.</p>
+    </div>
+</div>
+
+<script>
+    // ============================================================
+    // DOCUMENTOS COM CAMINHOS CORRIGIDOS (21 arquivos)
+    // ============================================================
+    const documentos = [
+        {
+            titulo: "📁 Índice Interativo · Biblioteca",
+            descricao: "Este arquivo! Navegue por todos os documentos do Mosaico do Caminho.",
+            icone: "🗂️",
+            arquivo: "",
+            tipo: "indice",
+            destaque: "Central"
+        },
+        {
+            titulo: "🌊 O Mosaico das Cores Perdidas",
+            descricao: "A história original que dá alma ao jogo — o menino que sonhou com o Tapajós e trouxe as cores de volta.",
+            icone: "📖",
+            arquivo: "01_Historias_e_Narrativas/O Mosaico das Cores Perdidas | Livro para Apresentação.html",
+            tipo: "manual",
+            destaque: "Conto"
+        },
+        {
+            titulo: "📖 Revistinha Infantil",
+            descricao: "Versão lúdica da história para ler com as crianças, com ilustrações e perguntas.",
+            icone: "🎨",
+            arquivo: "01_Historias_e_Narrativas/O Mosaico das Cores Perdidas | Revistinha Infantil.html",
+            tipo: "manual",
+            destaque: "Infantil"
+        },
+        {
+            titulo: "📘 Manual Completo",
+            descricao: "Manual institucional com todas as regras, sistema visual, cartas e rituais.",
+            icone: "📚",
+            arquivo: "02_Manuais/Manual _ Mosaico do Caminho.html",
+            tipo: "manual",
+            destaque: "Referência"
+        },
+        {
+            titulo: "📗 Manual do Jogador · Versão Lúdica",
+            descricao: "Regras simples, espírito cooperativo e primeiros passos. Tudo o que você precisa para começar.",
+            icone: "📘",
+            arquivo: "02_Manuais/Manual do Jogador - Versão Lúdica.html",
+            tipo: "manual",
+            destaque: "Principal"
+        },
+        {
+            titulo: "📁 Folder · Roda da Família (versão 1)",
+            descricao: "Guia de bolso completo: como jogar, cores, perguntas, adaptações e dicas.",
+            icone: "🦜",
+            arquivo: "02_Manuais/Folder Mosaico do Caminho - Roda da Família.html",
+            tipo: "folder",
+            destaque: "Essencial"
+        },
+        {
+            titulo: "🏠 Mosaico · Roda da Família (Completo)",
+            descricao: "Jogo de construção coletiva com versões, preços, adaptações por idade e tudo sobre a caixa.",
+            icone: "🎲",
+            arquivo: "02_Manuais/Mosaico do Caminho · Roda da Família | Jogo de Construção Coletiva.html",
+            tipo: "jogo",
+            destaque: "Família"
+        },
+        {
+            titulo: "🎨 Moodboard · A Alma do Jogo",
+            descricao: "Inspiração visual: cores, formas, citações e a estética do Mosaico. Interativo e sensível.",
+            icone: "🎨",
+            arquivo: "03_Sistema_e_Cartas/Moodboard · Mosaico do Caminho | A alma do jogo.html",
+            tipo: "mood",
+            destaque: "Inspiração"
+        },
+        {
+            titulo: "🃏 Cartas Ponto de Vista",
+            descricao: "24 cartas com perguntas profundas e pequenos ritos. Organizadas em 4 arcos.",
+            icone: "🎴",
+            arquivo: "03_Sistema_e_Cartas/Cartas Ponto de Vista - Versão Lúdica.html",
+            tipo: "cartas",
+            destaque: "Oráculo"
+        },
+        {
+            titulo: "🃏 Cartas Ponto de Vista Maior",
+            descricao: "24 cartas com perguntas profundas e pequenos ritos. Organizadas em 4 arcos.",
+            icone: "🎴",
+            arquivo: "03_Sistema_e_Cartas/Cartas Ponto de Vista _ Mosaico do Caminho.html",
+            tipo: "cartas",
+            destaque: "Oráculo"
+        },
+        {
+            titulo: "🔴🟡🔵 Cores, Formas e Perguntas",
+            descricao: "A gramática do Mosaico: significado de cada cor, cada forma e como elas se combinam.",
+            icone: "🎨",
+            arquivo: "03_Sistema_e_Cartas/Cores, Formas e Perguntas.html",
+            tipo: "tecnico",
+            destaque: "Referência"
+        },
+        {
+            titulo: "❓ Perguntas que se Renovam",
+            descricao: "Sistema híbrido: cores fixas + cartas que trazem perguntas infinitas. Teste interativo.",
+            icone: "🔄",
+            arquivo: "03_Sistema_e_Cartas/Perguntas que se Renovam.html",
+            tipo: "tecnico",
+            destaque: "Dinâmico"
+        },
+        {
+            titulo: "📊 Distribuição das 78 Peças",
+            descricao: "Matemática do jogo: como as 78 peças se organizam por cores e formas.",
+            icone: "📐",
+            arquivo: "04_Faca_Voce_Mesmo/Distribuição das 78 Peças.html",
+            tipo: "tecnico",
+            destaque: "Exato"
+        },
+        {
+            titulo: "🪨 78 Pedras Caseiras",
+            descricao: "6 opções para criar seu próprio kit em casa: tampinhas, EVA, pedras, botões e mais.",
+            icone: "🔨",
+            arquivo: "04_Faca_Voce_Mesmo/78 Pedras Caseiras • Mosaico do Caminho.html",
+            tipo: "tecnico",
+            destaque: "DIY"
+        },
+        {
+            titulo: "✂️ Moldes dos Símbolos",
+            descricao: "Moldes em tamanho real (12cm) para bordar o tabuleiro ou desenhar nas pedras.",
+            icone: "📏",
+            arquivo: "04_Faca_Voce_Mesmo/Moldes dos Símbolos • Mosaico do Caminho.html",
+            tipo: "tecnico",
+            destaque: "Imprimir"
+        },
+        {
+            titulo: "🧺 Organização das Pedras",
+            descricao: "4 formas diferentes de dispor as 78 peças antes de começar. Simulação interativa.",
+            icone: "📦",
+            arquivo: "04_Faca_Voce_Mesmo/Organização das Pedras.html",
+            tipo: "tecnico",
+            destaque: "Setup"
+        },
+        {
+            titulo: "🔄 Revisão do Sistema",
+            descricao: "Comparação entre modelos: cores nas pedras vs. formas no tabuleiro.",
+            icone: "⚙️",
+            arquivo: "04_Faca_Voce_Mesmo/Revisão do Sistema | Cores e Formas Separadas.html",
+            tipo: "tecnico",
+            destaque: "Evolução"
+        },
+        {
+            titulo: "💎 Variação Híbrida · Pedra Livre",
+            descricao: "Nova variação: 12 pedras com forma + 1 pedra livre por cor. Flexibilidade criativa.",
+            icone: "✨",
+            arquivo: "04_Faca_Voce_Mesmo/Variação Híbrida - Pedra Livre.html",
+            tipo: "tecnico",
+            destaque: "Inovação"
+        },
+        {
+            titulo: "📐 Design do Kit",
+            descricao: "Especificações visuais e técnicas para a produção das peças e embalagem.",
+            icone: "🎯",
+            arquivo: "05_Design_e_Visual/Design do Kit _ Mosaico do Caminho.html",
+            tipo: "tecnico",
+            destaque: "Produção"
+        },
+        {
+            titulo: "🚀 Protótipo Digital",
+            descricao: "Versão interativa simples: baralho digital + simulador do mosaico.",
+            icone: "💻",
+            arquivo: "06_Prototipos_Digitais/Mosaico do Caminho | Protótipo Digital.html",
+            tipo: "jogo",
+            destaque: "Demo"
+        },
+        {
+            titulo: "⚙️ Protótipo Completo",
+            descricao: "Versão funcional avançada: mosaico digital, cartas, diário, turnos, tema e muito mais.",
+            icone: "🚀",
+            arquivo: "06_Prototipos_Digitais/Protótipo Completo.html",
+            tipo: "jogo",
+            destaque: "Demo Avançada"
+        }
+    ];
+
+    // Mapeamento de tipo para classe CSS
+    const tipoClasse = {
+        jogo: "tipo-jogo",
+        manual: "tipo-manual",
+        cartas: "tipo-cartas",
+        folder: "tipo-folder",
+        mood: "tipo-mood",
+        tecnico: "tipo-tecnico",
+        indice: "tipo-indice"
+    };
+
+    // Nomes legíveis dos tipos
+    const tipoNome = {
+        jogo: "🧩 Jogo",
+        manual: "📖 Manual",
+        cartas: "🃏 Cartas",
+        folder: "📁 Folder",
+        mood: "🎨 Moodboard",
+        tecnico: "⚙️ Técnico",
+        indice: "🗂️ Índice"
+    };
+
+    let filtroAtual = "todos";
+
+    function renderizarCards(filtro) {
+        const grid = document.getElementById("docsGrid");
+        if (!grid) return;
+
+        const filtrados = documentos.filter(doc => {
+            if (filtro === "todos") return true;
+            return doc.tipo === filtro;
+        });
+
+        if (filtrados.length === 0) {
+            grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:3rem; color:#7a5a3a;">Nenhum documento encontrado nesta categoria.</div>`;
+            return;
+        }
+
+        grid.innerHTML = filtrados.map((doc, idx) => {
+            const isSelfIndex = doc.arquivo === "";
+            const arquivoLink = isSelfIndex ? "#" : doc.arquivo;
+            const onclickAttr = isSelfIndex ? 
+                `onclick="alert('Você já está no índice principal! 📁')"` : 
+                `onclick="window.open('${doc.arquivo}', '_blank', 'noopener,noreferrer')"`;
+
+            return `
+                <div class="doc-card" ${onclickAttr} style="cursor:pointer">
+                    <span class="tipo-badge ${tipoClasse[doc.tipo] || 'tipo-tecnico'}">${tipoNome[doc.tipo] || doc.tipo}</span>
+                    <div class="card-icon">${doc.icone}</div>
+                    <div class="card-content">
+                        <div class="card-title">${doc.titulo}</div>
+                        <div class="card-desc">${doc.descricao}</div>
+                        <div class="card-meta">
+                            <span>📂 ${isSelfIndex ? 'índice atual' : doc.arquivo.substring(0, 50)}${doc.arquivo.length > 50 ? '…' : ''}</span>
+                            <span class="open-hint">🔗 ${isSelfIndex ? 'você está aqui' : 'abrir'}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }).join("");
+    }
+
+    // Configurar filtros
+    function configurarFiltros() {
+        const botoes = document.querySelectorAll(".filtro-btn");
+        botoes.forEach(btn => {
+            btn.addEventListener("click", () => {
+                botoes.forEach(b => b.classList.remove("active"));
+                btn.classList.add("active");
+                filtroAtual = btn.getAttribute("data-filtro");
+                renderizarCards(filtroAtual);
+            });
+        });
+    }
+
+    // Inicializar
+    renderizarCards("todos");
+    configurarFiltros();
+</script>
+</body>
+</html>
